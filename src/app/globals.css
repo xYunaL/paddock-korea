@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* =============================================================
+ * Paddock Korea — Design Tokens
+ * Source: docs/DESIGN.md
+ * ============================================================= */
+
+@theme {
+  /* Brand colors */
+  --color-f1-red: #e10600;
+  --color-f1-red-pressed: #b00500;
+  --color-carbon-gold: #ffb800;
+
+  /* Charcoal stack */
+  --color-charcoal-900: #0b0b0c;
+  --color-charcoal-800: #0f0f12;
+  --color-charcoal-750: #121214;
+  --color-charcoal-700: #161618;
+  --color-charcoal-650: rgba(255, 255, 255, 0.04);
+  --color-charcoal-600: rgba(255, 255, 255, 0.08);
+  --color-charcoal-500: rgba(255, 255, 255, 0.12);
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.65);
+  --color-text-subtle: rgba(255, 255, 255, 0.45);
+
+  /* Fonts */
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Radii */
+  --radius-pill: 9999px;
+  --radius-card: 16px;
+
+  /* Easing */
+  --ease-paddock: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================================
+ * Base
+ * ============================================================= */
+html,
+body {
+  background: var(--color-charcoal-900);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+body {
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =============================================================
+ * Pattern: Carbon Grid (subtle 40px grid backdrop)
+ * ============================================================= */
+.carbon-grid {
+  background-color: var(--color-charcoal-900);
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* =============================================================
+ * Pattern: Racing Border (4px diagonal red+white strip on left)
+ * ============================================================= */
+.racing-border {
+  position: relative;
+}
+.racing-border::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-f1-red) 0,
+    var(--color-f1-red) 6px,
+    #ffffff 6px,
+    #ffffff 12px
+  );
+}
+
+/* =============================================================
+ * Scrollbar (dark, slim)
+ * ============================================================= */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal-800);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-charcoal-500);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-charcoal-600);
+}

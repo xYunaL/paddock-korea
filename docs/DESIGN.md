@@ -1,133 +1,128 @@
 ---
 version: alpha
-name: Pinterest-design-analysis
+name: paddock-korea-design-system
 description: |
-  A photography-first discovery system organized around the Pinterest Red CTA, the masonry pin grid, and a soft warm-cream chrome that gets out of the imagery's way. The home page is a content-discovery tool wearing the chrome of a magazine publisher: 70px display headlines, friendly Pin Sans typography, fully-rounded pill buttons (16px) on a cream-tinted neutral palette, and a sticky red "Sign up" CTA that anchors every viewport. Pin imagery is the system's load-bearing visual element — square, portrait, and landscape pins tile in a column-based masonry grid where each tile is a fully-rounded 16px-radius card, separated by tight 8px gutters. The chrome is otherwise quiet: warm grays, true whites, and a single saturated red — no decorative gradients, no atmospheric backgrounds, no shadows beyond a soft modal scrim.
+  A motorsport-first dark platform built around the F1 Red CTA, deep charcoal chrome, and monospace telemetry data. Every surface recedes into near-black so team colors, live chat bubbles, and race data can speak. The chrome is a two-layer stack: a base `charcoal-900` body wash and a `charcoal-800` card surface, separated by hairline `rgba(255,255,255,0.05)` borders. The single saturated accent is F1 Red (`#e10600`), reserved for primary actions, active tab states, and the brand wordmark. Carbon Gold (`#ffb800`) is the secondary accent — reserved for achievements, badges, and podium highlights. Team base colors appear contextually as dynamic accents on garage banners, chat bubbles, and constructor standings bars.
 
 colors:
-  primary: "#e60023"
+  primary: "#e10600"
+  primary-pressed: "#b00500"
   on-primary: "#ffffff"
-  primary-pressed: "#cc001f"
-  ink: "#000000"
-  ink-soft: "#211922"
-  body: "#33332e"
-  charcoal: "#262622"
-  mute: "#62625b"
-  ash: "#91918c"
-  stone: "#c8c8c1"
-  hairline: "#dadad3"
-  hairline-soft: "#e5e5e0"
-  on-secondary: "#000000"
-  secondary-bg: "#e5e5e0"
-  secondary-pressed: "#c8c8c1"
-  canvas: "#ffffff"
-  surface-soft: "#fbfbf9"
-  surface-card: "#f6f6f3"
-  surface-elevated: "#ffffff"
+  carbon-gold: "#ffb800"
+  charcoal-900: "#0B0B0C"
+  charcoal-800: "#0F0F12"
+  charcoal-750: "#121214"
+  charcoal-700: "#161618"
+  charcoal-650: "rgba(255,255,255,0.05)"
+  charcoal-600: "rgba(255,255,255,0.10)"
+  charcoal-500: "rgba(255,255,255,0.20)"
+  text-primary: "#e2e8f0"
+  text-secondary: "#cbd5e1"
+  text-muted: "#94a3b8"
+  text-faint: "#64748b"
   on-dark: "#ffffff"
-  on-dark-mute: "rgba(255,255,255,0.7)"
-  surface-dark: "#262622"
-  focus-outer: "#435ee5"
-  focus-inner: "#ffffff"
-  accent-pressed-blue: "#617bff"
-  accent-purple: "#7e238b"
-  accent-purple-deep: "#6845ab"
-  success-deep: "#103c25"
-  success-pale: "#c7f0da"
-  error: "#9e0a0a"
-  error-deep: "#cc001f"
+  success: "#10b981"
+  success-muted: "rgba(16,185,129,0.10)"
+  danger: "#f43f5e"
+  danger-muted: "rgba(244,63,94,0.10)"
+
+  # Dynamic team colors — applied at runtime from Team.baseColor
+  team-dynamic: "var(--team-base-color)"
 
 typography:
-  display-xl:
-    fontFamily: Pin Sans
-    fontSize: 70px
-    fontWeight: 600
-    lineHeight: 1.1
-    letterSpacing: -1.2px
+  logo-wordmark:
+    fontFamily: Space Grotesk
+    fontSize: 20px
+    fontWeight: 900
+    fontStyle: italic
+    letterSpacing: -0.5px
+  logo-tag:
+    fontFamily: JetBrains Mono
+    fontSize: 10px
+    fontWeight: 900
+    letterSpacing: 0.15em
+    textTransform: uppercase
   display-lg:
-    fontFamily: Pin Sans
+    fontFamily: Space Grotesk
     fontSize: 44px
+    fontWeight: 800
+    lineHeight: 1.1
+    letterSpacing: -0.5px
+  display-md:
+    fontFamily: Space Grotesk
+    fontSize: 30px
     fontWeight: 700
     lineHeight: 1.15
-    letterSpacing: -0.8px
-  heading-xl:
-    fontFamily: Pin Sans
-    fontSize: 28px
+    letterSpacing: -0.3px
+  heading-lg:
+    fontFamily: Space Grotesk
+    fontSize: 22px
     fontWeight: 700
     lineHeight: 1.2
-    letterSpacing: -1.2px
-  heading-lg:
-    fontFamily: Pin Sans
-    fontSize: 22px
-    fontWeight: 600
-    lineHeight: 1.25
-    letterSpacing: 0
   heading-md:
-    fontFamily: Pin Sans
-    fontSize: 18px
-    fontWeight: 600
+    fontFamily: Space Grotesk
+    fontSize: 16px
+    fontWeight: 700
     lineHeight: 1.3
-    letterSpacing: 0
   body-md:
-    fontFamily: Pin Sans
-    fontSize: 16px
-    fontWeight: 400
-    lineHeight: 1.4
-    letterSpacing: 0
-  body-strong:
-    fontFamily: Pin Sans
-    fontSize: 16px
-    fontWeight: 600
-    lineHeight: 1.4
-    letterSpacing: 0
-  body-sm:
-    fontFamily: Pin Sans
+    fontFamily: Inter
     fontSize: 14px
     fontWeight: 400
-    lineHeight: 1.4
-    letterSpacing: 0
-  body-sm-strong:
-    fontFamily: Pin Sans
-    fontSize: 14px
-    fontWeight: 700
-    lineHeight: 1.4
-    letterSpacing: 0
-  caption-md:
-    fontFamily: Pin Sans
-    fontSize: 12px
-    fontWeight: 500
     lineHeight: 1.5
-    letterSpacing: 0
-  caption-sm:
-    fontFamily: Pin Sans
+  body-sm:
+    fontFamily: Inter
     fontSize: 12px
     fontWeight: 400
-    lineHeight: 1.4
-    letterSpacing: 0
-  link-md:
-    fontFamily: Pin Sans
-    fontSize: 16px
+    lineHeight: 1.5
+  body-strong:
+    fontFamily: Inter
+    fontSize: 13px
     fontWeight: 600
     lineHeight: 1.4
-    letterSpacing: 0
   button-md:
-    fontFamily: Pin Sans
+    fontFamily: Inter
+    fontSize: 12px
+    fontWeight: 700
+    lineHeight: 1
+  button-sm:
+    fontFamily: Inter
+    fontSize: 11px
+    fontWeight: 700
+    lineHeight: 1
+  label-mono:
+    fontFamily: JetBrains Mono
+    fontSize: 10px
+    fontWeight: 700
+    letterSpacing: 0.1em
+    textTransform: uppercase
+  data-lg:
+    fontFamily: JetBrains Mono
+    fontSize: 28px
+    fontWeight: 700
+    lineHeight: 1
+  data-md:
+    fontFamily: JetBrains Mono
     fontSize: 14px
     fontWeight: 700
     lineHeight: 1
-    letterSpacing: 0
-  button-sm:
-    fontFamily: Pin Sans
-    fontSize: 12px
-    fontWeight: 700
-    lineHeight: 1
-    letterSpacing: 0
+  data-sm:
+    fontFamily: JetBrains Mono
+    fontSize: 11px
+    fontWeight: 500
+    lineHeight: 1.4
+  caption:
+    fontFamily: JetBrains Mono
+    fontSize: 10px
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: 0.05em
 
 rounded:
   none: 0px
-  sm: 8px
-  md: 16px
-  lg: 32px
+  sm: 6px
+  md: 8px
+  lg: 12px
+  xl: 16px
   full: 9999px
 
 spacing:
@@ -138,7 +133,7 @@ spacing:
   lg: 16px
   xl: 24px
   xxl: 32px
-  section: 64px
+  section: 32px
 
 components:
   button-primary:
@@ -146,403 +141,434 @@ components:
     textColor: "{colors.on-primary}"
     typography: "{typography.button-md}"
     rounded: "{rounded.md}"
-    padding: 6px 14px
-    height: 40px
-  button-primary-pressed:
-    backgroundColor: "{colors.primary-pressed}"
+    padding: 10px 20px
+    hoverBackground: "{colors.primary-pressed}"
+  button-secondary:
+    backgroundColor: "{colors.charcoal-700}"
+    textColor: "{colors.text-primary}"
+    typography: "{typography.button-md}"
+    rounded: "{rounded.md}"
+    padding: 10px 20px
+    border: "1px solid {colors.charcoal-600}"
+    hoverBackground: "{colors.charcoal-600}"
+  button-ghost:
+    backgroundColor: "transparent"
+    textColor: "{colors.text-muted}"
+    typography: "{typography.button-md}"
+    rounded: "{rounded.md}"
+    hoverTextColor: "{colors.on-dark}"
+  nav-tab-active:
+    backgroundColor: "{colors.primary}"
     textColor: "{colors.on-primary}"
     typography: "{typography.button-md}"
     rounded: "{rounded.md}"
-  button-secondary:
-    backgroundColor: "{colors.secondary-bg}"
-    textColor: "{colors.on-secondary}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.md}"
-    padding: 6px 14px
-    height: 40px
-  button-secondary-pressed:
-    backgroundColor: "{colors.secondary-pressed}"
-    textColor: "{colors.on-secondary}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.md}"
-  button-tertiary:
-    backgroundColor: "transparent"
-    textColor: "{colors.ink}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.md}"
-  button-icon-circular:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.full}"
-    size: 40px
-  button-pill-on-image:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.full}"
-    padding: 8px 14px
-  button-disabled:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.ash}"
-    rounded: "{rounded.md}"
-  search-bar:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.full}"
-    padding: 11px 15px
-    height: 48px
-  search-bar-focused:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.full}"
-  text-input:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.md}"
-    padding: 11px 15px
-    height: 44px
-  text-input-focused:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.md}"
-  pin-card:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.md}"
-    padding: 0px
-  pin-card-large:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.lg}"
-    padding: 0px
-  pin-overlay-pill:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button-sm}"
-    rounded: "{rounded.full}"
     padding: 6px 12px
-  filter-chip:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.ink}"
+  nav-tab-inactive:
+    backgroundColor: "transparent"
+    textColor: "{colors.text-muted}"
     typography: "{typography.button-md}"
-    rounded: "{rounded.full}"
-    padding: 8px 16px
-  filter-chip-active:
-    backgroundColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    padding: 6px 12px
+    hoverBackground: "{colors.charcoal-600}"
+  subtab-active:
+    backgroundColor: "transparent"
     textColor: "{colors.on-dark}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.full}"
-  category-tile:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.ink}"
     typography: "{typography.body-strong}"
-    rounded: "{rounded.md}"
-    padding: 16px
-  feature-card:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.heading-xl}"
-    rounded: "{rounded.md}"
-    padding: 32px
-  feature-card-soft:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.ink}"
-    typography: "{typography.heading-xl}"
-    rounded: "{rounded.md}"
-    padding: 32px
-  modal-card:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-md}"
+    borderBottom: "2px solid {colors.primary}"
+  subtab-inactive:
+    backgroundColor: "transparent"
+    textColor: "{colors.text-muted}"
+    typography: "{typography.body-strong}"
+    borderBottom: "2px solid transparent"
+  card:
+    backgroundColor: "{colors.charcoal-800}"
+    border: "1px solid {colors.charcoal-650}"
     rounded: "{rounded.lg}"
+    padding: 20px
+  card-inner:
+    backgroundColor: "{colors.charcoal-900}"
+    border: "1px solid {colors.charcoal-700}"
+    rounded: "{rounded.md}"
+    padding: 12px
+  card-hero:
+    backgroundColor: "linear-gradient(135deg, {colors.charcoal-800}, {colors.charcoal-700})"
+    border: "1px solid {colors.charcoal-600}"
+    rounded: "{rounded.xl}"
     padding: 32px
-  hero-cta-strip:
-    backgroundColor: "{colors.surface-dark}"
-    textColor: "{colors.on-dark}"
-    typography: "{typography.heading-xl}"
-    rounded: "{rounded.none}"
-    padding: 48px 32px
-  primary-nav:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-strong}"
-    rounded: "{rounded.none}"
-    height: 64px
-  footer-section:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.mute}"
+  text-input:
+    backgroundColor: "{colors.charcoal-900}"
+    textColor: "{colors.text-primary}"
+    border: "1px solid {colors.charcoal-700}"
+    rounded: "{rounded.md}"
+    padding: 8px 12px
     typography: "{typography.body-sm}"
-    rounded: "{rounded.none}"
-    padding: 32px 24px
-  link-inline:
-    textColor: "{colors.ink-soft}"
-    typography: "{typography.link-md}"
+    focusBorder: "1px solid {colors.primary}"
+  chat-bubble-own:
+    backgroundColor: "team-color at 15% opacity"
+    border: "1px solid team-color at 25% opacity"
+    rounded: "{rounded.lg}"
+    roundedTopRight: 0
+  chat-bubble-other:
+    backgroundColor: "#1c1c24"
+    border: "1px solid {colors.charcoal-700}"
+    rounded: "{rounded.lg}"
+    roundedTopLeft: 0
+  filter-chip-active:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.button-md}"
+    rounded: "{rounded.md}"
+    padding: 6px 12px
+  filter-chip-inactive:
+    backgroundColor: "{colors.charcoal-800}"
+    textColor: "{colors.text-muted}"
+    typography: "{typography.button-md}"
+    rounded: "{rounded.md}"
+    padding: 6px 12px
+    hoverBackground: "{colors.charcoal-700}"
+  badge-mono:
+    fontFamily: JetBrains Mono
+    fontSize: 10px
+    fontWeight: 700
+    textTransform: uppercase
+    rounded: "{rounded.sm}"
+    padding: 2px 8px
+  team-selector-active:
+    border: "1px solid team-color"
+    backgroundColor: "team-color at 8% opacity"
+    rounded: "{rounded.md}"
+    padding: 12px
+  team-selector-inactive:
+    border: "1px solid transparent"
+    backgroundColor: "{colors.charcoal-800} at 50% opacity"
+    rounded: "{rounded.md}"
+    padding: 12px
+  live-indicator:
+    innerDot: "{colors.primary} — 10px circle"
+    outerRing: "{colors.primary} at 75% opacity, animate-ping"
+  modal-overlay:
+    backgroundColor: "rgba(0,0,0,0.60)"
+    backdropBlur: 8px
+  modal-card:
+    backgroundColor: "{colors.charcoal-800}"
+    border: "1px solid {colors.charcoal-600}"
+    rounded: "{rounded.lg}"
+    padding: 24px
+    maxWidth: 512px
+  modal-card-achievement:
+    backgroundColor: "gradient from charcoal-800 to charcoal-750"
+    border: "2px solid {colors.carbon-gold}"
+    rounded: "{rounded.xl}"
+    padding: 24px
+    shadow: "0 0 40px {colors.carbon-gold} at 25% opacity"
+  racing-border:
+    leftStrip: "4px repeating-linear-gradient(45deg, #e10600 0 8px, #ffffff 8px 16px)"
+  profile-widget:
+    backgroundColor: "{colors.charcoal-900}"
+    border: "1px solid {colors.charcoal-700}"
+    rounded: "{rounded.full}"
+    padding: 4px 12px
+  footer:
+    backgroundColor: "{colors.charcoal-800}"
+    borderTop: "1px solid {colors.charcoal-700} at 60% opacity"
+    padding: 24px
 ---
 
 ## Overview
 
-Pinterest's marketing system is built around a single instructional principle: get out of the photograph's way. The chrome is a quiet warm-cream neutral palette (`{colors.surface-soft}`, `{colors.surface-card}`, `{colors.canvas}`) carrying typography in Pinterest's proprietary Pin Sans face, with Pinterest Red (`{colors.primary}` — `#e60023`) reserved exclusively for the "Sign up" CTA, the active-tab indicator, and the sticky top-nav anchor. Every other surface is allowed to fade behind the imagery — pin tiles, category tiles, content thumbnails, profile shots — that constitutes the actual product.
+Paddock Korea's design language is built around one principle: make race data and team identity the loudest thing on the screen. The chrome is an intentionally recessive dark stack — near-black `{colors.charcoal-900}` body behind `{colors.charcoal-800}` card surfaces behind `{colors.charcoal-900}` inset panels — so that F1 Red (`{colors.primary}` — `#e10600`) and dynamic team colors read as the highest-contrast elements on any viewport. A subtle `carbon-grid` CSS background (1px lines at 40px intervals, 1.5% opacity) adds motorsport texture without competing with content.
 
-The design system has two distinct surface modes that alternate down the home page: the **hero/CTA chrome** (cream surfaces, large 70px Pin Sans display headlines, alternating left/right photo-illustrated feature cards) and the **content masonry** (a column-based grid of 16px-radius pin cards on `{colors.surface-card}` with no internal padding — the pin is the card). The search results page is almost pure masonry: a tight column grid of pin imagery in mixed aspect ratios, with a small filter-chip strip at the top and the sticky red Sign-up CTA in the upper-right corner. The `create.pinterest.com` business surface inverts the grid back to a more traditional editorial layout but keeps every other rule of the system: Pin Sans, cream chrome, red CTA, 16px-radius pills.
-
-The system's signature gesture is **shape geometry**: 16px radius (`{rounded.md}`) for nearly every surface — buttons, inputs, pin cards, feature cards — and 32px radius (`{rounded.lg}`) reserved for pin-card-large and modal cards. There are exactly three radius values in active use: 16px, 32px, and pill (9999px). The system never goes flat (sharp corners) and never goes radius-medium — those two values are the entire shape vocabulary.
+The type system has three distinct voices that never blur: **Space Grotesk** for brand and sectional display (bold, italic, tight tracking), **Inter** for all readable body and UI copy, and **JetBrains Mono** for telemetry data, timestamps, race codes, and any number that represents a racing statistic. Switching fonts signals a switch in register — display to body to data — and this three-voice rule is the system's most important typographic constraint.
 
 **Key Characteristics:**
-- Single-accent CTA: Pinterest Red (`{colors.primary}`) carries every primary action; everything else is monochrome
-- Pin Sans proprietary typography across every text role from `{typography.display-xl}` (70px) down to `{typography.caption-sm}` (12px) — no serif, no monospace anywhere
-- Two-radius shape system: `{rounded.md}` (16px) for most components, `{rounded.lg}` (32px) for large cards and modals, `{rounded.full}` for circular elements
-- Masonry pin grid as the load-bearing visual element — column-based layout where each pin's natural aspect ratio is preserved
-- Warm-cream neutral chrome (`{colors.surface-card}` — #f6f6f3) that softly recedes behind imagery without competing
-- Sticky top nav with the always-red Sign-up CTA anchored in the upper-right at every breakpoint
-- Modal overlay (login/signup) using a soft scrim over the page content rather than a navigation jump
+- Single primary accent: F1 Red (`{colors.primary}`) for the active CTA, the active tab, the live indicator, and the brand wordmark. Everything else uses charcoal surfaces or team dynamic colors.
+- Carbon Gold (`{colors.carbon-gold}` — `#ffb800`) is the achievement accent: podium rank chips, badge unlock modals, Pit Wall telemetry highlights, and the "유익합니다" column reaction.
+- Team dynamic colors are applied contextually from `Team.baseColor` — not from the design token system — for garage banners, chat bubble tints, constructor bars, and team selector borders.
+- JetBrains Mono carries every number and code: lap times, championship points, countdowns, rank labels, and font-mono captions. It is never used for conversational body text.
+- The `carbon-grid` and `racing-border` CSS patterns are the only decorative surfaces in the system. Every other visual interest comes from team colors, typography contrast, or live/animated state indicators.
 
 ## Colors
 
-> **Source pages:** `/` (home), `/search/pins/?q=bold lip` (search results), `create.pinterest.com/` (creator marketing), `create.pinterest.com/product-features/how-to-create-boards/` (creator article). The chrome palette is identical across all four pages.
-
 ### Brand & Accent
-- **Pinterest Red** (`{colors.primary}` — `#e60023`): the brand's only highly-saturated color. Sign-up CTAs, sticky top-nav anchor, active state in tab strips, and the brand wordmark.
-- **Pinterest Red Pressed** (`{colors.primary-pressed}` — `#cc001f`): pressed state for the primary button — a single notch deeper than brand red.
+- **F1 Red** (`{colors.primary}` — `#e10600`): the only saturated brand color. Active nav tab fill, primary button background, filter chip active state, focus ring on inputs, live race indicator, and the brand wordmark label. Never decorative.
+- **F1 Red Pressed** (`{colors.primary-pressed}` — `#b00500`): hover/pressed state for primary button and any red interactive element.
+- **Carbon Gold** (`{colors.carbon-gold}` — `#ffb800`): podium P1 rank tint, achievement badge border and glow, `PIT WALL TELEMETRY FEED` label, boost section premium stat highlight. Never used in the main nav or body copy.
 
-### Surface
-- **Canvas** (`{colors.canvas}` — `#ffffff`): true white. The base surface for the primary nav, modals, feature cards, and content body.
-- **Soft Surface** (`{colors.surface-soft}` — `#fbfbf9`): faintly cream-tinted off-white used for the page body wash on the home page hero.
-- **Surface Card** (`{colors.surface-card}` — `#f6f6f3`): warm-cream card and pin-tile background. Carries category tiles, search-bar default fill, button-secondary default, and pin-card backgrounds.
-- **Secondary BG** (`{colors.secondary-bg}` — `#e5e5e0`): the gray-cream used for `{component.button-secondary}` ("I already have an account") fill — a notch deeper than `{colors.surface-card}`.
-- **Secondary Pressed** (`{colors.secondary-pressed}` — `#c8c8c1`): pressed state for the secondary button.
-- **Surface Dark** (`{colors.surface-dark}` — `#262622`): warm near-black used in the rare dark CTA strip on `create.pinterest.com`.
-- **Hairline** (`{colors.hairline}` — `#dadad3`): 1px row dividers, footer column rules.
-- **Hairline Soft** (`{colors.hairline-soft}` — `#e5e5e0`): lighter inline divider; doubles as the secondary-button background.
+### Surfaces (dark stack)
+- **Charcoal 900** (`{colors.charcoal-900}` — `#0B0B0C`): the page body. Also used for inset panels inside cards (the "card-inner" layer).
+- **Charcoal 800** (`{colors.charcoal-800}` — `#0F0F12`): primary card and container surface. Header, footer, every `{component.card}`, and modal backgrounds live here.
+- **Charcoal 750** (`{colors.charcoal-750}` — `#121214`): section dividers and secondary card backgrounds (constructor standing inner tiles).
+- **Charcoal 700** (`{colors.charcoal-700}` — `#161618`): border for all standard cards, inputs, and table row dividers.
+- **Charcoal 650** (`{colors.charcoal-650}` — `rgba(255,255,255,0.05)`): the softest border — used on primary cards against the charcoal-900 body.
+- **Charcoal 600** (`{colors.charcoal-600}` — `rgba(255,255,255,0.10)`): slightly more visible border for interactive elements like the profile widget and modals.
+- **Charcoal 500** (`{colors.charcoal-500}` — `rgba(255,255,255,0.20)`): hover-state border brightening on cards.
 
 ### Text
-- **Ink** (`{colors.ink}` — `#000000`): primary headlines, button text, primary nav links.
-- **Ink Soft** (`{colors.ink-soft}` — `#211922`): inline-link color in body prose. The brand's only "color" beyond Pinterest Red used in chrome — a near-black with a faint warm cast.
-- **Body** (`{colors.body}` — `#33332e`): default paragraph text on `{colors.canvas}`.
-- **Charcoal** (`{colors.charcoal}` — `#262622`): subtly softer body where pure ink is too heavy.
-- **Mute** (`{colors.mute}` — `#62625b`): metadata text, footer links, secondary captions.
-- **Ash** (`{colors.ash}` — `#91918c`): disabled button text, placeholder text in inputs.
-- **Stone** (`{colors.stone}` — `#c8c8c1`): least-emphasis utility text, disabled-state borders.
-- **On Dark** (`{colors.on-dark}` — `#ffffff`): primary text on `{colors.surface-dark}`.
+- **Text Primary** (`{colors.text-primary}` — `#e2e8f0`): default body text on all dark surfaces. Set globally on `<body>`.
+- **Text Secondary** (`{colors.text-secondary}` — `#cbd5e1`): body prose inside cards, chat message content.
+- **Text Muted** (`{colors.text-muted}` — `#94a3b8`): metadata labels, inactive tab text, placeholder neighbors.
+- **Text Faint** (`{colors.text-faint}` — `#64748b`): table column headers in mono, scrollbar track label, secondary metadata.
+- **On Primary / On Dark** (`{colors.on-primary}` / `{colors.on-dark}` — `#ffffff`): text on red or near-black backgrounds.
 
 ### Semantic
-- **Error** (`{colors.error}` — `#9e0a0a`): validation messages, destructive confirmation copy.
-- **Error Deep** (`{colors.error-deep}` — `#cc001f`): deepened error background where the regular error tone needs more contrast. Note: this matches the primary-pressed value but in error context represents semantic destructiveness.
-- **Success Deep** (`{colors.success-deep}` — `#103c25`): in-product success messaging.
-- **Success Pale** (`{colors.success-pale}` — `#c7f0da`): pale success-pill background.
-- **Focus Outer** (`{colors.focus-outer}` — `#435ee5`): the system's focus-ring blue — appears as a 2px outer outline around focused inputs and buttons.
-- **Focus Inner** (`{colors.focus-inner}` — `#ffffff`): white inner gap inside the focus-ring stack.
+- **Success** (`{colors.success}` — `#10b981`): member-approved status badge, thumbs-up button, "서포터즈 승인됨" label. Background tint in `{colors.success-muted}`.
+- **Danger** (`{colors.danger}` — `#f43f5e`): thumbs-down vote button, destructive action hover. Background tint in `{colors.danger-muted}`.
 
-### Editorial Accents (used sparingly inside content imagery and category badges)
-- **Accent Pressed Blue** (`{colors.accent-pressed-blue}` — `#617bff`): pressed state for blue informational badges and editorial pin chips.
-- **Accent Purple** (`{colors.accent-purple}` — `#7e238b`): editorial recommendation badge, in-product "Pinterest Predicts" callout.
-- **Accent Purple Deep** (`{colors.accent-purple-deep}` — `#6845ab`): paired dark for purple lockups and "Performance+" iconography.
+### Team Dynamic Colors
+Applied at runtime from `Team.baseColor` in `data.ts`. These are never hardcoded in the design token system — the pattern is always `team.baseColor + opacity suffix`. Used for: garage banner gradient, chat bubble own-message tint, constructor standings progress bar, team selector card border, and small team color dots in standings rows.
 
 ## Typography
 
-### Font Family
-**Pin Sans** is Pinterest's proprietary geometric sans-serif used across every text role on every page. It carries weights 400 (regular), 500 (medium), 600 (semibold), and 700 (bold), and falls back through a long stack — `-apple-system` → `system-ui` → `Segoe UI` → `Roboto` → `Helvetica Neue` → `Arial` plus emoji fallbacks. The face's distinctive trait is its tight letter-spacing at display sizes (-1.2px on `{typography.display-xl}` and `{typography.heading-xl}`), which gives 70px headlines a confident, friendly density rather than the airy spread of more conventional display geometric sans faces.
+### Font Families
+Three distinct voices, each with a non-overlapping register:
+
+**Space Grotesk** (`{typography.logo-wordmark}`, `{typography.display-*}`, `{typography.heading-*}`) — brand and structural headlines. Loaded via Google Fonts at weights 400–700. Distinguishing traits: tall x-height, tight tracking at large sizes, slightly condensed geometry that reads "engineered." Applied to the logo wordmark (italic, black weight), hero headlines, section titles (`font-display font-bold` in Tailwind).
+
+**Inter** (`{typography.body-*}`, `{typography.button-*}`) — all conversational and UI copy. Loaded via Google Fonts at weights 300–700. The neutral workhorse: chat messages, card body copy, button labels, form labels, and any text longer than one line.
+
+**JetBrains Mono** (`{typography.label-mono}`, `{typography.data-*}`, `{typography.caption}`) — race data and codes exclusively. Loaded via Google Fonts at weights 400–700. Applied to: championship points, countdown digits, lap times, KST timestamps, rank labels (`P1`, `R7`), driver codes (`VER`, `NOR`), monospace badge tags (`PADDOCK`, `LIVE CONCURRENT STATE`), and all uppercase tracking labels. Never used for body prose.
 
 ### Hierarchy
 
-| Token | Size | Weight | Line Height | Letter Spacing | Use |
-|---|---|---|---|---|---|
-| `{typography.display-xl}` | 70px | 600 | 1.1 | -1.2px | Marketing hero headline ("Create the life you love on Pinterest") |
-| `{typography.display-lg}` | 44px | 700 | 1.15 | -0.8px | "Where your content can thrive" creator hero |
-| `{typography.heading-xl}` | 28px | 700 | 1.2 | -1.2px | Section heading ("Bring your favorite ideas to life", "Pinterest for your brand") |
-| `{typography.heading-lg}` | 22px | 600 | 1.25 | 0 | Sub-section heading, modal title ("Welcome to Pinterest") |
-| `{typography.heading-md}` | 18px | 600 | 1.3 | 0 | Card title, in-grid pin label |
-| `{typography.body-md}` | 16px | 400 | 1.4 | 0 | Body copy, modal body, default paragraph |
-| `{typography.body-strong}` | 16px | 600 | 1.4 | 0 | Inline emphasis, primary nav link, form label |
-| `{typography.body-sm}` | 14px | 400 | 1.4 | 0 | Footer copy, in-grid pin metadata, helper text |
-| `{typography.body-sm-strong}` | 14px | 700 | 1.4 | 0 | Search-result count label, table-header text |
-| `{typography.caption-md}` | 12px | 500 | 1.5 | 0 | Caption text, link metadata |
-| `{typography.caption-sm}` | 12px | 400 | 1.4 | 0 | Smallest utility text, copyright |
-| `{typography.link-md}` | 16px | 600 | 1.4 | 0 | Inline anchor link in body prose |
-| `{typography.button-md}` | 14px | 700 | 1 | 0 | Standard primary/secondary button label |
-| `{typography.button-sm}` | 12px | 700 | 1 | 0 | Compact pill chip, in-card button |
+| Token | Font | Size | Weight | Use |
+|---|---|---|---|---|
+| `{typography.logo-wordmark}` | Space Grotesk | 20–24px | 900 | "KOREA 패독 코리아" brand wordmark |
+| `{typography.logo-tag}` | JetBrains Mono | 10px | 900 | "PADDOCK" red label chip above wordmark |
+| `{typography.display-lg}` | Space Grotesk | 44px | 800 | Hero section headline ("내 팀을 향한 진심어린 응원") |
+| `{typography.display-md}` | Space Grotesk | 30px | 700 | Garage team banner team name |
+| `{typography.heading-lg}` | Space Grotesk | 22px | 700 | Card section headings, modal titles |
+| `{typography.heading-md}` | Space Grotesk | 16px | 700 | Sub-section labels, meme titles, column titles |
+| `{typography.body-md}` | Inter | 14px | 400 | Chat messages, card body prose |
+| `{typography.body-sm}` | Inter | 12px | 400 | Metadata, member counts, secondary info |
+| `{typography.body-strong}` | Inter | 13px | 600 | Tab labels, button labels, emphasis inline |
+| `{typography.button-md}` | Inter | 12px | 700 | All button labels, filter chips |
+| `{typography.label-mono}` | JetBrains Mono | 10px | 700 | "NEXT GRAND PRIX", "ACTIVE GRID DRIVERS", section prefixes |
+| `{typography.data-lg}` | JetBrains Mono | 28px | 700 | Countdown digits (days/hours/mins/secs) |
+| `{typography.data-md}` | JetBrains Mono | 14px | 700 | Championship points, lap times |
+| `{typography.data-sm}` | JetBrains Mono | 11px | 500 | Driver codes, KST timestamps, rank labels |
+| `{typography.caption}` | JetBrains Mono | 10px | 500 | Table column headers, footer meta |
 
 ### Principles
-The system has an unusually steep size jump between display and body — `{typography.display-xl}` (70px) drops directly to `{typography.body-md}` (16px) on the home hero with no intermediate tier between. The negative tracking on the largest tiers (-1.2px / -0.8px) creates a tighter, more confident headline than a default geometric sans would deliver, and the body copy sits at a generous 1.4 line-height to keep multi-line descriptions breathing.
-
-### Note on Font Substitutes
-Pin Sans is proprietary. The closest open-source substitute is **Inter** (weights 400 / 500 / 600 / 700) — its geometry, x-height, and metric balance match Pin Sans within ~3% at body sizes. **Manrope** is a strong secondary substitute for the display tier where slightly tighter letterspacing helps the 70px headline feel weighted. Apply -1.2px tracking on the substitute at display sizes regardless of which substitute is chosen.
+The font-switch is the system's primary hierarchy signal. When text changes from Inter to JetBrains Mono, the reader knows they've crossed from editorial content into race data. This substitution is more reliable than size or color alone because it works even at the smallest sizes (10px caption vs 10px monospace label). Designers should never use mono for prose and never use Inter for numerical race statistics.
 
 ## Layout
 
 ### Spacing System
-- **Base unit:** 8px (with finer 4/6/7px steps available for tight inline gaps in pill buttons and chips).
-- **Tokens (front matter):** `{spacing.xxs}` (4px) · `{spacing.xs}` (6px) · `{spacing.sm}` (8px) · `{spacing.md}` (12px) · `{spacing.lg}` (16px) · `{spacing.xl}` (24px) · `{spacing.xxl}` (32px) · `{spacing.section}` (64px).
-- **Universal section rhythm:** every page in the set uses `{spacing.section}` (64px) as the vertical gap between major content blocks. Pin grids use `{spacing.sm}` (8px) gutters between tiles — the tightest grid gutter in the system, designed so imagery effectively touches across columns.
-- **Modal padding:** `{component.modal-card}` uses 32px internal padding (`{spacing.xxl}`) on all sides.
+- **Base unit:** 4px grid with primary rhythm at 8px (`{spacing.sm}`).
+- **Card internal padding:** 20px (`{spacing.xl}`) for standard cards; 32px (`{spacing.xxl}`) for hero and modal cards; 12px (`{spacing.md}`) for inner panels.
+- **Section rhythm:** `{spacing.section}` (32px) vertical gap between major page blocks (`space-y-8` in Tailwind).
+- **Grid gutters:** 16–24px gaps between card grid columns.
 
 ### Grid & Container
-- **Max width:** ~1280px content area at desktop with 24px gutters (~48px at ultrawide).
-- **Pin masonry grid:** auto-fitting column-based layout — 5–6 columns at ultrawide, 4 columns at desktop, 3 at tablet, 2 at mobile-landscape, 1 at mobile. Each tile preserves its natural aspect ratio (square / 2:3 / 3:4 / 4:5 portrait — never landscape because pins are vertically-oriented). Gutters are `{spacing.sm}` (8px) horizontal and vertical.
-- **Home hero feature row:** asymmetric 2-column split where text and imagery alternate left/right down the page (text-left + image-right, then image-left + text-right, etc.).
-- **Footer:** 4-column link grid at desktop, collapsing to 2-up at tablet, 1-up at mobile.
+- **Max width:** 7xl (~1280px) centered with 16px horizontal padding.
+- **Dashboard home grid:** full-width hero → 2/3+1/3 split card row → 5-column team selector → 4-column shortcut card row.
+- **Pit Wall grid:** 2/3 standings + 1/3 schedule side-by-side at `lg`, stacked at mobile.
+- **Garages grid:** 1/2 + 1/2 split (fan threads left, banter zone right) at `lg`.
+- **Main Straight chat grid:** 2/3 chat window + 1/3 sidebar at `lg`.
+- **Meme grid:** 2-column card grid at `md`, 1-column at mobile.
+- **Column grid:** 3-column at `lg`, expanding to full width on click/expand state.
 
-### Whitespace Philosophy
-Whitespace is generous on the marketing surfaces and tight on the discovery surfaces. The home page sits sections 64px apart with photo-illustrated feature cards using 32px internal padding, while the search results page collapses to an 8px-gutter masonry grid that tiles imagery edge-to-edge. The system reads as two tools sharing the same chrome: a magazine (hero / feature / CTA / footer) and a search engine (top nav / filter row / pin grid / load more).
+### Background Texture
+`carbon-grid` applies a 40×40px repeat of 1px white lines at 1.5% opacity over the body background. This is the only background texture in the system — it is never applied inside cards or modals, only on the page body `<div>`.
 
 ## Elevation & Depth
 
 | Level | Treatment | Use |
 |---|---|---|
-| 0 — Flat | No border, no shadow | Default for pin cards, feature cards, footer — the dominant treatment |
-| 1 — Hairline border | 1px solid `{colors.hairline}` | Inputs, footer column dividers, in-list rows |
-| 2 — Modal scrim + soft shadow | Modal sits on a dark scrim over the page content with a soft 16px ambient shadow | Login / signup modal, image preview modal |
-| 3 — Pin hover lift | (intentionally undocumented per system policy) | n/a |
+| 0 — Body | `{colors.charcoal-900}` flat, carbon-grid texture | Page body wash |
+| 1 — Card | `{colors.charcoal-800}` + `{colors.charcoal-650}` border | Standard cards, header, footer |
+| 2 — Inner panel | `{colors.charcoal-900}` inset + `{colors.charcoal-700}` border | Stat grids inside cards, countdown tiles, driver rows |
+| 3 — Modal | `{colors.charcoal-800}` + `rgba(0,0,0,0.60)` + backdrop-blur 8px scrim | Profile edit modal, meme upload modal, column composer |
+| 4 — Achievement overlay | `{colors.charcoal-800}` gradient + `{colors.carbon-gold}` double border + gold glow shadow | Badge unlock celebration fullscreen overlay |
 
-Pinterest's system has effectively no shadow elevation in its content surfaces. Pin cards sit flat on the canvas; the only "elevation" appears on the modal layer where a 16px ambient shadow paired with a 50%-opacity scrim lifts the modal above the page content.
+The system uses no drop shadows on cards or nav. Depth is communicated entirely through the layered charcoal stack: body → card → inner panel. The only exception is the achievement modal at level 4, which uses `shadow-2xl` at 25% carbon-gold opacity to lift the modal above the dark scrim.
 
 ### Decorative Depth
-Depth comes entirely from the imagery itself, not from CSS effects:
-- **Pin photography** carries cinematic depth through composition (food photography, fashion close-ups, interior shots) — the design lets each tile's image speak rather than adding chrome to it.
-- **Category tile thumbnails** in the home page's feature rows use Pinterest's own pin imagery as composition assets, often with a small `{component.pin-overlay-pill}` ("Cherry red", "Preppy look", "Earthy space inspo") overlaid in the corner of the image.
-- **Modal scrim** — a 50%-opacity dark overlay over the entire page content when the login modal opens, with a 16px ambient shadow underneath the modal card lifting it to the visual top.
+- **Carbon grid:** page-level texture that recedes behind card surfaces.
+- **Team color glows:** garage banners use `blur-3xl` radial blobs in team color at 10% opacity in card corners — the only blur decoration in the system.
+- **Racing stripe left border** (`racing-border` CSS class): a 4px diagonal red+white repeating stripe used as a left-side indicator on data cards (countdown, garage threads). This is the system's signature decorative gesture.
 
 ## Shapes
 
 ### Border Radius Scale
 
-| Token | Value | Use |
-|---|---|---|
-| `{rounded.none}` | 0px | Footer, primary nav, page sections — all flat structural surfaces |
-| `{rounded.sm}` | 8px | Rare medium-radius surface (e.g., editorial tooltip) |
-| `{rounded.md}` | 16px | Buttons, inputs, pin cards, feature cards, category tiles — the dominant component radius |
-| `{rounded.lg}` | 32px | Large pin cards, modal cards — used sparingly for "big" content surfaces |
-| `{rounded.full}` | 9999px | Search bar, filter chips, pin overlay pills, icon-circular buttons, avatars |
+| Token | Value | Tailwind | Use |
+|---|---|---|---|
+| `{rounded.none}` | 0px | — | Structural full-width sections, table rows |
+| `{rounded.sm}` | 6px | `rounded` | Small chips, monospace badge tags, driver rank chips |
+| `{rounded.md}` | 8px | `rounded-lg` | Standard buttons, inputs, filter chips, team tabs, inner stat tiles, banter cards |
+| `{rounded.lg}` | 12px | `rounded-xl` | Primary content cards, chat window, meme cards, PitWall panels, column cards |
+| `{rounded.xl}` | 16px | `rounded-2xl` | Hero section banner, achievement modal |
+| `{rounded.full}` | 9999px | `rounded-full` | Profile widget pill, team logo avatar circle, live indicator dots, scrollbar thumb |
 
-The radius vocabulary is essentially three values: 16px for most things, 32px for big cards and modals, and pill for circular elements. There are no sharp-cornered buttons or sharp-cornered pin cards.
-
-### Photography Geometry
-- **Pin imagery:** mixed aspect ratios — square (1:1), portrait (3:4, 2:3, 4:5), and rare landscape — preserved at their natural ratio inside `{rounded.md}` (16px) corners on small tiles and `{rounded.lg}` (32px) on large feature pins.
-- **Category tile thumbnails:** square (1:1) with `{rounded.md}` corners.
-- **Avatar circles:** 32–48px at `{rounded.full}` for in-pin attribution and profile chips.
-- **Feature card imagery:** typically 4:5 portrait on home-page category cards, with the photo occupying ~60% of the card and the headline + CTA stacked beneath.
+The system uses `{rounded.lg}` (12px / `rounded-xl`) as the dominant card radius — every standard content surface uses this value. `{rounded.md}` (8px / `rounded-lg`) is the interactive element radius: buttons, inputs, chips, tabs. `{rounded.xl}` (16px) appears only on the hero banner and achievement modal to signal "this is the most important surface on screen."
 
 ## Components
 
-> **No hover states documented** per system policy. Each spec covers Default and Active/Pressed only.
-
-### Buttons
-
-**`button-primary`** — the universal Pinterest CTA
-- Background `{colors.primary}` (Pinterest Red), text `{colors.on-primary}`, type `{typography.button-md}`, padding `6px 14px`, height ~40px, rounded `{rounded.md}` (16px).
-- Used for "Sign up", "Join Pinterest for free", "Get started" — every primary action across every surface in the system.
-- Pressed state lives in `button-primary-pressed` — background drops to `{colors.primary-pressed}` (`#cc001f`).
-
-**`button-secondary`** — gray-cream alternative
-- Background `{colors.secondary-bg}` (`#e5e5e0`), text `{colors.on-secondary}`, type `{typography.button-md}`, padding `6px 14px`, height ~40px, rounded `{rounded.md}`.
-- "I already have an account", "Continue", "Cancel" — second-tier actions paired with the red primary.
-- Pressed state lives in `button-secondary-pressed` — background drops to `{colors.secondary-pressed}`.
-
-**`button-tertiary`** — ghost link
-- Background transparent, text `{colors.ink}`, type `{typography.button-md}`, rounded `{rounded.md}`.
-- Used for low-emphasis actions inside dialogs ("Read the docs", "Learn more →" with a small chevron).
-
-**`button-icon-circular`** — circular icon button
-- Background `{colors.surface-card}`, icon `{colors.ink}`, rounded `{rounded.full}`, size 40px.
-- Carousel paddles, modal close button, and small floating action buttons in pin imagery.
-
-**`button-pill-on-image`** — small overlay pill on photography
-- Background `{colors.canvas}`, text `{colors.ink}`, type `{typography.button-md}`, rounded `{rounded.full}`, padding `8px 14px`.
-- The signature "Cherry red" / "Preppy look" / "Earthy space inspo" overlay pill that anchors the corner of category-tile pin imagery.
-
-**`button-disabled`**
-- Background `{colors.surface-card}`, text `{colors.ash}` — flat soft-cream.
-
-### Filter & Tab Chips
-
-**`filter-chip`** + **`filter-chip-active`**
-- Default: background `{colors.surface-card}`, text `{colors.ink}`, type `{typography.button-md}`, rounded `{rounded.full}`, padding `8px 16px`.
-- Active: background `{colors.ink}`, text `{colors.on-dark}` — the chip flips fully inverted on selection.
-- Used across the search results page filter strip ("Beauty makeup", "Lipstick", "Editorial makeup"...).
-
-### Inputs & Forms
-
-**`text-input`** + **`text-input-focused`**
-- Default: background `{colors.canvas}`, text `{colors.ink}`, 1px solid `{colors.ash}`, type `{typography.body-md}`, padding `11px 15px`, height ~44px, rounded `{rounded.md}`.
-- Focused: 2px `{colors.ink}` inner border + 4px `{colors.focus-outer}` outer outline — the signature double-ring focus signal.
-- Used across the login/signup modal for email, password, birthdate, country fields.
-
-**`search-bar`** + **`search-bar-focused`**
-- Default: background `{colors.surface-card}`, text `{colors.ink}`, type `{typography.body-md}`, padding `11px 15px`, height ~48px, rounded `{rounded.full}`.
-- Focused: same dimensions, background flips to `{colors.canvas}` with a 1px `{colors.ash}` border.
-- Anchored in the center of the primary nav with a magnifier glyph at the left edge and "Search for ideas, fashion..." placeholder.
-
-### Cards & Containers
-
-**`pin-card`** — the standard masonry pin tile
-- Container: background `{colors.surface-card}`, rounded `{rounded.md}` (16px), padding 0.
-- Layout: full-bleed image at the card's natural aspect ratio with no internal padding. Optional `{component.pin-overlay-pill}` anchored to one corner of the image, optional 32px circular avatar with profile name in `{typography.body-sm-strong}` overlaid at the bottom-left.
-
-**`pin-card-large`** — the home-page feature pin
-- Identical to `pin-card` but rounded `{rounded.lg}` (32px) — used for the large editorial pins that anchor home-page feature rows.
-
-**`pin-overlay-pill`** — anchored chip on pin imagery
-- Background `{colors.canvas}`, text `{colors.ink}`, type `{typography.button-sm}`, rounded `{rounded.full}`, padding `6px 12px`.
-- Floats over a pin's bottom-left or top-left corner with the search-term label that surfaces if the pin matches a search ("Cherry red", "Preppy look", "Earthy space inspo").
-
-**`category-tile`**
-- Background `{colors.surface-card}`, rounded `{rounded.md}`, padding 16px.
-- 3- or 4-up grid of small category thumbnails inside the home-page "Bring your favorite ideas to life" section. Each tile contains a category icon or composition photograph + a short label in `{typography.body-strong}`.
-
-**`feature-card`** + **`feature-card-soft`**
-- Standard: background `{colors.canvas}`, rounded `{rounded.md}`, padding 32px. Pairs a 4:5 portrait pin image (left or right) with a `{typography.heading-xl}` headline + body copy + `{component.button-primary}` red CTA.
-- Soft: background `{colors.surface-card}` for the alternating-row variant where the cream surface is needed to break up content.
-
-**`modal-card`** — login/signup overlay
-- Background `{colors.canvas}`, rounded `{rounded.lg}` (32px), padding 32px.
-- Layout: title in `{typography.heading-lg}` ("Welcome to Pinterest"), subtitle in `{typography.body-md}`, stacked `{component.text-input}` fields (Email, Password, Birthdate, Country), primary `{component.button-primary}` "Continue", small "Already a member? Log in" link below.
-- Floats over a 50%-opacity scrim covering the entire page content with a 16px ambient shadow.
-
-**`hero-cta-strip`** — dark CTA strip on `create.pinterest.com`
-- Background `{colors.surface-dark}`, text `{colors.on-dark}`, type `{typography.heading-xl}`, padding `48px 32px`, rounded `{rounded.none}`.
-- Sits at the top of the creator marketing page with a single `{component.button-primary}` red CTA on the right.
+> Active and pressed states are documented where they appear in the implementation. Hover states are implicit transitions (150–300ms `transition-all`).
 
 ### Navigation
 
-**`primary-nav`**
-- Background `{colors.canvas}`, text `{colors.ink}`, height ~64px, type `{typography.body-strong}`, rounded `{rounded.none}`, with a 1px `{colors.hairline}` bottom rule on inner pages (no rule on the home hero).
-- Layout (desktop home): Pinterest red wordmark at left + "Explore" link, centered `{component.search-bar}`, right cluster ("About / Businesses / Create / Log in" + the always-red `{component.button-primary}` "Sign up" CTA).
-- Layout (search results): Pinterest red P-logo at left, centered search bar with the active query, right cluster ("Log in" + red Sign-up button).
+**`primary-nav`** (sticky header)
+- Background `{colors.charcoal-800}` at 90% opacity + `backdrop-blur-md`, border-bottom `{colors.charcoal-700}` at 80%.
+- Height ~56px (px-4 py-3).
+- Left: Logo block — `{typography.logo-tag}` "PADDOCK" on `{colors.primary}` red chip, then `{typography.logo-wordmark}` "KOREA" + "패독 코리아" in gray-400.
+- Center (desktop `lg`): `{component.nav-tab-active}` / `{component.nav-tab-inactive}` pill buttons for all 7 sections. Active = red fill; inactive = transparent with muted text.
+- Right: `{component.profile-widget}` + mobile hamburger.
 
-**Top Nav (Mobile)**
-- Hamburger menu icon at left, P-logo at center, search-glyph + Sign-up CTA at right. Search bar collapses into the magnifier icon and expands to full-width when tapped.
+**`profile-widget`**
+- Pill-shaped: `{colors.charcoal-900}` bg + `{colors.charcoal-700}` border + `{rounded.full}`.
+- Contains: team emoji avatar (28px circle, `charcoal-800` bg), team name in `{typography.caption}` uppercase, username in `{typography.body-strong}`.
+- Border switches to `{colors.carbon-gold}` if "gold-carbon" border unlocked; to `{colors.primary}` if "neon-red" unlocked.
+- Shine animation on hover: `bg-gradient-to-r` from white/0 to white/5 translates across the widget.
+
+**Mobile drawer nav**
+- Full-width panel below header: `{colors.charcoal-800}` bg + bottom border.
+- 2-column grid of tab buttons matching desktop nav-tab shape.
+- Active = `{colors.primary}` fill; inactive = `{colors.charcoal-900}` bg + gray-400 text.
+
+### Cards & Containers
+
+**`card`** — primary content card
+- Background `{colors.charcoal-800}`, border `{colors.charcoal-650}` (1px), rounded `{rounded.lg}`, padding 20px.
+- Hover: border brightens to `{colors.charcoal-500}` on meme cards and shortcut cards.
+
+**`card-hero`** — full-width hero banner
+- Gradient `from-charcoal-800 to-charcoal-700`, rounded `{rounded.xl}`, border `{colors.charcoal-600}`.
+- Contains a `{colors.primary}` red radial glow blob at `blur-3xl` opacity-10 in the right corner.
+- Contains a live indicator badge (pulsing red dot) with `{typography.label-mono}` label.
+
+**`card-inner`** — inset stat panel
+- Background `{colors.charcoal-900}`, border `{colors.charcoal-700}`, rounded `{rounded.md}`, padding 12px.
+- Used inside cards for: countdown digit tiles, team stat grids, driver standing row containers, profile stats.
+
+**`card-team-garage`** — team garage banner
+- Background: `linear-gradient(135deg, team-color at 20% → charcoal-750)`.
+- Border: team-color at 40% opacity.
+- Box-shadow: `0 10px 30px -15px team-color at 25%`.
+- Transitions smoothly on team switch (500ms `transition-all duration-500`).
+- Top-right: faded large team code text (charcoal-700, text-8xl, 5% opacity) as decorative background.
+
+### Chat Components
+
+**`chat-bubble-own`** — user's sent message
+- Background: team base color at 15% opacity; border: team base color at 25% opacity.
+- Rounded `{rounded.lg}` with `rounded-tr-none` (right-aligned bubble style).
+- Text: `{colors.text-secondary}`.
+- Alignment: right-aligned flex row.
+
+**`chat-bubble-other`** — other users' messages
+- Background: `#1c1c24`; border: `{colors.charcoal-700}`.
+- Rounded `{rounded.lg}` with `rounded-tl-none`.
+- Has team logo avatar (32px circle, `charcoal-900` bg + `charcoal-700` border) to the left.
+- Team name shown in team base color, `{typography.caption}` uppercase.
+
+**Live status bar** (chat header)
+- Pulsing `{component.live-indicator}` red dot + "LIVE" label.
+- Timestamp and concurrent user chip in `{colors.charcoal-900}` bg, `{typography.data-sm}`.
+
+### Meme Components
+
+**Meme card** (`card` base)
+- Category badge: `{component.badge-mono}` with `{colors.primary}` text, `{colors.charcoal-900}` bg + `{colors.charcoal-700}` border.
+- Title: `{typography.heading-md}` white → transitions to `{colors.primary}` on card hover.
+- Body: `{typography.body-sm}` in `{colors.charcoal-900}` inset block with `{colors.charcoal-700}` border.
+- Vote row: thumbs-up in `{colors.success}` / thumbs-down in `{colors.danger}`, both on `{colors.charcoal-900}` bg + `{colors.charcoal-700}` border pill.
+
+**`filter-chip-active`** / **`filter-chip-inactive`**
+- Active: `{colors.primary}` bg, white text, `{rounded.md}`.
+- Inactive: `{colors.charcoal-800}` bg, gray-400 text, hover → `{colors.charcoal-700}`.
+
+### Pit Wall Components
+
+**Championship standings table**
+- Header: `{typography.caption}` uppercase, `{colors.text-faint}`, border-bottom `{colors.charcoal-700}`.
+- Rows: hover `{colors.charcoal-900}` at 40% tint; divider `{colors.charcoal-700}` at 50%.
+- Rank chips: P1 = `carbon-gold/20` bg + gold text; P2 = slate-300/20 + slate text; P3 = amber-800/20 + amber text; others = gray-400.
+- Points bar: 80px wide, `{colors.charcoal-900}` track, team base color fill proportional to leader.
+
+**Constructor standing card**
+- `{colors.charcoal-750}` bg + `{colors.charcoal-700}` border, `{rounded.lg}`.
+- Top accent line: 6px tall strip in team base color (full width, `position: absolute`).
+- Points bar: 2-step bar, team base color fill.
+
+**Race schedule item**
+- Upcoming: `{colors.charcoal-900}` bg + `{colors.charcoal-700}` border; hover brightens border.
+- Completed: 60% opacity, `{colors.charcoal-750}` bg.
+- Round label: `{typography.caption}` in `{colors.charcoal-800}` chip.
+- Reminder bell: activated = `{colors.primary}` at 20% bg + red text; deactivated = `{colors.charcoal-700}` border + gray icon.
+
+### Inputs & Forms
+
+**`text-input`**
+- Background `{colors.charcoal-900}`, text `{colors.text-primary}`, placeholder `{colors.text-faint}`.
+- Border `{colors.charcoal-700}`, focus → `{colors.primary}` (1px).
+- Rounded `{rounded.md}`, padding `8px 12px`, text `{typography.body-sm}`.
+- No box shadow on focus — the red border is the only focus signal.
+
+**`select`** — same spec as `text-input` with native `<select>` element.
+
+**`textarea`** — same spec as `text-input`, with `font-mono` variant in the column composer.
+
+### Modals
+
+**`modal-card`**
+- Overlay: `rgba(0,0,0,0.60)` + `backdrop-blur-sm`. Centered flex.
+- Card: `{colors.charcoal-800}` bg + `{colors.charcoal-600}` border + `{rounded.lg}` + 24px padding.
+- Header: bordered bottom `{colors.charcoal-700}`, title `{typography.heading-lg}`, X icon button.
+- Entrance animation: `animate-scale-up` (scale from 0.95, opacity 0 → 1).
+
+**`modal-card-achievement`** (badge unlock)
+- Overlay: `rgba(0,0,0,0.85)` + `backdrop-blur-md`.
+- Card: gradient `from-charcoal-800 to-charcoal-750`, `border-2` `{colors.carbon-gold}`, `{rounded.xl}`.
+- `shadow-2xl shadow-carbon-gold/25` glow lift.
+- Trophy emoji rotates (`animate-spin`), achievement text pulses (`animate-pulse`).
+- Checkered-flag background: `linear-gradient(45deg,...)` at 5% opacity.
+- CTA button: `{colors.carbon-gold}` bg, `{colors.charcoal-900}` text (inverted from normal).
+
+### Buttons
+
+**`button-primary`** — the universal red action
+- `{colors.primary}` bg → `{colors.primary-pressed}` on hover, `{colors.on-primary}` text, `{typography.button-md}`, `{rounded.md}`, padding `10px 20px`.
+- Optional shadow: `shadow-md shadow-f1-red/20` on hero CTAs.
+
+**`button-secondary`** — dark ghost
+- `{colors.charcoal-700}` bg → `{colors.charcoal-600}` on hover, `{colors.on-dark}` text, border `{colors.charcoal-500}`.
+
+**`button-ghost`** — text-only link button
+- Transparent bg, `{colors.text-muted}` text → `{colors.on-dark}` on hover.
+
+**`button-achievement`** — gold CTA inside badge modal only
+- `{colors.carbon-gold}` bg → `#cca300` on hover, `{colors.charcoal-900}` text (inverted). Used exactly once in the system.
 
 ### Footer
 
-**`footer-section`**
-- Background `{colors.canvas}`, text `{colors.mute}` in `{typography.body-sm}`, padding `32px 24px`, rounded `{rounded.none}`, with a 1px `{colors.hairline}` top rule.
-- Layout: 4-column link grid (Get the app — iOS / Android · Quick Links — Explore / Shop / Users / Collections / Shopping · Pinterest for · About — Privacy / Terms / Help Center) with column headers in `{typography.body-sm-strong}` and link lists in `{typography.body-sm}` `{colors.mute}`.
-- Bottom row: Pinterest red wordmark + "© 2026 Pinterest" in `{typography.caption-sm}` `{colors.mute}`.
-
-### Inline
-
-**`link-inline`** — body-prose anchor link
-- `{colors.ink-soft}` text with no underline by default. Pinterest's only "color" beyond brand red on chrome — a near-black warm tint used inline to differentiate links from body without color contrast.
+**`footer`**
+- Background `{colors.charcoal-800}`, top border `{colors.charcoal-700}` at 60%, padding 24px.
+- Left: logo in `{typography.logo-wordmark}` + tagline in `{typography.body-sm}` `{colors.text-faint}`.
+- Right: copyright in `{typography.caption}`.
+- `sm:flex-row` at 640px, `flex-col` at mobile.
 
 ## Do's and Don'ts
 
 ### Do
-- Reserve `{colors.primary}` (Pinterest Red) for primary CTAs, the active-tab indicator, and the brand wordmark only. It is never decorative.
-- Use `{rounded.md}` (16px) on every interactive element and standard card; reserve `{rounded.lg}` (32px) for large pin cards and modals; reserve `{rounded.full}` for circular elements (search bar, chips, avatars).
-- Stage every pin image inside a `{component.pin-card}` with no internal padding — the photograph IS the card.
-- Stack content sections at `{spacing.section}` (64px) rhythm; tighten pin grids to `{spacing.sm}` (8px) gutters so imagery effectively touches.
-- Use `{component.pin-overlay-pill}` to anchor a search-term tag in the corner of a category-tile pin photograph — the system's signature decorative gesture.
-- Build hierarchy from font weight (400 → 600 → 700) and size, not from color tinting. Body stays `{colors.body}` regardless of section context.
-- Apply -1.2px letter-spacing on `{typography.display-xl}` and `{typography.heading-xl}`. The negative tracking is part of the brand voice.
+- Reserve `{colors.primary}` (F1 Red) for: the active tab fill, primary button, filter chip active state, input focus ring, and the live indicator. It is never decorative.
+- Use `{colors.carbon-gold}` only for achievement states (badge unlock modal, P1 rank chip, Pit Wall telemetry gold label). Keep it scarce — one per screen maximum.
+- Apply team base colors dynamically from `Team.baseColor`. Never hardcode a team color into the design token system.
+- Use JetBrains Mono for every racing number and code. Use Inter for every conversational or editorial text. Never mix these registers.
+- Use `{rounded.lg}` (12px / `rounded-xl`) for primary cards and `{rounded.md}` (8px / `rounded-lg`) for interactive elements. Do not introduce intermediate values.
+- Include a `{component.racing-border}` left stripe on cards that carry live countdown or ranked data — it is the system's signature accent gesture.
+- Stack surfaces in charcoal-900 → charcoal-800 → charcoal-900 order (body → card → inner panel). This three-layer rhythm is the entire elevation model.
+- Use `animate-ping` + `animate-pulse` only on the live red dot and the "레이스 대기 중" status — sparingly, for genuine liveness signals.
 
 ### Don't
-- Don't use sharp-cornered buttons or cards. There are no `{rounded.none}` interactive elements in the system.
-- Don't introduce drop shadows on cards. The only shadow in the system is the 16px ambient under `{component.modal-card}`.
-- Don't pad `{component.pin-card}` internally. The image is full-bleed; metadata sits over the image as an overlay pill, not below it.
-- Don't replace `{colors.primary}` with another red. The brand red is precise — `#e60023`.
-- Don't use `{colors.ink-soft}` (the body-prose link tint) outside of inline body anchor links. It is not a chrome color.
-- Don't introduce a third radius value between 16px and 32px. The system jumps directly from md to lg with nothing in between.
+- Don't use F1 Red for decorative illustration, dividers, or text that isn't a primary action or brand wordmark.
+- Don't apply drop shadows to standard cards or the navigation bar. The only shadow in the system is on the achievement modal.
+- Don't use Space Grotesk for body copy or Inter for race statistics — the three-font rule is strict.
+- Don't introduce a new accent color beyond F1 Red and Carbon Gold. Team dynamic colors are applied programmatically, not as new design system tokens.
+- Don't use `{rounded.xl}` (16px) on anything except the hero banner and achievement modal. It signals "most important surface."
+- Don't apply the `carbon-grid` background inside cards or modals — it belongs only on the page body.
+- Don't use `backdrop-blur` outside modal overlays. It is not a nav treatment in this system.
 
 ## Responsive Behavior
 
@@ -550,48 +576,41 @@ The radius vocabulary is essentially three values: 16px for most things, 32px fo
 
 | Name | Width | Key Changes |
 |---|---|---|
-| ultrawide | 1920px+ | Pin grid expands to 5–6 columns; content max-width holds at ~1280px |
-| desktop-large | 1440px | Default — 4-column pin grid, full primary nav |
-| desktop | 1280px | Same layout with narrower outer gutters |
-| desktop-small | 1024px | Pin grid collapses to 3 columns; sub-nav remains horizontal |
-| tablet | 768px | Pin grid collapses to 2 columns; primary nav becomes hamburger drawer; search bar becomes icon-only |
-| mobile | 480px | Single-column pin grid; hero `{typography.display-xl}` scales 70px → ~44px |
-| mobile-narrow | 320px | Hero further scales to ~36px; section padding tightens to 32px |
+| mobile | 0–639px | Single-column layouts throughout; hero headline scales down to ~28px; countdown grid 4-up (compressed); nav collapses to hamburger |
+| sm | 640px | Footer switches to `flex-row`; some 2-column grids activate |
+| md | 768px | Meme grid goes 2-column; Pit Wall constructor grid goes 2-column; Garages driver list activates |
+| lg | 1024px | Desktop nav appears (horizontal tab pills); all major 2/3+1/3 and 3+1 grid splits activate; mobile drawer hidden |
+| xl+ | 1280px | Content locked at max-w-7xl; outer gutters grow |
 
 ### Touch Targets
-All interactive elements meet WCAG AA (≥ 44×44px). `{component.button-primary}` and `{component.button-secondary}` sit at ~40px height with 14px horizontal padding (effective ~40×80px tappable). `{component.search-bar}` sits at 48px. `{component.text-input}` sits at 44px. `{component.filter-chip}` is ~36–40px height with 16px padding — extends to 44px tappable via inline padding. `{component.button-icon-circular}` is exactly 40×40 with extended hit-target padding to 48×48 inside the parent.
+All interactive elements meet 44×44px minimum. Primary and secondary buttons sit at ~40px height — extended to 44px effective tap target via padding. Filter chips are ~36px height with horizontal padding that brings the effective target to 44px. The hamburger and profile widget are both 44px touch targets. Input fields sit at ~36px height with the surrounding form row providing the full tap zone.
 
 ### Collapsing Strategy
-- **Primary nav:** desktop horizontal cluster → tablet hamburger drawer at 768px. The red Sign-up CTA stays visible at every breakpoint.
-- **Search bar:** desktop centered (~480px wide) → tablet compressed (~320px) → mobile collapses to a magnifier icon that expands to a full-width overlay on tap.
-- **Pin masonry grid:** 5/6-up → 4-up → 3-up → 2-up → 1-up at 1920, 1024, 768, and 480px. Gutters drop from 8px to 6px on mobile.
-- **Home feature row:** desktop alternating left/right 2-column → tablet vertical stack with text above image → mobile single-column with full-bleed image.
-- **Modal:** desktop centered ~480px-wide card → mobile full-width sheet with rounded `{rounded.lg}` top-only and bottom-anchored CTA.
-- **Section padding:** `{spacing.section}` (64px) desktop → 48px tablet → 32px mobile.
-- **Hero headline:** `{typography.display-xl}` (70px) at desktop, scaling 56px / 44px / 36px down the breakpoint stack.
-- **Footer:** 4-up link columns → 2-up at tablet → full accordion at mobile (each header becomes a tap-to-expand row).
-
-### Image Behavior
-- Pin imagery preserves natural aspect ratio at every breakpoint; the column count changes, not the aspect.
-- Category tile thumbnails maintain 1:1 across all sizes.
-- Hero feature imagery uses art-direction crops on mobile (4:5 portrait → square) so the subject stays centered when the layout collapses to single-column.
-- All non-critical imagery is lazy-loaded as the user scrolls into the next grid row.
+- **Primary nav:** desktop horizontal pill tabs (`lg`) → hamburger icon at mobile/tablet. The profile widget stays visible at every breakpoint.
+- **Hamburger drawer:** 2-column grid of tab buttons sliding in below the header.
+- **Hero headline:** `{typography.display-lg}` at 44px desktop → `text-3xl` (~30px) at mobile (`md:text-5xl text-3xl` pattern).
+- **Card grids:** the 4-column shortcut grid collapses: 4-up at `lg`, 2-up at `md`, 1-up at mobile. The 3-column column grid collapses: 3-up at `lg`, 1-up at mobile (with click-to-expand staying full-width).
+- **PitWall grid:** 2/3 standings + 1/3 schedule side-by-side at `lg`, stacked at mobile.
+- **Chat window:** `h-[520px]` fixed height with internal scroll; sidebar moves below at mobile (`grid-cols-1 lg:grid-cols-3`).
+- **Circuit selector:** horizontal scrolling tab strip at mobile (`flex-row overflow-x-auto`), vertical sidebar at `lg`.
+- **Section spacing:** `space-y-8` (32px) maintained at all breakpoints — no tightening on mobile.
+- **Footer:** `flex-col` at mobile, `sm:flex-row sm:items-center sm:justify-between` at 640px+.
 
 ## Iteration Guide
 
-1. Focus on ONE component at a time. Pull its YAML entry and verify every property resolves.
-2. Reference component names and tokens directly (`{colors.primary}`, `{component.button-primary-pressed}`, `{rounded.md}`) — do not paraphrase.
-3. Run `npx @google/design.md lint DESIGN.md` after edits — `broken-ref`, `contrast-ratio`, and `orphaned-tokens` warnings flag issues automatically.
-4. Add new variants as separate component entries (`-pressed`, `-disabled`, `-focused`) — do not bury them inside prose.
-5. Default body to `{typography.body-md}`; reach for `{typography.body-strong}` for emphasis; reserve `{typography.display-xl}` strictly for top-of-page hero headlines.
-6. Keep `{colors.primary}` scarce — at most one Pinterest-red CTA per fold (counting nav, hero, and feature-card CTAs together).
-7. When introducing a new component, ask whether it can be expressed with the existing pin-card + 16px-radius + cream-surface vocabulary before adding new tokens. The system's strength is that it almost never needs new ones.
+1. Pull the token YAML before touching any color, radius, or spacing value. Every property must resolve to a token or a documented team-dynamic color.
+2. Use JetBrains Mono for any number that represents race data; use Inter for everything else. This is the system's single most important rule.
+3. When adding a new card variant, build it from `{component.card}` + `{component.card-inner}` composition first. Only deviate when the layout genuinely cannot be expressed with the existing stack.
+4. Apply team dynamic colors as: `backgroundColor: team-color + 'XX'` (hex opacity suffix) or `style={{ backgroundColor: team.baseColor + '20' }}`. Never hardcode a team color.
+5. Reserve `{colors.primary}` for one interactive signal per fold. If a new section needs a CTA and a live indicator in the same viewport, choose one to carry red and use gold or ghost for the other.
+6. The `racing-border` class should appear on exactly one card per section — the one carrying the most time-sensitive data (countdown, next race, live standings).
+7. Entrance animations (`animate-fade-in` on page views, `animate-scale-up` on modals) are the only page-level motion. Do not add scroll-triggered animations.
 
 ## Known Gaps
 
-- **Mobile screenshots not captured** — responsive behavior synthesizes Pinterest's known mobile pattern (hamburger drawer, single-column grid, hero downscale) from desktop evidence and the documented breakpoint stack.
-- **Hover states not documented** by system policy.
-- **Pin-detail close-up (single pin overlay)** is not in the captured set — the in-product Pin detail view (with comments, related pins, save board picker) likely introduces components not documented here.
-- **Authenticated chrome** (logged-in home feed, board pages, profile pages) not in the captured pages — the captured surfaces are the logged-out marketing and search experience.
-- **Pinterest mobile app screens** not in the system documented here — this is the web-only chrome.
-- **Form validation states** (success / error inline messages) not documented; only the focused-state field is captured.
+- **Real backend not implemented** — chat messages simulate with `setInterval` auto-messages; memes, threads, and columns are in-memory state that resets on reload. The design system documents the UI layer only.
+- **Team colors not exhaustively tested for contrast** — `baseColor` values from `data.ts` are used directly on dark backgrounds without systematic WCAG contrast checking. Low-luminance team colors (e.g., dark blue) may not meet AA on charcoal-800.
+- **F1 101 component not documented here** — the F1101 component uses the same card and inner-panel vocabulary but introduces a card-news/flashcard pattern not covered in the component spec above.
+- **BoostMode and PaddockStore** — these components exist in the prototype but are excluded from the MVP scope. Their component patterns (tap-to-boost interaction, store item card) are not documented.
+- **Dark mode only** — the system is dark-mode exclusive. No light mode token variants exist.
+- **Mobile screenshots not captured** — responsive behavior is derived from Tailwind breakpoint classes in the source, not from visual QA at each breakpoint.

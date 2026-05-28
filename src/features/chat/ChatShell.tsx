@@ -1,74 +1,52 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { TeamChatTabs } from "./TeamChatTabs";
 import { ChatBubble } from "./ChatBubble";
 import { LiveIndicator } from "./LiveIndicator";
-import { useChatMessages } from "./hooks/useChatMessages";
-import { canPostInTeamChat, getTeam, isRealTeam } from "@/lib/teams";
-import type { UserProfile } from "@/lib/types";
-import type { RoomType } from "./types";
+import type { ChatMessage } from "./types";
 
 type Props = {
-  roomType: RoomType;
-  profile?: UserProfile | null;
-  /** Active team in The Garage (team mode only). */
-  activeTeamId?: string;
-  onTeamChange?: (teamId: string) => void;
+  title: string;
+  subtitle: string;
+  messages: ChatMessage[];
+  /** Nickname of the current user, used to align own bubbles. */
+  myNickname?: string;
+  canPost: boolean;
+  lockReason: string | null;
+  /** Optional content under the header (e.g. team tabs). */
+  header?: ReactNode;
+  onSend: (text: string) => void;
 };
 
 /**
- * Chat room (FR-002~FR-005 + change `expand-team-roster-and-cross-team-chat`).
- *
- * Global mode: anyone with a profile can post.
- * Team mode: every team's chat is readable; the composer is gated by
- * canPostInTeamChat(profile, activeTeamId).
+ * Presentational chat shell shared by GlobalChatRoom and TeamChatRoom.
+ * Owns only the local draft + auto-scroll; all permission/title logic is
+ * decided by the parent room component.
  */
-export function ChatRoom({ roomType, profile, activeTeamId, onTeamChange }: Props) {
-  const { messages, sendMessage } = useChatMessages(roomType);
+export function ChatShell({
+  title,
+  subtitle,
+  messages,
+  myNickname,
+  canPost,
+  lockReason,
+  header,
+  onSend,
+}: Props) {
   const [draft, setDraft] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
-
-  const visible = useMemo(() => {
-    if (roomType === "global") return messages;
-    return messages.filter((m) => m.teamId === activeTeamId);
-  }, [messages, roomType, activeTeamId]);
 
   // Auto-scroll to the newest message.
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [visible.length]);
-
-  const team = activeTeamId ? getTeam(activeTeamId) : undefined;
-  const myTeamId =
-    profile && isRealTeam(profile.selectedTeamId)
-      ? profile.selectedTeamId
-      : undefined;
-
-  const canPost =
-    roomType === "global"
-      ? Boolean(profile)
-      : canPostInTeamChat(profile ?? null, activeTeamId ?? "");
-
-  const lockReason = !profile
-    ? "온보딩을 완료하면 채팅에 참여할 수 있어요"
-    : roomType === "team" && !canPost
-      ? `읽기 전용 — ${team?.name ?? "이 팀"} 팬만 발언할 수 있어요`
-      : null;
-
-  const title =
-    roomType === "global"
-      ? "The Main Straight"
-      : `The Garage — ${team?.name ?? "팀 선택"}`;
-  const subtitle =
-    roomType === "global"
-      ? "전체 채팅"
-      : "팀 채팅 · 다른 팀 채팅도 읽을 수 있어요";
+  }, [messages.length]);
 
   function handleSend() {
-    if (!canPost || !profile) return;
-    sendMessage(draft, profile, activeTeamId);
+    if (!canPost) return;
+    const text = draft.trim();
+    if (!text) return;
+    onSend(text);
     setDraft("");
   }
 
@@ -86,15 +64,7 @@ export function ChatRoom({ roomType, profile, activeTeamId, onTeamChange }: Prop
         <LiveIndicator />
       </div>
 
-      {roomType === "team" && activeTeamId && onTeamChange && (
-        <div className="pt-4">
-          <TeamChatTabs
-            activeTeamId={activeTeamId}
-            onSelect={onTeamChange}
-            myTeamId={myTeamId}
-          />
-        </div>
-      )}
+      {header && <div className="pt-4">{header}</div>}
 
       {lockReason && (
         <div className="mt-4 flex items-center gap-2 rounded-lg border border-[var(--color-carbon-gold)]/30 bg-[var(--color-carbon-gold)]/10 px-3 py-2">
@@ -105,21 +75,28 @@ export function ChatRoom({ roomType, profile, activeTeamId, onTeamChange }: Prop
         </div>
       )}
 
-      <div className="mt-4 flex-1 space-y-3 overflow-y-auto pr-1" style={{ minHeight: 280, maxHeight: 420 }}>
-        {visible.length === 0 ? (
+      <div
+        className="mt-4 flex-1 space-y-3 overflow-y-auto pr-1"
+        style={{ minHeight: 280, maxHeight: 420 }}
+      >
+        {messages.length === 0 ? (
           <div className="flex h-full items-center justify-center">
             <EmptyState
               icon="💬"
               title="아직 메시지가 없어요"
-              description="첫 메시지를 남겨보세요. 잠시 후 다른 팬들의 메시지도 도착합니다."
+              description={
+                canPost
+                  ? "첫 메시지를 남겨보세요. 잠시 후 다른 팬들의 메시지도 도착합니다."
+                  : "이 채팅의 메시지가 아직 없어요. 잠시 후 새 메시지가 도착합니다."
+              }
             />
           </div>
         ) : (
-          visible.map((m) => (
+          messages.map((m) => (
             <ChatBubble
               key={m.id}
               message={m}
-              isOwn={Boolean(profile) && m.nickname === profile!.nickname}
+              isOwn={Boolean(myNickname) && m.nickname === myNickname}
             />
           ))
         )}

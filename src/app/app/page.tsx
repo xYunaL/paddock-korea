@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { AppHeader, type TabId } from "@/components/layout/AppHeader";
 import { OnboardingModal } from "@/components/onboarding/OnboardingModal";
-import { ChatRoom } from "@/features/chat/ChatRoom";
+import { GlobalChatRoom } from "@/features/chat/GlobalChatRoom";
+import { TeamChatRoom } from "@/features/chat/TeamChatRoom";
+import { useChatMessages } from "@/features/chat/hooks/useChatMessages";
 import { MemeFeed } from "@/features/memes/MemeFeed";
 import { F1101Guide } from "@/features/f1guide/F1101Guide";
 import { PitWallPage } from "@/features/pitwall/PitWallPage";
@@ -19,6 +21,15 @@ export default function AppPage() {
   const [garageTeamId, setGarageTeamId] = useState<string>(() =>
     defaultGarageTeamId(null)
   );
+
+  // Chat state lives here (above the tab switch) so messages survive when the
+  // user moves between tabs. Simulators run only while their tab is active.
+  const globalChat = useChatMessages("global", {
+    active: activeTab === "main-straight",
+  });
+  const teamChat = useChatMessages("team", {
+    active: activeTab === "garage",
+  });
 
   // Load saved profile on first mount; open onboarding if none exists.
   // localStorage is client-only, so this must run in an effect (a lazy
@@ -60,14 +71,21 @@ export default function AppPage() {
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">
         {activeTab === "main-straight" && (
-          <ChatRoom roomType="global" profile={profile} />
+          <GlobalChatRoom
+            profile={profile}
+            messages={globalChat.messages}
+            onSend={(text) => profile && globalChat.sendMessage(text, profile)}
+          />
         )}
         {activeTab === "garage" && (
-          <ChatRoom
-            roomType="team"
+          <TeamChatRoom
             profile={profile}
+            messages={teamChat.messages}
             activeTeamId={garageTeamId}
             onTeamChange={setGarageTeamId}
+            onSend={(text) =>
+              profile && teamChat.sendMessage(text, profile, garageTeamId)
+            }
           />
         )}
         {activeTab === "meme" && <MemeFeed profile={profile} />}

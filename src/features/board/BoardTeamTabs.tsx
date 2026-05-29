@@ -6,21 +6,18 @@ import { cn } from "@/lib/utils";
 type Props = {
   activeTeamId: string;
   onSelect: (teamId: string) => void;
-  /** The user's own team — gets a visual "내 팀" marker. */
+  /** The user's own team — gets a "내 팀" marker. */
   myTeamId?: string;
 };
 
 /**
- * Horizontal team selector for The Garage.
- * Lets any user browse every team's chat (read access); write access is
- * gated separately in ChatRoom via canPostInTeamChat().
- * Source: openspec/changes/expand-team-roster-and-cross-team-chat/specs/chat/spec.md
+ * Horizontal team selector for the team board (ported from chat TeamChatTabs).
  */
-export function TeamChatTabs({ activeTeamId, onSelect, myTeamId }: Props) {
+export function BoardTeamTabs({ activeTeamId, onSelect, myTeamId }: Props) {
   return (
     <nav
-      aria-label="팀 채팅 선택"
-      className="flex gap-1.5 overflow-x-auto border-b border-white/5 pb-3"
+      aria-label="팀 게시판 선택"
+      className="flex gap-1.5 overflow-x-auto pb-1"
     >
       {TEAMS.map((team) => {
         const active = team.id === activeTeamId;
@@ -33,7 +30,7 @@ export function TeamChatTabs({ activeTeamId, onSelect, myTeamId }: Props) {
             aria-pressed={active}
             title={mine ? `${team.fullName} (내 팀)` : team.fullName}
             className={cn(
-              "group relative flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
+              "flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
               active
                 ? "border-transparent text-white"
                 : "border-white/10 bg-[var(--color-charcoal-700)] text-white/55 hover:text-white"

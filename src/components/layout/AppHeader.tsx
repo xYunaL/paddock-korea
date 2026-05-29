@@ -4,11 +4,11 @@ import { cn } from "@/lib/utils";
 import { getTeam, SPECIAL_TEAM_CARDS } from "@/lib/teams";
 import type { UserProfile } from "@/lib/types";
 
-export type TabId = "main-straight" | "garage" | "meme" | "f1-101" | "pit-wall";
+export type TabId = "main-straight" | "board" | "meme" | "f1-101" | "pit-wall";
 
 export const TABS: { id: TabId; label: string }[] = [
-  { id: "main-straight", label: "Main Straight" },
-  { id: "garage", label: "Garage" },
+  { id: "main-straight", label: "Home" },
+  { id: "board", label: "Board" },
   { id: "meme", label: "Meme Box" },
   { id: "f1-101", label: "F1 101" },
   { id: "pit-wall", label: "Pit Wall" },

@@ -26,3 +26,33 @@ export function clearUserProfile(): void {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(KEY);
 }
+
+const CHEER_KEY = "paddock-korea:cheer";
+
+/** Per-browser cheer state: how many times the user cheered each team, and the
+ * last cheer date (KST YYYY-MM-DD) used to enforce the once-per-day rule. */
+export type CheerState = {
+  myCheers: Record<string, number>;
+  lastCheerDate: string | null;
+};
+
+export function getCheerState(): CheerState {
+  const empty: CheerState = { myCheers: {}, lastCheerDate: null };
+  if (typeof window === "undefined") return empty;
+  try {
+    const raw = window.localStorage.getItem(CHEER_KEY);
+    if (!raw) return empty;
+    const parsed = JSON.parse(raw) as CheerState;
+    return {
+      myCheers: parsed.myCheers ?? {},
+      lastCheerDate: parsed.lastCheerDate ?? null,
+    };
+  } catch {
+    return empty;
+  }
+}
+
+export function saveCheerState(state: CheerState): void {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(CHEER_KEY, JSON.stringify(state));
+}

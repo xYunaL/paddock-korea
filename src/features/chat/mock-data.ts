@@ -35,36 +35,6 @@ export const SEED_GLOBAL_MESSAGES: ChatMessage[] = [
   },
 ];
 
-export const SEED_TEAM_MESSAGES: ChatMessage[] = [
-  {
-    id: "seed-t-ferrari-1",
-    roomType: "team",
-    teamId: "ferrari",
-    nickname: "티포시지망생",
-    teamColor: "#dc0000",
-    text: "르클레르 이번엔 폴 가자!! 🔴",
-    timestamp: "2026-05-28T09:20:00+09:00",
-  },
-  {
-    id: "seed-t-mclaren-1",
-    roomType: "team",
-    teamId: "mclaren",
-    nickname: "파파야사랑",
-    teamColor: "#ff8000",
-    text: "노리스 피아스트리 듀오 올해 컨스트럭터 가져온다 🧡",
-    timestamp: "2026-05-28T09:21:00+09:00",
-  },
-  {
-    id: "seed-t-redbull-1",
-    roomType: "team",
-    teamId: "redbull",
-    nickname: "불스아이",
-    teamColor: "#1e41ff",
-    text: "하자르 신인인데 생각보다 잘하네요 🐂",
-    timestamp: "2026-05-28T09:22:00+09:00",
-  },
-];
-
 const SIM_NICKNAMES = [
   "패독지기",
   "그리드워커",

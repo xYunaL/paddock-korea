@@ -43,6 +43,14 @@ export function formatKstDateTime(iso: string): string {
 }
 
 /**
+ * Today's date in KST as "YYYY-MM-DD" (for once-per-day gating).
+ */
+export function todayKst(): string {
+  // en-CA gives ISO-like YYYY-MM-DD.
+  return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+}
+
+/**
  * Format an ISO timestamp into a 12-hour KST clock (e.g. "8:30 PM").
  */
 export function formatKstClock(iso: string): string {

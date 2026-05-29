@@ -16,11 +16,16 @@ type Props = {
   lockReason: string | null;
   /** Optional content under the header (e.g. team tabs). */
   header?: ReactNode;
+  /** Optional action shown in the header row (e.g. fullscreen/close button). */
+  headerAction?: ReactNode;
   onSend: (text: string) => void;
+  /** Message-area height bounds (px). Compact home vs. fullscreen reuse. */
+  minHeight?: number;
+  maxHeight?: number;
 };
 
 /**
- * Presentational chat shell shared by GlobalChatRoom and TeamChatRoom.
+ * Presentational chat shell used by GlobalChatRoom (compact + fullscreen).
  * Owns only the local draft + auto-scroll; all permission/title logic is
  * decided by the parent room component.
  */
@@ -32,7 +37,10 @@ export function ChatShell({
   canPost,
   lockReason,
   header,
+  headerAction,
   onSend,
+  minHeight = 280,
+  maxHeight = 420,
 }: Props) {
   const [draft, setDraft] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
@@ -61,7 +69,10 @@ export function ChatShell({
             {subtitle}
           </p>
         </div>
-        <LiveIndicator />
+        <div className="flex items-center gap-2">
+          {headerAction}
+          <LiveIndicator />
+        </div>
       </div>
 
       {header && <div className="pt-4">{header}</div>}
@@ -77,7 +88,7 @@ export function ChatShell({
 
       <div
         className="mt-4 flex-1 space-y-3 overflow-y-auto pr-1"
-        style={{ minHeight: 280, maxHeight: 420 }}
+        style={{ minHeight, maxHeight }}
       >
         {messages.length === 0 ? (
           <div className="flex h-full items-center justify-center">

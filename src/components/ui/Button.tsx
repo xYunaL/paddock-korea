@@ -13,10 +13,10 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-[var(--color-f1-red)] text-white hover:bg-[var(--color-f1-red-pressed)]",
+    "bg-[var(--color-f1-red)] text-[var(--text)] hover:bg-[var(--color-f1-red-pressed)]",
   secondary:
-    "border border-white/15 bg-[var(--color-charcoal-700)] text-white hover:bg-[var(--color-charcoal-650)]",
-  ghost: "text-white/65 hover:text-white",
+    "border border-[var(--border)] bg-[var(--color-charcoal-700)] text-[var(--text)] hover:bg-[var(--color-charcoal-650)]",
+  ghost: "text-[var(--text-muted)] hover:text-[var(--text)]",
 };
 
 export function Button({

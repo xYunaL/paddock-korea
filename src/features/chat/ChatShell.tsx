@@ -74,13 +74,13 @@ export function ChatShell({
   }
 
   return (
-    <section className="racing-border flex h-full flex-col rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)] p-6 pl-8">
-      <div className="flex items-center justify-between border-b border-white/5 pb-4">
+    <section className="racing-border flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6 pl-8">
+      <div className="flex items-center justify-between border-b border-[var(--border)] pb-4">
         <div>
           <h2 className="font-display text-xl font-black tracking-tight">
             {title}
           </h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-white/45">
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             {subtitle}
           </p>
         </div>
@@ -142,13 +142,13 @@ export function ChatShell({
           disabled={!canPost}
           aria-label="메시지 입력"
           placeholder={canPost ? "메시지를 입력하세요…" : "이 채팅은 읽기 전용입니다"}
-          className="flex-1 rounded-full border border-white/10 bg-[var(--color-charcoal-700)] px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-f1-red)] focus:outline-none disabled:opacity-60"
+          className="flex-1 rounded-full border border-[var(--border)] bg-[var(--color-charcoal-700)] px-4 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none disabled:opacity-60"
         />
         <button
           type="button"
           onClick={handleSend}
           disabled={!canPost || draft.trim().length === 0}
-          className="rounded-full bg-[var(--color-f1-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[var(--color-f1-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           Send
         </button>

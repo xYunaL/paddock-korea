@@ -15,7 +15,7 @@
 | 2 | localStorage 저장 정보 | 닉네임·팀·응원 카운트만 (비밀정보 없음) | 🟢 양호 |
 | 3 | XSS | `dangerouslySetInnerHTML` 미사용, JSX 자동 이스케이프 | 🟢 양호 |
 | 4 | 외부 링크 보안 속성 | 외부 `<a target=_blank>` 없음 | 🟢 해당 없음 |
-| 5 | `dangerouslySetInnerHTML` | 미사용 | 🟢 양호 |
+| 5 | `dangerouslySetInnerHTML` | 1건(테마 FOUC, 정적 문자열) — XSS 위험 없음 | 🟢 양호 |
 | 6 | 배포 전 설정 | **보안 응답 헤더 미설정** | 🟡 권장 |
 | 7 | 밈/외부 이미지 `<img src>` | http/https URL만 허용, 출처 제한 없음 | 🟡 경미 |
 
@@ -50,8 +50,9 @@
 - `src/`에 `target="_blank"`로 여는 **외부 링크 없음**, 하드코딩 `href="http..."` 없음(내부 이동은 Next `<Link>`/앵커 `#features`).
 - 가이드(향후): 외부 링크를 새 탭으로 열 경우 반드시 `rel="noopener noreferrer"` 부여(탭내빙 방지).
 
-### 2.5 dangerouslySetInnerHTML — 🟢 미사용
-- 전체 코드베이스에서 사용처 없음.
+### 2.5 dangerouslySetInnerHTML — 🟢 1건 (안전)
+- 유일한 사용처는 `src/app/layout.tsx`의 **테마 FOUC 방지 inline 스크립트**(라이트/다크 초기 클래스 설정).
+- **정적 리터럴 문자열**이며 사용자 입력·외부 데이터가 전혀 섞이지 않으므로 XSS 위험 없음. (`localStorage`에서 테마 값만 읽어 html 클래스를 토글)
 
 ### 2.6 배포 전 설정 — 🟡 권장
 - `next.config.ts`가 비어 있어 **보안 응답 헤더가 설정되지 않음**. Vercel이 HSTS 등 일부 기본값을 제공하지만, 다음 헤더를 명시 권장:

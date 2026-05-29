@@ -28,10 +28,10 @@ export function F1101Guide() {
   }, [searching, trimmed, category]);
 
   return (
-    <section className="rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)] p-6">
-      <header className="border-b border-white/5 pb-4">
+    <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+      <header className="border-b border-[var(--border)] pb-4">
         <h2 className="font-display text-xl font-black tracking-tight">F1 101</h2>
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-white/45">
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
           입문자를 위한 용어·전략 가이드
         </p>
       </header>
@@ -44,7 +44,7 @@ export function F1101Guide() {
           onChange={(e) => setKeyword(e.target.value)}
           placeholder="용어·전략 검색 (예: DRS, 언더컷)"
           aria-label="가이드 검색"
-          className="w-full rounded-full border border-white/10 bg-[var(--color-charcoal-700)] px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-f1-red)] focus:outline-none"
+          className="w-full rounded-full border border-[var(--border)] bg-[var(--color-charcoal-700)] px-4 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
         />
       </div>
 
@@ -65,8 +65,8 @@ export function F1101Guide() {
             className={cn(
               "rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
               !searching && c === category
-                ? "bg-[var(--color-f1-red)] text-white"
-                : "border border-white/10 bg-[var(--color-charcoal-700)] text-white/65 hover:text-white"
+                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
+                : "border border-[var(--border)] bg-[var(--color-charcoal-700)] text-[var(--text-muted)] hover:text-[var(--text)]"
             )}
           >
             {c}

@@ -54,13 +54,13 @@ export function PitWallPage() {
   }, []);
 
   return (
-    <section className="rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)] p-6">
-      <header className="flex items-start justify-between border-b border-white/5 pb-4">
+    <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+      <header className="flex items-start justify-between border-b border-[var(--border)] pb-4">
         <div>
           <h2 className="font-display text-xl font-black tracking-tight">
             Pit Wall
           </h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-white/45">
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             순위 · 일정 (KST)
           </p>
         </div>
@@ -80,8 +80,8 @@ export function PitWallPage() {
             className={cn(
               "rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
               s.id === tab
-                ? "bg-[var(--color-f1-red)] text-white"
-                : "text-white/55 hover:text-white"
+                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
+                : "text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
             {s.label}
@@ -114,14 +114,14 @@ function SourceBadge({ source }: { source: PitWallResponse["source"] }) {
         "inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider",
         live
           ? "bg-[var(--color-carbon-gold)]/10 text-[var(--color-carbon-gold)]"
-          : "bg-[var(--color-charcoal-700)] text-white/45"
+          : "bg-[var(--color-charcoal-700)] text-[var(--text-subtle)]"
       )}
       title={live ? "OpenF1 실시간 데이터" : "오프라인 캐시 데이터"}
     >
       <span
         className={cn(
           "h-1.5 w-1.5 rounded-full",
-          live ? "bg-[var(--color-carbon-gold)]" : "bg-white/30"
+          live ? "bg-[var(--color-carbon-gold)]" : "bg-[var(--text-faint)]"
         )}
         aria-hidden
       />
@@ -158,7 +158,7 @@ function DriverAvatar({
   if (!url || broken) {
     return (
       <span
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-charcoal-600)] font-mono text-[9px] text-white/70"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-charcoal-600)] font-mono text-[9px] text-[var(--text-muted)]"
         style={ring}
         aria-hidden
       >
@@ -182,9 +182,9 @@ function DriverAvatar({
 
 function DriversTable({ rows }: { rows: DriverStanding[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-white/8">
+    <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
       <table className="w-full text-sm">
-        <thead className="bg-[var(--color-charcoal-700)] text-white/55">
+        <thead className="bg-[var(--color-charcoal-700)] text-[var(--text-subtle)]">
           <tr className="font-mono text-[10px] uppercase tracking-wider">
             <th className="px-3 py-2 text-left">Pos</th>
             <th className="px-3 py-2 text-left">Driver</th>
@@ -198,9 +198,9 @@ function DriversTable({ rows }: { rows: DriverStanding[] }) {
             return (
               <tr
                 key={`${d.rank}-${d.code}`}
-                className="border-t border-white/5 hover:bg-white/[0.02]"
+                className="border-t border-[var(--border)] hover:bg-[var(--hover)]"
               >
-                <td className="px-3 py-2 font-mono text-white/70">{d.rank}</td>
+                <td className="px-3 py-2 font-mono text-[var(--text-muted)]">{d.rank}</td>
                 <td className="px-3 py-2">
                   <div className="flex items-center gap-2.5">
                     <DriverAvatar
@@ -209,8 +209,8 @@ function DriversTable({ rows }: { rows: DriverStanding[] }) {
                       teamColor={team?.baseColor}
                     />
                     <span>
-                      <span className="font-mono text-white/40">{d.code}</span>{" "}
-                      <span className="text-white">{d.name}</span>
+                      <span className="font-mono text-[var(--text-faint)]">{d.code}</span>{" "}
+                      <span className="text-[var(--text)]">{d.name}</span>
                     </span>
                   </div>
                 </td>
@@ -220,11 +220,11 @@ function DriversTable({ rows }: { rows: DriverStanding[] }) {
                     style={{ background: team?.baseColor }}
                     aria-hidden
                   />
-                  <span className="align-middle text-white/70">
+                  <span className="align-middle text-[var(--text-muted)]">
                     {team?.name ?? d.teamId}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-right font-mono text-white">
+                <td className="px-3 py-2 text-right font-mono text-[var(--text)]">
                   {d.points}
                 </td>
               </tr>
@@ -244,7 +244,7 @@ function ConstructorsGrid({ rows }: { rows: ConstructorStanding[] }) {
         return (
           <li
             key={`${c.rank}-${c.teamId}`}
-            className="flex items-center justify-between rounded-xl border border-white/8 bg-[var(--color-charcoal-700)] p-4"
+            className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--color-charcoal-700)] p-4"
           >
             <div className="flex items-center gap-3">
               <span
@@ -256,12 +256,12 @@ function ConstructorsGrid({ rows }: { rows: ConstructorStanding[] }) {
                 <p className="font-display text-sm font-bold">
                   {c.rank}. {team?.name ?? c.name}
                 </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-white/45">
+                <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
                   {c.name}
                 </p>
               </div>
             </div>
-            <span className="font-mono text-lg text-white">{c.points}</span>
+            <span className="font-mono text-lg text-[var(--text)]">{c.points}</span>
           </li>
         );
       })}
@@ -293,7 +293,7 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
                 "overflow-hidden rounded-xl border",
                 isNext
                   ? "border-[var(--color-f1-red)] bg-[var(--color-f1-red)]/8"
-                  : "border-white/8 bg-[var(--color-charcoal-700)]"
+                  : "border-[var(--border)] bg-[var(--color-charcoal-700)]"
               )}
             >
               <button
@@ -303,17 +303,17 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
                 className="flex w-full items-center justify-between gap-3 p-4 text-left"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-8 font-mono text-xs text-white/45">
+                  <span className="w-8 font-mono text-xs text-[var(--text-subtle)]">
                     R{race.round}
                   </span>
                   <div>
-                    <p className="text-sm font-bold text-white">
+                    <p className="text-sm font-bold text-[var(--text)]">
                       {race.grandPrix}
                     </p>
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-white/45">
+                    <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
                       {race.country}
                     </p>
-                    <p className="mt-1 font-display text-lg font-black tracking-tight text-white">
+                    <p className="mt-1 font-display text-lg font-black tracking-tight text-[var(--text)]">
                       {period}
                     </p>
                   </div>
@@ -323,7 +323,7 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
                     className={cn(
                       "font-mono text-[10px] uppercase tracking-wider",
                       race.status === "completed"
-                        ? "text-white/40"
+                        ? "text-[var(--text-faint)]"
                         : "text-[var(--color-carbon-gold)]"
                     )}
                   >
@@ -334,7 +334,7 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
                         : "예정"}
                   </span>
                   <span
-                    className="font-mono text-white/35"
+                    className="font-mono text-[var(--text-faint)]"
                     aria-hidden
                   >
                     {open ? "▲" : "▼"}
@@ -343,9 +343,9 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
               </button>
 
               {open && (
-                <div className="border-t border-white/8 p-2">
+                <div className="border-t border-[var(--border)] p-2">
                   {race.sessions.length === 0 ? (
-                    <p className="px-2 py-3 font-mono text-[11px] uppercase tracking-wider text-white/40">
+                    <p className="px-2 py-3 font-mono text-[11px] uppercase tracking-wider text-[var(--text-faint)]">
                       세션 정보 없음
                     </p>
                   ) : (
@@ -359,19 +359,19 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
                             className={cn(
                               "flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left transition-colors",
                               s.completed
-                                ? "cursor-pointer hover:bg-white/[0.04]"
+                                ? "cursor-pointer hover:bg-[var(--hover)]"
                                 : "cursor-not-allowed opacity-45"
                             )}
                           >
-                            <span className="font-mono text-[11px] uppercase tracking-wider text-white/75">
+                            <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
                               {formatKstMonthDay(s.startUtc)}
-                              <span className="mx-1.5 text-white/25">/</span>
+                              <span className="mx-1.5 text-[var(--text-faint)]">/</span>
                               {s.name}
-                              <span className="mx-1.5 text-white/25">/</span>
+                              <span className="mx-1.5 text-[var(--text-faint)]">/</span>
                               {formatKstClock(s.startUtc)} -{" "}
                               {formatKstClock(s.endUtc)}
                             </span>
-                            <span className="font-mono text-[10px] uppercase tracking-wider text-white/35">
+                            <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
                               {s.completed ? "결과 보기" : "예정"}
                             </span>
                           </button>
@@ -434,9 +434,9 @@ function SessionResultModal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)]"
+        className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)]"
       >
-        <header className="flex items-center justify-between border-b border-white/5 p-5">
+        <header className="flex items-center justify-between border-b border-[var(--border)] p-5">
           <div>
             <h3
               id="session-result-title"
@@ -444,7 +444,7 @@ function SessionResultModal({
             >
               {session.name}
             </h3>
-            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-white/45">
+            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
               {formatKstMonthDay(session.startUtc)} 결과
             </p>
           </div>
@@ -452,7 +452,7 @@ function SessionResultModal({
             type="button"
             onClick={onClose}
             aria-label="닫기"
-            className="rounded-full px-3 py-1 font-mono text-xs text-white/55 hover:text-white"
+            className="rounded-full px-3 py-1 font-mono text-xs text-[var(--text-subtle)] hover:text-[var(--text)]"
           >
             ✕
           </button>
@@ -469,7 +469,7 @@ function SessionResultModal({
               ))}
             </div>
           ) : !result || result.rows.length === 0 ? (
-            <p className="py-10 text-center font-mono text-[11px] uppercase tracking-wider text-white/40">
+            <p className="py-10 text-center font-mono text-[11px] uppercase tracking-wider text-[var(--text-faint)]">
               결과를 불러올 수 없습니다
             </p>
           ) : (
@@ -479,9 +479,9 @@ function SessionResultModal({
                 return (
                   <li
                     key={row.driverNumber}
-                    className="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/[0.02]"
+                    className="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-[var(--hover)]"
                   >
-                    <span className="w-6 text-center font-mono text-sm text-white/70">
+                    <span className="w-6 text-center font-mono text-sm text-[var(--text-muted)]">
                       {row.position || "—"}
                     </span>
                     <DriverAvatar
@@ -490,14 +490,14 @@ function SessionResultModal({
                       teamColor={team?.baseColor}
                     />
                     <span className="flex-1 text-sm">
-                      <span className="font-mono text-white/40">{row.code}</span>{" "}
-                      <span className="text-white">{row.name}</span>
+                      <span className="font-mono text-[var(--text-faint)]">{row.code}</span>{" "}
+                      <span className="text-[var(--text)]">{row.name}</span>
                     </span>
-                    <span className="font-mono text-[11px] text-white/55">
+                    <span className="font-mono text-[11px] text-[var(--text-subtle)]">
                       {team?.name ?? row.teamId}
                     </span>
                     {result.hasPoints && (
-                      <span className="w-10 text-right font-mono text-sm text-white">
+                      <span className="w-10 text-right font-mono text-sm text-[var(--text)]">
                         {row.points ?? 0}
                       </span>
                     )}

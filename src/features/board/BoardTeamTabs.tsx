@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 type Props = {
   activeTeamId: string;
   onSelect: (teamId: string) => void;
-  /** The user's own team — gets a "내 팀" marker. */
-  myTeamId?: string;
+  /** The user's own teams — get a "내 팀" marker. */
+  myTeamIds?: string[];
 };
 
 /**
  * Horizontal team selector for the team board (ported from chat TeamChatTabs).
  */
-export function BoardTeamTabs({ activeTeamId, onSelect, myTeamId }: Props) {
+export function BoardTeamTabs({ activeTeamId, onSelect, myTeamIds }: Props) {
   return (
     <nav
       aria-label="팀 게시판 선택"
@@ -21,7 +21,7 @@ export function BoardTeamTabs({ activeTeamId, onSelect, myTeamId }: Props) {
     >
       {TEAMS.map((team) => {
         const active = team.id === activeTeamId;
-        const mine = team.id === myTeamId;
+        const mine = Boolean(myTeamIds?.includes(team.id));
         return (
           <button
             key={team.id}
@@ -32,8 +32,8 @@ export function BoardTeamTabs({ activeTeamId, onSelect, myTeamId }: Props) {
             className={cn(
               "flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
               active
-                ? "border-transparent text-white"
-                : "border-white/10 bg-[var(--color-charcoal-700)] text-white/55 hover:text-white"
+                ? "border-transparent text-[var(--text)]"
+                : "border-[var(--border)] bg-[var(--color-charcoal-700)] text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
             style={active ? { backgroundColor: team.baseColor } : undefined}
           >

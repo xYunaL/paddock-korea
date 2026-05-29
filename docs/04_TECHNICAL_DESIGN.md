@@ -194,9 +194,13 @@ src/
 export type SpecialTeamId = 'none' | 'all';
 
 export type UserProfile = {
-  nickname: string;                          // 1–15자, localStorage 저장
-  selectedTeamId: Team['id'] | SpecialTeamId; // 11개 팀 ID 중 하나, 또는 가상 옵션
+  nickname: string;        // 1–15자, localStorage 저장
+  // 응원 팀 최대 2개. [] = 응원 팀 없음, ["all"] = 올팬,
+  // ["ferrari"] | ["ferrari","mclaren"] = 실제 팀 1~2개 (none/all은 단독)
+  selectedTeamIds: string[];
 };
+// 헬퍼(lib/teams.ts): getRealTeamIds / primaryTeamId / canPostInTeamChat
+//   / toggleTeamSelection(max 2) / isKnownProfileTeamIds
 
 // features/chat/types.ts
 export type RoomType = 'global' | 'team';

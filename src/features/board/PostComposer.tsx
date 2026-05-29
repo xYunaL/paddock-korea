@@ -31,19 +31,19 @@ export function PostComposer({ scopeLabel, onClose, onSubmit }: Props) {
       aria-labelledby="post-composer-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
     >
-      <div className="w-full max-w-lg rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)] p-6">
+      <div className="w-full max-w-lg rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
         <h2
           id="post-composer-title"
           className="font-display text-xl font-black tracking-tight"
         >
           글쓰기
         </h2>
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-white/45">
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
           {scopeLabel} 게시판
         </p>
 
         <label className="mt-5 block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-white/50">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             제목 *
           </span>
           <input
@@ -54,12 +54,12 @@ export function PostComposer({ scopeLabel, onClose, onSubmit }: Props) {
             maxLength={60}
             placeholder="제목을 입력하세요"
             aria-label="제목"
-            className="mt-2 w-full rounded-lg border border-white/10 bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-f1-red)] focus:outline-none"
+            className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
           />
         </label>
 
         <label className="mt-4 block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-white/50">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             본문 *
           </span>
           <textarea
@@ -68,7 +68,7 @@ export function PostComposer({ scopeLabel, onClose, onSubmit }: Props) {
             rows={5}
             placeholder="내용을 입력하세요"
             aria-label="본문"
-            className="mt-2 w-full resize-none rounded-lg border border-white/10 bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-f1-red)] focus:outline-none"
+            className="mt-2 w-full resize-none rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
           />
         </label>
 
@@ -76,7 +76,7 @@ export function PostComposer({ scopeLabel, onClose, onSubmit }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider text-white/55 hover:text-white"
+            className="rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider text-[var(--text-subtle)] hover:text-[var(--text)]"
           >
             취소
           </button>
@@ -84,7 +84,7 @@ export function PostComposer({ scopeLabel, onClose, onSubmit }: Props) {
             type="button"
             onClick={handleSubmit}
             disabled={!canSubmit}
-            className="rounded-full bg-[var(--color-f1-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full bg-[var(--color-f1-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             게시
           </button>

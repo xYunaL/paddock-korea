@@ -1,17 +1,31 @@
 import type { UserProfile } from "./types";
-import { isKnownProfileTeamId } from "./teams";
+import { isKnownProfileTeamIds } from "./teams";
 
 const KEY = "paddock-korea:user-profile";
+
+type StoredProfile = {
+  nickname?: string;
+  selectedTeamIds?: unknown;
+  /** legacy single-team field */
+  selectedTeamId?: string;
+};
 
 export function getUserProfile(): UserProfile | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem(KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as UserProfile;
-    if (!parsed.nickname || !parsed.selectedTeamId) return null;
-    if (!isKnownProfileTeamId(parsed.selectedTeamId)) return null;
-    return parsed;
+    const parsed = JSON.parse(raw) as StoredProfile;
+    if (!parsed.nickname) return null;
+
+    // Migrate legacy single-team profiles → array model.
+    let ids = parsed.selectedTeamIds;
+    if (ids === undefined && typeof parsed.selectedTeamId === "string") {
+      ids = parsed.selectedTeamId === "none" ? [] : [parsed.selectedTeamId];
+    }
+
+    if (!isKnownProfileTeamIds(ids)) return null;
+    return { nickname: parsed.nickname, selectedTeamIds: ids };
   } catch {
     return null;
   }

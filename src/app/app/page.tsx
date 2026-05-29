@@ -10,6 +10,7 @@ import { useBoard } from "@/features/board/hooks/useBoard";
 import { MemeFeed } from "@/features/memes/MemeFeed";
 import { F1101Guide } from "@/features/f1guide/F1101Guide";
 import { PitWallPage } from "@/features/pitwall/PitWallPage";
+import { MyPageView } from "@/features/mypage/MyPageView";
 import { getUserProfile, saveUserProfile } from "@/lib/storage";
 import type { UserProfile } from "@/lib/types";
 
@@ -17,19 +18,15 @@ export default function AppPage() {
   const [activeTab, setActiveTab] = useState<TabId>("main-straight");
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [onboardingOpen, setOnboardingOpen] = useState(false);
-  const [editingProfile, setEditingProfile] = useState(false);
 
-  // Global chat state lives here (above the tab switch) so messages survive
-  // when the user moves between tabs. Simulator runs only on the Home tab.
+  // Global chat + board state lifted to page level so they survive tab switches.
   const globalChat = useChatMessages("global", {
     active: activeTab === "main-straight",
   });
-  // Board posts also lifted so writes persist across tab switches.
   const board = useBoard();
 
   // Load saved profile on first mount; open onboarding if none exists.
-  // localStorage is client-only, so this must run in an effect (a lazy
-  // useState initializer would mismatch during server prerender).
+  // localStorage is client-only, so this must run in an effect.
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     const saved = getUserProfile();
@@ -45,13 +42,12 @@ export default function AppPage() {
     saveUserProfile(next);
     setProfile(next);
     setOnboardingOpen(false);
-    setEditingProfile(false);
-    if (!editingProfile) setActiveTab("main-straight");
+    setActiveTab("main-straight");
   }
 
-  function openProfileEdit() {
-    setEditingProfile(true);
-    setOnboardingOpen(true);
+  function handleUpdateProfile(next: UserProfile) {
+    saveUserProfile(next);
+    setProfile(next);
   }
 
   return (
@@ -60,7 +56,7 @@ export default function AppPage() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         profile={profile}
-        onProfileClick={openProfileEdit}
+        onProfileClick={() => setActiveTab("mypage")}
       />
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">
@@ -75,15 +71,18 @@ export default function AppPage() {
         {activeTab === "meme" && <MemeFeed profile={profile} />}
         {activeTab === "f1-101" && <F1101Guide />}
         {activeTab === "pit-wall" && <PitWallPage />}
+        {activeTab === "mypage" && (
+          <MyPageView
+            profile={profile}
+            posts={board.posts}
+            onUpdateProfile={handleUpdateProfile}
+          />
+        )}
       </main>
 
       {onboardingOpen && (
         <OnboardingModal
-          initialProfile={editingProfile ? profile : null}
-          onClose={() => {
-            setOnboardingOpen(false);
-            setEditingProfile(false);
-          }}
+          onClose={() => setOnboardingOpen(false)}
           onComplete={handleComplete}
         />
       )}

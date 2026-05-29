@@ -39,6 +39,44 @@
 }
 
 /* =============================================================
+ * Semantic theme tokens — dark is the default (:root).
+ * Light mode overrides under html.light (see below).
+ * Components use these via text-[var(--text)], border-[var(--border)], etc.
+ * Charcoal background tokens are re-mapped in light mode, so surfaces using
+ * var(--color-charcoal-*) switch automatically.
+ * ============================================================= */
+:root {
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.68);
+  --text-subtle: rgba(255, 255, 255, 0.5);
+  --text-faint: rgba(255, 255, 255, 0.33);
+  --border: rgba(255, 255, 255, 0.09);
+  --hover: rgba(255, 255, 255, 0.05);
+  --bubble-other: #1c1c24;
+  --grid-line: rgba(255, 255, 255, 0.015);
+}
+
+html.light {
+  /* Re-map charcoal stack to light surfaces */
+  --color-charcoal-900: #f2f2f5;
+  --color-charcoal-800: #ffffff;
+  --color-charcoal-750: #fbfbfd;
+  --color-charcoal-700: #eeeef2;
+  --color-charcoal-650: rgba(0, 0, 0, 0.035);
+  --color-charcoal-600: rgba(0, 0, 0, 0.07);
+  --color-charcoal-500: rgba(0, 0, 0, 0.12);
+  /* Semantic */
+  --text: #15151a;
+  --text-muted: rgba(0, 0, 0, 0.62);
+  --text-subtle: rgba(0, 0, 0, 0.48);
+  --text-faint: rgba(0, 0, 0, 0.4);
+  --border: rgba(0, 0, 0, 0.11);
+  --hover: rgba(0, 0, 0, 0.04);
+  --bubble-other: #ececf1;
+  --grid-line: rgba(0, 0, 0, 0.03);
+}
+
+/* =============================================================
  * Base
  * ============================================================= */
 html {
@@ -49,7 +87,7 @@ html {
 html,
 body {
   background: var(--color-charcoal-900);
-  color: var(--color-text-primary);
+  color: var(--text);
   font-family: var(--font-body);
 }
 
@@ -64,8 +102,8 @@ body {
 .carbon-grid {
   background-color: var(--color-charcoal-900);
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 

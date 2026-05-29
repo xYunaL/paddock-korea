@@ -22,7 +22,14 @@ export type Team = {
  */
 export type SpecialTeamId = "none" | "all";
 
+/**
+ * Up to 2 supported teams.
+ *  - []          → 응원 팀 없음 ("none" card)
+ *  - ["all"]     → 올팬
+ *  - ["ferrari"] | ["ferrari","mclaren"] → 실제 팀 1~2개
+ * "none"/"all" never mix with real team ids.
+ */
 export type UserProfile = {
   nickname: string;
-  selectedTeamId: Team["id"] | SpecialTeamId;
+  selectedTeamIds: string[];
 };

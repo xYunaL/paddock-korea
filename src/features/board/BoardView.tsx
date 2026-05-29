@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/Button";
 import {
   canPostInTeamChat,
   defaultGarageTeamId,
+  getRealTeamIds,
   getTeam,
-  isRealTeam,
 } from "@/lib/teams";
 import { cn } from "@/lib/utils";
 import type { UserProfile } from "@/lib/types";
@@ -53,10 +53,7 @@ export function BoardView({ profile, board }: Props) {
   const [sortOrder, setSortOrder] = useState<SortOrder>("latest");
   const [composerOpen, setComposerOpen] = useState(false);
 
-  const myTeamId =
-    profile && isRealTeam(profile.selectedTeamId)
-      ? profile.selectedTeamId
-      : undefined;
+  const myTeamIds = getRealTeamIds(profile);
 
   const visible = useMemo(() => {
     const list = board.posts.filter((p) =>
@@ -86,13 +83,13 @@ export function BoardView({ profile, board }: Props) {
       : null;
 
   return (
-    <section className="rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)] p-6">
-      <header className="flex items-center justify-between border-b border-white/5 pb-4">
+    <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+      <header className="flex items-center justify-between border-b border-[var(--border)] pb-4">
         <div>
           <h2 className="font-display text-xl font-black tracking-tight">
             게시판
           </h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-white/45">
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             전체·팀별 커뮤니티
           </p>
         </div>
@@ -116,8 +113,8 @@ export function BoardView({ profile, board }: Props) {
             className={cn(
               "rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
               scope === s
-                ? "bg-[var(--color-f1-red)] text-white"
-                : "text-white/55 hover:text-white"
+                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
+                : "text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
             {s === "global" ? "전체" : "팀별"}
@@ -130,7 +127,7 @@ export function BoardView({ profile, board }: Props) {
           <BoardTeamTabs
             activeTeamId={activeTeamId}
             onSelect={setActiveTeamId}
-            myTeamId={myTeamId}
+            myTeamIds={myTeamIds}
           />
         </div>
       )}
@@ -155,8 +152,8 @@ export function BoardView({ profile, board }: Props) {
             className={cn(
               "rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors",
               s.id === sortOrder
-                ? "bg-[var(--color-f1-red)] text-white"
-                : "border border-white/10 bg-[var(--color-charcoal-700)] text-white/55 hover:text-white"
+                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
+                : "border border-[var(--border)] bg-[var(--color-charcoal-700)] text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
             {s.label}

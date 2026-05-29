@@ -42,19 +42,19 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
       aria-labelledby="meme-upload-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
     >
-      <div className="w-full max-w-md rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)] p-6">
+      <div className="w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
         <h2
           id="meme-upload-title"
           className="font-display text-xl font-black tracking-tight"
         >
           밈 올리기
         </h2>
-        <p className="mt-1 text-sm text-white/55">
+        <p className="mt-1 text-sm text-[var(--text-subtle)]">
           이미지 URL을 붙여넣고 캡션을 더해보세요.
         </p>
 
         <label className="mt-5 block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-white/50">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             Image URL *
           </span>
           <input
@@ -65,7 +65,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
             placeholder="https://example.com/meme.jpg"
             aria-label="이미지 URL"
             aria-invalid={showError}
-            className="mt-2 w-full rounded-lg border border-white/10 bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-f1-red)] focus:outline-none"
+            className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
           />
           {showError && (
             <span className="mt-1 block font-mono text-[10px] text-[var(--color-f1-red)]">
@@ -75,7 +75,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
         </label>
 
         {urlOk && (
-          <div className="mt-3 overflow-hidden rounded-lg border border-white/8">
+          <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageUrl}
@@ -86,7 +86,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
         )}
 
         <label className="mt-4 block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-white/50">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             Caption
           </span>
           <input
@@ -98,7 +98,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
             }}
             placeholder="(선택) 한 줄 캡션"
             aria-label="캡션"
-            className="mt-2 w-full rounded-lg border border-white/10 bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-f1-red)] focus:outline-none"
+            className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
           />
         </label>
 
@@ -106,7 +106,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider text-white/55 hover:text-white"
+            className="rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider text-[var(--text-subtle)] hover:text-[var(--text)]"
           >
             취소
           </button>
@@ -114,7 +114,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
             type="button"
             onClick={handleSubmit}
             disabled={!urlOk}
-            className="rounded-full bg-[var(--color-f1-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full bg-[var(--color-f1-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             게시
           </button>

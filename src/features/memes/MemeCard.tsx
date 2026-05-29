@@ -27,10 +27,10 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
   const meta = authorMeta(meme.authorTeamId);
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-white/8 bg-[var(--color-charcoal-700)]">
+    <article className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-700)]">
       <div className="relative aspect-[3/2] w-full bg-[var(--color-charcoal-750)]">
         {broken ? (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-white/40">
+          <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-[var(--text-faint)]">
             <span className="text-3xl" aria-hidden>🖼️</span>
             <span className="font-mono text-[10px] uppercase tracking-wider">
               이미지를 불러올 수 없습니다
@@ -51,10 +51,10 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
 
       <div className="p-4">
         {meme.caption && (
-          <p className="text-sm leading-relaxed text-white/90">{meme.caption}</p>
+          <p className="text-sm leading-relaxed text-[var(--text-muted)]">{meme.caption}</p>
         )}
         <div className="mt-3 flex items-center justify-between">
-          <span className="flex items-center gap-1.5 font-mono text-[11px] text-white/55">
+          <span className="flex items-center gap-1.5 font-mono text-[11px] text-[var(--text-subtle)]">
             <span aria-hidden>{meta.logo}</span>
             <span style={{ color: meta.color }}>{meme.authorNickname}</span>
           </span>
@@ -67,7 +67,7 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
               "flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] transition-colors",
               liked
                 ? "bg-[var(--color-f1-red)]/15 text-[var(--color-f1-red)]"
-                : "bg-[var(--color-charcoal-650)] text-white/55 hover:text-white"
+                : "bg-[var(--color-charcoal-650)] text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
             <span aria-hidden>{liked ? "❤️" : "🤍"}</span>

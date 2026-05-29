@@ -31,9 +31,19 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-charcoal-900 text-white font-body">
+      <head>
+        {/* Apply saved theme before paint to avoid a flash (default: dark). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('paddock-korea:theme');var light=t==='light';var c=document.documentElement.classList;c.toggle('light',light);c.toggle('dark',!light);}catch(e){}})();",
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-charcoal-900 text-[var(--text)] font-body">
         {children}
       </body>
     </html>

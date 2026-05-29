@@ -18,7 +18,7 @@ export function ChatBubble({ message, isOwn }: Props) {
         <span className="font-mono text-[11px] font-bold" style={{ color: message.teamColor }}>
           {message.nickname}
         </span>
-        <span className="font-mono text-[10px] text-white/35">
+        <span className="font-mono text-[10px] text-[var(--text-faint)]">
           {formatKstTime(message.timestamp)}
         </span>
       </div>
@@ -26,8 +26,8 @@ export function ChatBubble({ message, isOwn }: Props) {
         className={cn(
           "mt-1 max-w-[80%] rounded-2xl px-3.5 py-2 text-sm leading-relaxed",
           isOwn
-            ? "rounded-tr-none text-white"
-            : "rounded-tl-none bg-[#1c1c24] text-white/90"
+            ? "rounded-tr-none text-[var(--text)]"
+            : "rounded-tl-none bg-[var(--bubble-other)] text-[var(--text-muted)]"
         )}
         style={
           isOwn

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { getTeam } from "@/lib/teams";
+import { getTeam, primaryTeamId } from "@/lib/teams";
 import type { UserProfile } from "@/lib/types";
 import type { ChatMessage, RoomType } from "../types";
 import { SEED_GLOBAL_MESSAGES, makeSimMessage } from "../mock-data";
@@ -45,7 +45,7 @@ export function useChatMessages(roomType: RoomType, options?: Options) {
       const trimmed = text.trim();
       if (!trimmed) return;
 
-      const team = getTeam(profile.selectedTeamId);
+      const team = getTeam(primaryTeamId(profile) ?? "");
       const message: ChatMessage = {
         id: `me-${Date.now()}-${Math.floor(Math.random() * 1e6)}`,
         roomType,

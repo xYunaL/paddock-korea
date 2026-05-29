@@ -27,13 +27,13 @@ export function MemeFeed({ profile }: Props) {
   const [uploadOpen, setUploadOpen] = useState(false);
 
   return (
-    <section className="rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)] p-6">
-      <header className="flex items-center justify-between border-b border-white/5 pb-4">
+    <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+      <header className="flex items-center justify-between border-b border-[var(--border)] pb-4">
         <div>
           <h2 className="font-display text-xl font-black tracking-tight">
             Meme Box
           </h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-white/45">
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             팬 밈 모음
           </p>
         </div>
@@ -57,8 +57,8 @@ export function MemeFeed({ profile }: Props) {
             className={cn(
               "rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors",
               s.id === sortOrder
-                ? "bg-[var(--color-f1-red)] text-white"
-                : "border border-white/10 bg-[var(--color-charcoal-700)] text-white/55 hover:text-white"
+                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
+                : "border border-[var(--border)] bg-[var(--color-charcoal-700)] text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
             {s.label}

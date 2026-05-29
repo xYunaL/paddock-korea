@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { primaryTeamId } from "@/lib/teams";
 import type { UserProfile } from "@/lib/types";
 import type { BoardScope, Post } from "../types";
 import { SEED_POSTS } from "../mock-data";
@@ -37,7 +38,7 @@ export function useBoard() {
         title: title.trim(),
         body: body.trim(),
         authorNickname: profile.nickname,
-        authorTeamId: profile.selectedTeamId,
+        authorTeamId: primaryTeamId(profile) ?? "",
         likes: 0,
         createdAt: new Date().toISOString(),
         comments: [],
@@ -79,7 +80,7 @@ export function useBoard() {
                   {
                     id: newId("cmt"),
                     authorNickname: profile.nickname,
-                    authorTeamId: profile.selectedTeamId,
+                    authorTeamId: primaryTeamId(profile) ?? "",
                     text: trimmed,
                     createdAt: new Date().toISOString(),
                   },

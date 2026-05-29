@@ -39,19 +39,19 @@ export function PostCard({
   }
 
   return (
-    <article className="rounded-xl border border-white/8 bg-[var(--color-charcoal-700)]">
+    <article className="rounded-xl border border-[var(--border)] bg-[var(--color-charcoal-700)]">
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
         className="w-full p-4 text-left"
       >
-        <h3 className="font-display text-base font-bold text-white">
+        <h3 className="font-display text-base font-bold text-[var(--text)]">
           {post.title}
         </h3>
         <p
           className={cn(
-            "mt-1 text-sm text-white/65 leading-relaxed",
+            "mt-1 text-sm text-[var(--text-muted)] leading-relaxed",
             !expanded && "line-clamp-2"
           )}
         >
@@ -59,14 +59,14 @@ export function PostCard({
         </p>
         <div className="mt-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider">
           <span style={{ color }}>{post.authorNickname}</span>
-          <span className="text-white/30">·</span>
-          <span className="text-white/40">{formatKstMonthDay(post.createdAt)}</span>
+          <span className="text-[var(--text-faint)]">·</span>
+          <span className="text-[var(--text-faint)]">{formatKstMonthDay(post.createdAt)}</span>
         </div>
       </button>
 
       {expanded && (
-        <div className="border-t border-white/5 px-4 pb-4 pt-3">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-white/40">
+        <div className="border-t border-[var(--border)] px-4 pb-4 pt-3">
+          <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
             댓글 {post.comments.length}
           </p>
           <ul className="mt-2 grid gap-2">
@@ -78,7 +78,7 @@ export function PostCard({
                 >
                   {c.authorNickname}
                 </span>
-                <p className="mt-0.5 text-sm text-white/80">{c.text}</p>
+                <p className="mt-0.5 text-sm text-[var(--text-muted)]">{c.text}</p>
               </li>
             ))}
           </ul>
@@ -94,26 +94,26 @@ export function PostCard({
                 }}
                 placeholder="댓글 달기…"
                 aria-label="댓글 입력"
-                className="flex-1 rounded-full border border-white/10 bg-[var(--color-charcoal-800)] px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-f1-red)] focus:outline-none"
+                className="flex-1 rounded-full border border-[var(--border)] bg-[var(--color-charcoal-800)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
               />
               <button
                 type="button"
                 onClick={submitComment}
                 disabled={draft.trim().length === 0}
-                className="rounded-full bg-[var(--color-f1-red)] px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:opacity-50"
+                className="rounded-full bg-[var(--color-f1-red)] px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:opacity-50"
               >
                 등록
               </button>
             </div>
           ) : (
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-white/35">
+            <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
               읽기 전용 게시판입니다
             </p>
           )}
         </div>
       )}
 
-      <footer className="flex items-center justify-between border-t border-white/5 px-4 py-2">
+      <footer className="flex items-center justify-between border-t border-[var(--border)] px-4 py-2">
         <button
           type="button"
           onClick={() => onToggleLike(post.id)}
@@ -122,7 +122,7 @@ export function PostCard({
             "flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] transition-colors",
             liked
               ? "bg-[var(--color-f1-red)]/15 text-[var(--color-f1-red)]"
-              : "text-white/55 hover:text-white"
+              : "text-[var(--text-subtle)] hover:text-[var(--text)]"
           )}
         >
           <span aria-hidden>{liked ? "❤️" : "🤍"}</span>
@@ -131,7 +131,7 @@ export function PostCard({
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="font-mono text-[10px] uppercase tracking-wider text-white/40 hover:text-white"
+          className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)] hover:text-[var(--text)]"
         >
           💬 {post.comments.length} · {expanded ? "접기" : "댓글"}
         </button>

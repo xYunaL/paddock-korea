@@ -5,7 +5,7 @@ import { GlobalChatRoom } from "@/features/chat/GlobalChatRoom";
 import { CheerPanel } from "@/features/cheer/CheerPanel";
 import { CheerRanking } from "@/features/cheer/CheerRanking";
 import { useCheer } from "@/features/cheer/hooks/useCheer";
-import { isRealTeam } from "@/lib/teams";
+import { getRealTeamIds } from "@/lib/teams";
 import { formatKstMonthDay, cn } from "@/lib/utils";
 import type { UserProfile } from "@/lib/types";
 import type { ChatMessage } from "@/features/chat/types";
@@ -60,18 +60,14 @@ export function HomeView({ profile, messages, onSend }: Props) {
     };
   }, []);
 
-  const myTeamId =
-    profile && isRealTeam(profile.selectedTeamId)
-      ? profile.selectedTeamId
-      : undefined;
-  const myTeamTotal = myTeamId ? cheer.totalFor(myTeamId) : 0;
+  const myTeamIds = getRealTeamIds(profile);
 
   return (
     <div className="grid gap-4">
       {/* 그랑프리 현황 */}
-      <section className="racing-border rounded-2xl border border-white/8 bg-[var(--color-charcoal-800)] p-6 pl-8">
+      <section className="racing-border rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6 pl-8">
         <div className="flex items-center justify-between">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-white/45">
+          <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
             {live ? "지금 진행 중" : "다음 그랑프리"}
           </p>
           {live ? (
@@ -92,13 +88,13 @@ export function HomeView({ profile, messages, onSend }: Props) {
             <h2 className="mt-2 font-display text-2xl font-black tracking-tight">
               {nextRace.grandPrix}
             </h2>
-            <p className="mt-1 font-mono text-sm uppercase tracking-wider text-white/55">
+            <p className="mt-1 font-mono text-sm uppercase tracking-wider text-[var(--text-subtle)]">
               {nextRace.country} · {formatKstMonthDay(nextRace.startUtc)} –{" "}
               {formatKstMonthDay(nextRace.endUtc)}
             </p>
           </>
         ) : (
-          <p className="mt-2 text-sm text-white/55">일정을 불러오는 중…</p>
+          <p className="mt-2 text-sm text-[var(--text-subtle)]">일정을 불러오는 중…</p>
         )}
       </section>
 
@@ -108,10 +104,10 @@ export function HomeView({ profile, messages, onSend }: Props) {
           <CheerPanel
             profile={profile}
             canCheerToday={cheer.canCheerToday}
-            myTeamTotal={myTeamTotal}
+            totalFor={cheer.totalFor}
             onCheer={cheer.cheer}
           />
-          <CheerRanking ranking={cheer.ranking} myTeamId={myTeamId} />
+          <CheerRanking ranking={cheer.ranking} myTeamIds={myTeamIds} />
         </div>
 
         {/* 우: 전체 실시간 채팅(컴팩트) */}
@@ -126,7 +122,7 @@ export function HomeView({ profile, messages, onSend }: Props) {
               type="button"
               onClick={() => setFullscreen(true)}
               aria-label="채팅 전체화면"
-              className="rounded-full bg-[var(--color-charcoal-700)] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-white/60 hover:text-white"
+              className="rounded-full bg-[var(--color-charcoal-700)] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)] hover:text-[var(--text)]"
             >
               ⤢ 전체화면
             </button>
@@ -149,7 +145,7 @@ export function HomeView({ profile, messages, onSend }: Props) {
                   type="button"
                   onClick={() => setFullscreen(false)}
                   aria-label="전체화면 닫기"
-                  className="rounded-full bg-[var(--color-charcoal-700)] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-white/60 hover:text-white"
+                  className="rounded-full bg-[var(--color-charcoal-700)] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)] hover:text-[var(--text)]"
                 >
                   ✕ 닫기
                 </button>

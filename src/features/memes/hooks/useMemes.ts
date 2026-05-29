@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { primaryTeamId } from "@/lib/teams";
 import type { UserProfile } from "@/lib/types";
 import type { Meme } from "../types";
 import { SEED_MEMES } from "../mock-data";
@@ -29,7 +30,7 @@ export function useMemes() {
       imageUrl: imageUrl.trim(),
       caption: caption?.trim() || undefined,
       authorNickname: profile.nickname,
-      authorTeamId: profile.selectedTeamId,
+      authorTeamId: primaryTeamId(profile) ?? "",
       likes: 0,
       createdAt: new Date().toISOString(),
     };

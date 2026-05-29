@@ -15,9 +15,9 @@ export function EmptyState({ icon, title, description, action }: Props) {
           {icon}
         </div>
       )}
-      <h3 className="font-display text-lg font-bold text-white">{title}</h3>
+      <h3 className="font-display text-lg font-bold text-[var(--text)]">{title}</h3>
       {description && (
-        <p className="max-w-sm text-sm text-white/55 leading-relaxed">
+        <p className="max-w-sm text-sm text-[var(--text-subtle)] leading-relaxed">
           {description}
         </p>
       )}

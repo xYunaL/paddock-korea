@@ -165,34 +165,82 @@ export function isSpecialTeamId(id: string): id is SpecialTeamId {
   return SPECIAL_TEAM_ID_SET.has(id);
 }
 
-export function isKnownProfileTeamId(id: string): boolean {
-  return isRealTeam(id) || isSpecialTeamId(id);
+/** Validate a stored selectedTeamIds array. [] (none) is valid. */
+export function isKnownProfileTeamIds(ids: unknown): ids is string[] {
+  if (!Array.isArray(ids)) return false;
+  if (ids.length === 0) return true; // none
+  if (ids.includes("all")) return ids.length === 1; // all stands alone
+  return ids.length <= 2 && ids.every((id) => isRealTeam(id));
+}
+
+/** Real (non-virtual) team ids the user supports. */
+export function getRealTeamIds(
+  profile: Pick<UserProfile, "selectedTeamIds"> | null
+): string[] {
+  if (!profile) return [];
+  return profile.selectedTeamIds.filter(isRealTeam);
+}
+
+/** Primary team id (array head) for single-color/logo display + author tagging. */
+export function primaryTeamId(
+  profile: Pick<UserProfile, "selectedTeamIds"> | null
+): string | undefined {
+  return getRealTeamIds(profile)[0];
+}
+
+export function isAllFan(
+  profile: Pick<UserProfile, "selectedTeamIds"> | null
+): boolean {
+  return Boolean(profile && profile.selectedTeamIds.includes("all"));
+}
+
+export function hasNoTeam(
+  profile: Pick<UserProfile, "selectedTeamIds"> | null
+): boolean {
+  return !profile || profile.selectedTeamIds.length === 0;
 }
 
 /**
- * Compose permission for posting in a given team chat.
- *  - real team profile  → only their own team
- *  - "all"              → every team
- *  - "none"             → none
+ * Toggle a team/virtual option in a selection array (onboarding + my page).
+ *  - "none"/"all" clicks collapse to a single virtual selection.
+ *  - real team clicks toggle membership, capped at `max`, and clear any
+ *    virtual selection.
+ */
+export function toggleTeamSelection(
+  ids: string[],
+  id: string,
+  max = 2
+): string[] {
+  if (id === "none") return [];
+  if (id === "all") return ids.includes("all") ? [] : ["all"];
+  // real team
+  const reals = ids.filter(isRealTeam);
+  if (reals.includes(id)) return reals.filter((x) => x !== id);
+  if (reals.length >= max) return reals; // capped
+  return [...reals, id];
+}
+
+/**
+ * Compose permission for posting in a given team's board/chat.
+ *  - "all"            → every team
+ *  - real team(s)     → any of the supported teams
+ *  - none ([])        → no team
  */
 export function canPostInTeamChat(
-  profile: Pick<UserProfile, "selectedTeamId"> | null,
+  profile: Pick<UserProfile, "selectedTeamIds"> | null,
   activeTeamId: string
 ): boolean {
   if (!profile) return false;
-  if (profile.selectedTeamId === "all") return true;
-  if (profile.selectedTeamId === "none") return false;
-  return profile.selectedTeamId === activeTeamId;
+  const ids = profile.selectedTeamIds;
+  if (ids.includes("all")) return true;
+  return ids.includes(activeTeamId);
 }
 
 /**
  * Default active sub-team when the user lands on The Garage tab for the first time.
  */
 export function defaultGarageTeamId(
-  profile: Pick<UserProfile, "selectedTeamId"> | null
+  profile: Pick<UserProfile, "selectedTeamIds"> | null
 ): string {
-  if (profile && isRealTeam(profile.selectedTeamId)) {
-    return profile.selectedTeamId;
-  }
-  return TEAMS[0].id;
+  return getRealTeamIds(profile)[0] ?? TEAMS[0].id;
 }

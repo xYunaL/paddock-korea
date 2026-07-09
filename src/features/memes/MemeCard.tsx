@@ -28,9 +28,9 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
 
   return (
     <article className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-700)]">
-      <div className="relative aspect-[3/2] w-full bg-[var(--color-charcoal-750)]">
+      <div className="w-full bg-[var(--color-charcoal-750)]">
         {broken ? (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-[var(--text-faint)]">
+          <div className="flex min-h-40 w-full flex-col items-center justify-center gap-2 py-10 text-[var(--text-faint)]">
             <span className="text-3xl" aria-hidden>🖼️</span>
             <span className="font-mono text-[10px] uppercase tracking-wider">
               이미지를 불러올 수 없습니다
@@ -38,12 +38,13 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
           </div>
         ) : (
           // Plain img: meme URLs are user-supplied, unknown domains.
+          // Natural aspect ratio (no crop) for a Pinterest-style masonry feed.
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={meme.imageUrl}
             alt={meme.caption ?? `${meme.authorNickname}님의 밈`}
             onError={() => setBroken(true)}
-            className="h-full w-full object-cover"
+            className="block h-auto w-full"
             loading="lazy"
           />
         )}

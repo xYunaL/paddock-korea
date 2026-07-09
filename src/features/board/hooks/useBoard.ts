@@ -69,9 +69,11 @@ export function useBoard() {
   );
 
   const addComment = useCallback(
-    (postId: string, text: string, profile: UserProfile) => {
+    (postId: string, text: string, profile: UserProfile, imageUrl?: string) => {
       const trimmed = text.trim();
-      if (!trimmed) return;
+      const image = imageUrl?.trim() || undefined;
+      // Allow text-only, image-only, or both — but not empty.
+      if (!trimmed && !image) return;
       setPosts((prev) =>
         prev.map((p) =>
           p.id === postId
@@ -84,6 +86,7 @@ export function useBoard() {
                     authorNickname: profile.nickname,
                     authorTeamId: primaryTeamId(profile) ?? "",
                     text: trimmed,
+                    imageUrl: image,
                     createdAt: new Date().toISOString(),
                   },
                 ],

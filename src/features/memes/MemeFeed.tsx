@@ -73,14 +73,15 @@ export function MemeFeed({ profile }: Props) {
           description="이미지 URL로 첫 밈을 올려보세요."
         />
       ) : (
-        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <div className="mt-5 columns-2 gap-4 sm:columns-3 lg:columns-4">
           {memes.map((meme) => (
-            <MemeCard
-              key={meme.id}
-              meme={meme}
-              liked={likedIds.has(meme.id)}
-              onToggleLike={toggleLike}
-            />
+            <div key={meme.id} className="mb-4 break-inside-avoid">
+              <MemeCard
+                meme={meme}
+                liked={likedIds.has(meme.id)}
+                onToggleLike={toggleLike}
+              />
+            </div>
           ))}
         </div>
       )}

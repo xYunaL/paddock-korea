@@ -5,6 +5,8 @@ export type Comment = {
   authorNickname: string;
   authorTeamId: string;
   text: string;
+  /** Optional attached image URL (http/https). */
+  imageUrl?: string;
   createdAt: string;
 };
 

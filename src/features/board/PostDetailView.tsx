@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { canPostInTeamChat, getTeam } from "@/lib/teams";
-import { formatKstMonthDay, cn } from "@/lib/utils";
+import { formatKstMonthDay, isValidUrl, cn } from "@/lib/utils";
 import type { UserProfile } from "@/lib/types";
 import { authorColor } from "./authorColor";
 import { BoardImage } from "./BoardImage";
@@ -29,9 +29,16 @@ function CommentRow({ comment }: { comment: Comment }) {
           {formatKstMonthDay(comment.createdAt)}
         </span>
       </div>
-      <p className="mt-1 whitespace-pre-wrap text-sm text-[var(--text-muted)]">
-        {comment.text}
-      </p>
+      {comment.text && (
+        <p className="mt-1 whitespace-pre-wrap text-sm text-[var(--text-muted)]">
+          {comment.text}
+        </p>
+      )}
+      {comment.imageUrl && (
+        <div className="mt-2">
+          <BoardImage src={comment.imageUrl} className="max-h-72" />
+        </div>
+      )}
     </li>
   );
 }
@@ -42,6 +49,8 @@ function CommentRow({ comment }: { comment: Comment }) {
  */
 export function PostDetailView({ profile, board, postId, onBack }: Props) {
   const [draft, setDraft] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageOpen, setImageOpen] = useState(false);
 
   const post = board.posts.find((p) => p.id === postId);
 
@@ -75,14 +84,19 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
       ? Boolean(profile)
       : canPostInTeamChat(profile ?? null, post.teamId ?? "");
 
-  const canSubmit = canComment && draft.trim().length > 0;
+  const urlOk = isValidUrl(imageUrl);
+  const showUrlError = imageUrl.length > 0 && !urlOk;
+  const canSubmit =
+    canComment && (draft.trim().length > 0 || urlOk) && !showUrlError;
 
   function submit() {
     if (!canComment || !profile) return;
     const text = draft.trim();
-    if (!text) return;
-    board.addComment(post!.id, text, profile);
+    if (!text && !urlOk) return;
+    board.addComment(post!.id, text, profile, urlOk ? imageUrl.trim() : undefined);
     setDraft("");
+    setImageUrl("");
+    setImageOpen(false);
   }
 
   return (
@@ -161,32 +175,73 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
 
         {/* Composer */}
         {canComment ? (
-          <div className="mt-4 flex gap-2">
-            <input
-              type="text"
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={(e) => {
-                if (
-                  e.nativeEvent.isComposing ||
-                  e.key === "Process" ||
-                  e.keyCode === 229
-                )
-                  return;
-                if (e.key === "Enter") submit();
-              }}
-              placeholder="댓글 달기…"
-              aria-label="댓글 입력"
-              className="flex-1 rounded-full border border-[var(--border)] bg-[var(--color-charcoal-800)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
-            />
-            <button
-              type="button"
-              onClick={submit}
-              disabled={!canSubmit}
-              className="rounded-full bg-[var(--color-f1-red)] px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:opacity-50"
-            >
-              등록
-            </button>
+          <div className="mt-4">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onKeyDown={(e) => {
+                  if (
+                    e.nativeEvent.isComposing ||
+                    e.key === "Process" ||
+                    e.keyCode === 229
+                  )
+                    return;
+                  if (e.key === "Enter") submit();
+                }}
+                placeholder="댓글 달기…"
+                aria-label="댓글 입력"
+                className="flex-1 rounded-full border border-[var(--border)] bg-[var(--color-charcoal-800)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => setImageOpen((v) => !v)}
+                aria-pressed={imageOpen}
+                aria-label="사진 첨부"
+                title="사진 첨부"
+                className={cn(
+                  "rounded-full border px-3 py-2 text-sm transition-colors",
+                  imageOpen || urlOk
+                    ? "border-[var(--color-f1-red)] text-[var(--color-f1-red)]"
+                    : "border-[var(--border)] text-[var(--text-subtle)] hover:text-[var(--text)]"
+                )}
+              >
+                🖼️
+              </button>
+              <button
+                type="button"
+                onClick={submit}
+                disabled={!canSubmit}
+                className="rounded-full bg-[var(--color-f1-red)] px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:opacity-50"
+              >
+                등록
+              </button>
+            </div>
+
+            {imageOpen && (
+              <div className="mt-2">
+                <input
+                  type="url"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                  placeholder="https://example.com/image.jpg"
+                  aria-label="댓글 이미지 URL"
+                  aria-invalid={showUrlError}
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-800)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
+                />
+                {showUrlError && (
+                  <span className="mt-1 block font-mono text-[10px] text-[var(--color-f1-red)]">
+                    유효한 http(s) URL을 입력해주세요
+                  </span>
+                )}
+                {urlOk && (
+                  <div className="mt-2">
+                    <BoardImage src={imageUrl} alt="미리보기" className="max-h-40" />
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <p className="mt-4 font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">

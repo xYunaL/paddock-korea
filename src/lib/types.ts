@@ -50,6 +50,8 @@ export type SpecialTeamId = "none" | "all";
 export type UserProfile = {
   nickname: string;
   selectedTeamIds: string[];
+  /** Email entered at signup (email verification path). */
+  email?: string;
   /** Optional profile picture (http(s) or data URL). */
   avatarUrl?: string;
   /** Optional Discord-style driver tag — a Driver id (see drivers.ts). */

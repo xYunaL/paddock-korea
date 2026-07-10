@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Button } from "@/components/ui/Button";
+import { useAuthGate } from "@/components/auth/AuthGate";
 import { MemeCard } from "./MemeCard";
 import { MemeUploadModal } from "./MemeUploadModal";
 import { useMemes, type SortOrder } from "./hooks/useMemes";
@@ -25,6 +26,7 @@ export function MemeFeed({ profile }: Props) {
   const { memes, likedIds, sortOrder, setSortOrder, addMeme, toggleLike } =
     useMemes();
   const [uploadOpen, setUploadOpen] = useState(false);
+  const { requireAuth } = useAuthGate();
 
   return (
     <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
@@ -39,9 +41,7 @@ export function MemeFeed({ profile }: Props) {
         </div>
         <Button
           variant="secondary"
-          onClick={() => setUploadOpen(true)}
-          disabled={!profile}
-          title={profile ? undefined : "온보딩 완료 후 업로드할 수 있어요"}
+          onClick={() => (profile ? setUploadOpen(true) : requireAuth())}
         >
           + 밈 올리기
         </Button>

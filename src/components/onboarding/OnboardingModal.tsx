@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { toggleTeamSelection } from "@/lib/teams";
+import { saveTermsAgreement } from "@/lib/storage";
 import type { UserProfile } from "@/lib/types";
 import { TeamPickerGrid } from "./TeamPickerGrid";
+import { TermsContent, TERMS_VERSION } from "./terms";
 
 type Props = {
   /** Dismiss without saving (guest preview). */
@@ -29,8 +31,11 @@ export function OnboardingModal({ onClose, onComplete, initialProfile }: Props) 
   const [selected, setSelected] = useState<string[] | null>(
     initialProfile?.selectedTeamIds ?? null
   );
+  // Existing profiles editing here are treated as already-agreed.
+  const [agreed, setAgreed] = useState(Boolean(initialProfile));
 
-  const canSubmit = nickname.trim().length > 0 && selected !== null;
+  const canSubmit =
+    nickname.trim().length > 0 && selected !== null && agreed;
 
   function handleSelect(id: string) {
     setSelected((prev) => toggleTeamSelection(prev ?? [], id));
@@ -38,6 +43,7 @@ export function OnboardingModal({ onClose, onComplete, initialProfile }: Props) 
 
   function handleSubmit() {
     if (!canSubmit) return;
+    saveTermsAgreement(TERMS_VERSION);
     onComplete({ nickname: nickname.trim(), selectedTeamIds: selected ?? [] });
   }
 
@@ -88,6 +94,27 @@ export function OnboardingModal({ onClose, onComplete, initialProfile }: Props) 
           <div className="mt-2">
             <TeamPickerGrid selected={selected} onSelect={handleSelect} />
           </div>
+        </div>
+
+        <div className="mt-6">
+          <span className="text-[13px] font-medium text-[var(--text-muted)]">
+            이용약관 및 커뮤니티 가이드라인
+          </span>
+          <div className="mt-2 max-h-56 overflow-y-auto rounded-lg border border-[var(--border)] bg-[var(--surface-2)] p-4">
+            <TermsContent />
+          </div>
+          <label className="mt-3 flex cursor-pointer items-start gap-2.5">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              className="mt-0.5 h-4 w-4 accent-[var(--primary)]"
+            />
+            <span className="text-[13px] text-[var(--text)]">
+              위 이용약관 및 커뮤니티 가이드라인을 확인했으며 이에 동의합니다.{" "}
+              <span className="text-[var(--primary)]">(필수)</span>
+            </span>
+          </label>
         </div>
 
         <div className="mt-8 flex justify-end gap-2">

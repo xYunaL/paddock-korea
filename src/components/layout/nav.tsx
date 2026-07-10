@@ -121,7 +121,7 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "레이스",
     items: [
-      { id: "pit-wall", label: "핏월", icon: IconPitWall },
+      { id: "pit-wall", label: "순위/일정표", icon: IconPitWall },
       { id: "f1-101", label: "F1 용어 사전", icon: IconGuide },
     ],
   },

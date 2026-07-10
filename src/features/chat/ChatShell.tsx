@@ -18,6 +18,8 @@ type Props = {
   header?: ReactNode;
   /** Optional action shown in the header row (e.g. fullscreen/close button). */
   headerAction?: ReactNode;
+  /** Optional action shown inside the lock banner (e.g. a login button). */
+  lockAction?: ReactNode;
   onSend: (text: string) => void;
   /** Message-area height bounds (px). Ignored when `fill` is set. */
   minHeight?: number;
@@ -40,6 +42,7 @@ export function ChatShell({
   lockReason,
   header,
   headerAction,
+  lockAction,
   onSend,
   minHeight = 280,
   maxHeight = 420,
@@ -98,9 +101,10 @@ export function ChatShell({
       {lockReason && (
         <div className="mx-5 mt-4 flex items-center gap-2 rounded-lg border border-[var(--color-carbon-gold)]/30 bg-[var(--color-carbon-gold)]/8 px-3 py-2">
           <span aria-hidden>🔒</span>
-          <span className="text-[13px] font-medium text-[var(--color-carbon-gold)]">
+          <span className="flex-1 text-[13px] font-medium text-[var(--color-carbon-gold)]">
             {lockReason}
           </span>
+          {lockAction}
         </div>
       )}
 

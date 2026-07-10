@@ -10,6 +10,7 @@ export const SEED_POSTS: Post[] = [
     authorNickname: "패독지기",
     authorTeamId: "mercedes",
     likes: 42,
+    views: 318,
     createdAt: "2026-05-27T10:00:00+09:00",
     comments: [
       {
@@ -29,6 +30,7 @@ export const SEED_POSTS: Post[] = [
     authorNickname: "그리드워커",
     authorTeamId: "mclaren",
     likes: 28,
+    views: 205,
     createdAt: "2026-05-26T21:30:00+09:00",
     comments: [],
   },
@@ -41,6 +43,7 @@ export const SEED_POSTS: Post[] = [
     authorNickname: "포디엄가자",
     authorTeamId: "ferrari",
     likes: 15,
+    views: 96,
     createdAt: "2026-05-27T09:00:00+09:00",
     comments: [],
   },
@@ -53,6 +56,7 @@ export const SEED_POSTS: Post[] = [
     authorNickname: "파파야사랑",
     authorTeamId: "mclaren",
     likes: 11,
+    views: 74,
     createdAt: "2026-05-27T08:30:00+09:00",
     comments: [],
   },

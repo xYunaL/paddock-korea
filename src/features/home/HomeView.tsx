@@ -2,6 +2,10 @@
 
 import { CheerPanel } from "@/features/cheer/CheerPanel";
 import { CheerRanking } from "@/features/cheer/CheerRanking";
+import { DashboardActions } from "./DashboardActions";
+import { Avatar } from "@/components/ui/Avatar";
+import { DriverTag } from "@/components/ui/DriverTag";
+import { authorColor } from "@/features/board/authorColor";
 import { useCheer } from "@/features/cheer/hooks/useCheer";
 import { getRealTeamIds, getTeam } from "@/lib/teams";
 import { formatKstMonthDay, formatKstClock } from "@/lib/utils";
@@ -18,6 +22,7 @@ type Props = {
   posts: Post[];
   race: NextRaceState;
   onNavigate: (tab: TabId) => void;
+  onLogout: () => void;
 };
 
 /**
@@ -30,6 +35,7 @@ export function HomeView({
   posts,
   race,
   onNavigate,
+  onLogout,
 }: Props) {
   const cheer = useCheer();
   const myTeamIds = getRealTeamIds(profile);
@@ -42,13 +48,21 @@ export function HomeView({
   return (
     <div className="space-y-5">
       {/* Page heading */}
-      <div>
-        <h1 className="font-display text-2xl font-extrabold tracking-tight text-[var(--text)]">
-          안녕하세요, {greetingName}님
-        </h1>
-        <p className="mt-1 text-sm text-[var(--text-muted)]">
-          오늘의 패독 현황을 한눈에 확인하세요.
-        </p>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h1 className="font-display text-2xl font-extrabold tracking-tight text-[var(--text)]">
+            안녕하세요, {greetingName}님
+          </h1>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">
+            오늘의 패독 현황을 한눈에 확인하세요.
+          </p>
+        </div>
+        <DashboardActions
+          profile={profile}
+          posts={posts}
+          onNavigate={onNavigate}
+          onLogout={onLogout}
+        />
       </div>
 
       {/* GP status banner */}
@@ -93,7 +107,7 @@ export function HomeView({
             onClick={() => onNavigate("pit-wall")}
             className="shrink-0 self-start rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-[var(--text)] transition-colors hover:bg-[var(--surface-hover)] sm:self-auto"
           >
-            핏월에서 순위·일정 보기
+            순위/일정표 보기
           </button>
         </div>
       </section>
@@ -132,25 +146,22 @@ export function HomeView({
                 </li>
               ) : (
                 recentMessages.map((m) => (
-                  <li key={m.id} className="flex items-start gap-2.5">
-                    <span
-                      className="mt-1 h-6 w-1 shrink-0 rounded-full"
-                      style={{ background: m.teamColor }}
-                      aria-hidden
-                    />
-                    <div className="min-w-0">
-                      <p className="flex items-center gap-2 text-[13px]">
+                  <li key={m.id} className="flex items-start gap-2">
+                    <Avatar src={m.avatarUrl} name={m.nickname} size={22} />
+                    <div className="min-w-0 flex-1">
+                      <p className="flex items-center gap-1.5 text-[13px]">
                         <span
                           className="font-semibold"
                           style={{ color: m.teamColor }}
                         >
                           {m.nickname}
                         </span>
+                        <DriverTag driverId={m.driverTag} />
                         <span className="text-[var(--text-faint)]">
                           {formatKstClock(m.timestamp)}
                         </span>
                       </p>
-                      <p className="truncate text-sm text-[var(--text-muted)]">
+                      <p className="truncate text-sm text-[var(--text)]">
                         {m.text}
                       </p>
                     </div>
@@ -182,10 +193,10 @@ export function HomeView({
                     <button
                       type="button"
                       onClick={() => onNavigate("board")}
-                      className="flex w-full items-center gap-3 px-5 py-3 text-left transition-colors hover:bg-[var(--hover)]"
+                      className="flex w-full items-start gap-3 px-5 py-3 text-left transition-colors hover:bg-[var(--hover)]"
                     >
                       <span
-                        className="h-8 w-1 shrink-0 rounded-full"
+                        className="mt-0.5 h-9 w-1 shrink-0 rounded-full"
                         style={{ background: team?.baseColor ?? "var(--border-strong)" }}
                         aria-hidden
                       />
@@ -193,14 +204,24 @@ export function HomeView({
                         <p className="truncate text-sm font-semibold text-[var(--text)]">
                           {p.title}
                         </p>
-                        <p className="truncate text-[13px] text-[var(--text-subtle)]">
-                          {p.authorNickname}
-                          {team ? ` · ${team.name}` : " · 전체"}
-                        </p>
+                        <div className="mt-1 flex items-center gap-1.5 text-[12px]">
+                          <Avatar
+                            src={p.authorAvatarUrl}
+                            name={p.authorNickname}
+                            size={16}
+                          />
+                          <span
+                            className="truncate font-medium"
+                            style={{ color: authorColor(p.authorTeamId) }}
+                          >
+                            {p.authorNickname}
+                          </span>
+                          <DriverTag driverId={p.authorDriverTag} />
+                        </div>
                       </div>
-                      <div className="flex shrink-0 items-center gap-3 text-[13px] text-[var(--text-muted)]">
-                        <span>♥ {p.likes}</span>
+                      <div className="flex shrink-0 items-center gap-2.5 text-[12px] text-[var(--text-subtle)]">
                         <span>💬 {p.comments.length}</span>
+                        <span>👁 {p.views}</span>
                       </div>
                     </button>
                   </li>

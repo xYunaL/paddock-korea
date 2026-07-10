@@ -4,6 +4,7 @@ import { getRealTeamIds, getTeam } from "@/lib/teams";
 import type { UserProfile } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { TeamBadge } from "@/components/ui/TeamBadge";
+import { useAuthGate } from "@/components/auth/AuthGate";
 
 type Props = {
   profile: UserProfile | null;
@@ -18,6 +19,7 @@ type Props = {
  */
 export function CheerPanel({ profile, canCheerToday, totalFor, onCheer }: Props) {
   const teamIds = getRealTeamIds(profile);
+  const { requireAuth } = useAuthGate();
 
   if (teamIds.length === 0) {
     return (
@@ -25,9 +27,25 @@ export function CheerPanel({ profile, canCheerToday, totalFor, onCheer }: Props)
         <h3 className="text-base font-bold tracking-tight text-[var(--text)]">
           내 팀 응원하기
         </h3>
-        <p className="mt-1.5 text-sm text-[var(--text-muted)]">
-          팀을 선택하면 매일 응원할 수 있어요. 마이페이지에서 응원 팀을 골라보세요.
-        </p>
+        {profile ? (
+          <p className="mt-1.5 text-sm text-[var(--text-muted)]">
+            팀을 선택하면 매일 응원할 수 있어요. 마이페이지에서 응원 팀을
+            골라보세요.
+          </p>
+        ) : (
+          <>
+            <p className="mt-1.5 text-sm text-[var(--text-muted)]">
+              로그인하고 응원 팀을 선택하면 매일 응원할 수 있어요.
+            </p>
+            <button
+              type="button"
+              onClick={requireAuth}
+              className="mt-3 rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
+            >
+              로그인 / 회원가입
+            </button>
+          </>
+        )}
       </div>
     );
   }

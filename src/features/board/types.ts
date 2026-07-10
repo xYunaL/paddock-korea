@@ -1,5 +1,8 @@
 export type BoardScope = "global" | "team";
 
+/** Board navigation view — the sidebar sub-menu + in-page toggle. */
+export type BoardNav = "global" | "team" | "mine";
+
 export type Comment = {
   id: string;
   authorNickname: string;
@@ -28,6 +31,8 @@ export type Post = {
   authorAvatarUrl?: string;
   authorDriverTag?: string;
   likes: number;
+  /** 조회수 — incremented when the post detail is opened. */
+  views: number;
   createdAt: string;
   comments: Comment[];
 };

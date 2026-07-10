@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { canPostInTeamChat, getTeam } from "@/lib/teams";
 import { formatKstDateTime, isValidUrl, cn } from "@/lib/utils";
 import { Avatar } from "@/components/ui/Avatar";
 import { DriverTag } from "@/components/ui/DriverTag";
+import { useAuthGate } from "@/components/auth/AuthGate";
 import type { UserProfile } from "@/lib/types";
 import { authorColor } from "./authorColor";
 import { BoardImage } from "./BoardImage";
@@ -55,6 +56,13 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
   const [draft, setDraft] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [imageOpen, setImageOpen] = useState(false);
+  const { requireAuth } = useAuthGate();
+
+  // Count a view once per opened post (board.incrementView is stable).
+  const { incrementView } = board;
+  useEffect(() => {
+    incrementView(postId);
+  }, [postId, incrementView]);
 
   const post = board.posts.find((p) => p.id === postId);
 
@@ -254,10 +262,18 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
               </div>
             )}
           </div>
-        ) : (
+        ) : profile ? (
           <p className="mt-4 text-[13px] text-[var(--text-faint)]">
-            {profile ? "읽기 전용 게시판입니다" : "온보딩을 완료하면 댓글을 쓸 수 있어요"}
+            읽기 전용 게시판입니다
           </p>
+        ) : (
+          <button
+            type="button"
+            onClick={requireAuth}
+            className="mt-4 rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
+          >
+            로그인하고 댓글 쓰기
+          </button>
         )}
       </div>
     </section>

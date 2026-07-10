@@ -58,7 +58,7 @@ export function PitWallPage() {
       <header className="flex items-start justify-between gap-3 border-b border-[var(--border)] pb-4">
         <div>
           <h2 className="font-display text-xl font-bold tracking-tight text-[var(--text)]">
-            Pit Wall
+            순위/일정표
           </h2>
           <p className="mt-1 text-[13px] text-[var(--text-subtle)]">
             순위 · 일정 (KST)

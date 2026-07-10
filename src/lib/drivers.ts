@@ -58,6 +58,14 @@ export function isDriverId(id: unknown): id is string {
   return typeof id === "string" && id in DRIVER_BY_ID;
 }
 
+/** Special driver-tag value for all-fans ("F1 FAN"), not tied to a driver. */
+export const FAN_TAG = "f1fan";
+
+/** Valid profile driver tag = a real driver id OR the all-fan tag. */
+export function isValidDriverTag(id: unknown): id is string {
+  return isDriverId(id) || id === FAN_TAG;
+}
+
 /** Drivers grouped by teamId (in DRIVERS order) — for the tag picker. */
 export const DRIVERS_BY_TEAM: Record<string, Driver[]> = DRIVERS.reduce(
   (acc, d) => {

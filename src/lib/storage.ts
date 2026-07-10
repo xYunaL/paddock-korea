@@ -1,6 +1,6 @@
 import type { UserProfile } from "./types";
 import { isKnownProfileTeamIds } from "./teams";
-import { isDriverId } from "./drivers";
+import { isValidDriverTag } from "./drivers";
 import { isValidUrl } from "./utils";
 
 const KEY = "paddock-korea:user-profile";
@@ -10,6 +10,7 @@ type StoredProfile = {
   selectedTeamIds?: unknown;
   /** legacy single-team field */
   selectedTeamId?: string;
+  email?: unknown;
   avatarUrl?: unknown;
   driverTag?: unknown;
 };
@@ -35,11 +36,22 @@ export function getUserProfile(): UserProfile | null {
       typeof parsed.avatarUrl === "string" && isValidUrl(parsed.avatarUrl)
         ? parsed.avatarUrl
         : undefined;
-    const driverTag = isDriverId(parsed.driverTag)
+    const driverTag = isValidDriverTag(parsed.driverTag)
       ? parsed.driverTag
       : undefined;
 
-    return { nickname: parsed.nickname, selectedTeamIds: ids, avatarUrl, driverTag };
+    const email =
+      typeof parsed.email === "string" && parsed.email.trim()
+        ? parsed.email
+        : undefined;
+
+    return {
+      nickname: parsed.nickname,
+      selectedTeamIds: ids,
+      email,
+      avatarUrl,
+      driverTag,
+    };
   } catch {
     return null;
   }
@@ -83,4 +95,69 @@ export function getCheerState(): CheerState {
 export function saveCheerState(state: CheerState): void {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(CHEER_KEY, JSON.stringify(state));
+}
+
+const TERMS_KEY = "paddock-korea:terms-agreed";
+
+export type TermsAgreement = { version: string; agreedAt: string };
+
+/** Record the user's agreement to the community terms (version + ISO time). */
+export function saveTermsAgreement(version: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    const record: TermsAgreement = {
+      version,
+      agreedAt: new Date().toISOString(),
+    };
+    window.localStorage.setItem(TERMS_KEY, JSON.stringify(record));
+  } catch {
+    // ignore
+  }
+}
+
+export function getTermsAgreement(): TermsAgreement | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(TERMS_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as TermsAgreement;
+    if (typeof parsed.version !== "string") return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+const NOTIF_KEY = "paddock-korea:notif-seen";
+
+/** ISO time the user last opened notifications (for unread counting). */
+export function getNotifSeen(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    return window.localStorage.getItem(NOTIF_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+export function setNotifSeen(iso: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(NOTIF_KEY, iso);
+  } catch {
+    // ignore
+  }
+}
+
+/** 회원탈퇴 — wipe every piece of local user data. */
+export function clearAllUserData(): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(KEY);
+    window.localStorage.removeItem(CHEER_KEY);
+    window.localStorage.removeItem(TERMS_KEY);
+    window.localStorage.removeItem(NOTIF_KEY);
+  } catch {
+    // ignore
+  }
 }

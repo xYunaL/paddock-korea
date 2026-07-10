@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { UserProfile } from "@/lib/types";
 import { Avatar } from "@/components/ui/Avatar";
+import { useAuthGate } from "@/components/auth/AuthGate";
 import {
   NAV_GROUPS,
   MYPAGE_ITEM,
@@ -29,6 +30,7 @@ const PRIMARY_IDS: TabId[] = ["dashboard", "board", "chat", "meme"];
 export function MobileNav({ activeTab, onTabChange, profile }: Props) {
   const [moreOpen, setMoreOpen] = useState(false);
   const badge = profileBadge(profile);
+  const { requireAuth } = useAuthGate();
   const primary = PRIMARY_IDS.map(
     (id) => ALL_ITEMS.find((i) => i.id === id)!
   );
@@ -56,13 +58,13 @@ export function MobileNav({ activeTab, onTabChange, profile }: Props) {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={() => onTabChange("mypage")}
+            onClick={() => (profile ? onTabChange("mypage") : requireAuth())}
             className="flex h-9 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-2.5 text-sm transition-colors hover:bg-[var(--surface-hover)]"
-            aria-label={profile ? `프로필: ${badge.label}` : "프로필 설정"}
+            aria-label={profile ? `프로필: ${badge.label}` : "로그인 / 회원가입"}
           >
             <Avatar src={profile?.avatarUrl} name={profile?.nickname} size={22} />
             <span className="max-w-[6rem] truncate font-medium text-[var(--text)]">
-              {badge.label}
+              {profile ? badge.label : "게스트"}
             </span>
           </button>
         </div>

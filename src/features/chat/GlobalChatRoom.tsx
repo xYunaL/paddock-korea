@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { ChatShell } from "./ChatShell";
+import { useAuthGate } from "@/components/auth/AuthGate";
 import type { UserProfile } from "@/lib/types";
 import type { ChatMessage } from "./types";
 
@@ -32,6 +33,7 @@ export function GlobalChatRoom({
   fill,
   headerAction,
 }: Props) {
+  const { requireAuth } = useAuthGate();
   return (
     <ChatShell
       title="The Main Straight"
@@ -39,7 +41,18 @@ export function GlobalChatRoom({
       messages={messages}
       myNickname={profile?.nickname}
       canPost={Boolean(profile)}
-      lockReason={profile ? null : "온보딩을 완료하면 채팅에 참여할 수 있어요"}
+      lockReason={profile ? null : "로그인하면 채팅에 참여할 수 있어요"}
+      lockAction={
+        profile ? undefined : (
+          <button
+            type="button"
+            onClick={requireAuth}
+            className="shrink-0 rounded-md bg-[var(--primary)] px-2.5 py-1 text-[12px] font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
+          >
+            로그인
+          </button>
+        )
+      }
       onSend={onSend}
       minHeight={minHeight}
       maxHeight={maxHeight}

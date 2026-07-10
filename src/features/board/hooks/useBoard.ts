@@ -44,6 +44,7 @@ export function useBoard() {
         authorAvatarUrl: profile.avatarUrl,
         authorDriverTag: profile.driverTag,
         likes: 0,
+        views: 0,
         createdAt: new Date().toISOString(),
         comments: [],
       };
@@ -51,6 +52,12 @@ export function useBoard() {
     },
     []
   );
+
+  const incrementView = useCallback((id: string) => {
+    setPosts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, views: p.views + 1 } : p))
+    );
+  }, []);
 
   const toggleLike = useCallback(
     (id: string) => {
@@ -102,7 +109,7 @@ export function useBoard() {
     []
   );
 
-  return { posts, likedIds, addPost, toggleLike, addComment };
+  return { posts, likedIds, addPost, toggleLike, addComment, incrementView };
 }
 
 export type BoardApi = ReturnType<typeof useBoard>;

@@ -7,6 +7,7 @@ import type { TabId } from "@/components/layout/nav";
 import { OnboardingModal } from "@/components/onboarding/OnboardingModal";
 import { AuthGateProvider } from "@/components/auth/AuthGate";
 import { AuthModal } from "@/components/auth/AuthModal";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 import { HomeView } from "@/features/home/HomeView";
 import { GlobalChatRoom } from "@/features/chat/GlobalChatRoom";
 import { useChatMessages } from "@/features/chat/hooks/useChatMessages";
@@ -133,7 +134,7 @@ export default function AppPage() {
           profile={profile}
         />
 
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-24 pt-5 sm:px-6 lg:px-8 lg:pb-10 lg:pt-8">
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-6 pt-5 sm:px-6 lg:px-8 lg:pb-8 lg:pt-8">
           {activeTab === "dashboard" && (
             <HomeView
               profile={profile}
@@ -192,6 +193,8 @@ export default function AppPage() {
             />
           )}
         </main>
+
+        <SiteFooter />
       </div>
 
       {onboardingOpen && (

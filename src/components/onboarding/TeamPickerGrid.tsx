@@ -2,6 +2,7 @@
 
 import { SPECIAL_TEAM_CARDS, TEAMS } from "@/lib/teams";
 import { cn } from "@/lib/utils";
+import { TeamBadge } from "@/components/ui/TeamBadge";
 
 type Props = {
   /** Current selection. null = nothing chosen yet, [] = "none" card chosen. */
@@ -84,9 +85,7 @@ export function TeamPickerGrid({ selected, onSelect }: Props) {
                   style={{ background: team.baseColor }}
                   aria-hidden
                 />
-                <span className="text-lg" aria-hidden>
-                  {team.logo}
-                </span>
+                <TeamBadge team={team} size={22} />
                 <span className="text-sm font-bold text-[var(--text)]">
                   {team.name}
                 </span>

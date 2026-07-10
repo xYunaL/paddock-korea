@@ -3,6 +3,7 @@
 import { getRealTeamIds, getTeam } from "@/lib/teams";
 import type { UserProfile } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { TeamBadge } from "@/components/ui/TeamBadge";
 
 type Props = {
   profile: UserProfile | null;
@@ -55,9 +56,7 @@ export function CheerPanel({ profile, canCheerToday, totalFor, onCheer }: Props)
                   style={{ background: team.baseColor }}
                   aria-hidden
                 />
-                <span className="text-2xl" aria-hidden>
-                  {team.logo}
-                </span>
+                <TeamBadge team={team} size={32} />
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-[var(--text)]">
                     {team.name}

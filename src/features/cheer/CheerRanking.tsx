@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { TeamBadge } from "@/components/ui/TeamBadge";
 import type { CheerRankEntry } from "./hooks/useCheer";
 
 type Props = {
@@ -39,9 +40,7 @@ export function CheerRanking({ ranking, myTeamIds }: Props) {
                 style={{ background: entry.team.baseColor }}
                 aria-hidden
               />
-              <span className="text-base" aria-hidden>
-                {entry.team.logo}
-              </span>
+              <TeamBadge team={entry.team} size={20} />
               <span className="flex-1 truncate text-sm text-[var(--text)]">
                 {entry.team.name}
                 {mine && (

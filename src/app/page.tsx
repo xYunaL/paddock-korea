@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export default function LandingPage() {
   return (
@@ -29,15 +28,12 @@ function Header() {
             PADDOCK<span className="text-[var(--primary)]">.</span>KOREA
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <Link
-            href="/app"
-            className="rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
-          >
-            패독 입장하기
-          </Link>
-        </div>
+        <Link
+          href="/app"
+          className="rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
+        >
+          패독 입장하기
+        </Link>
       </div>
     </header>
   );

@@ -4,6 +4,9 @@ export type Comment = {
   id: string;
   authorNickname: string;
   authorTeamId: string;
+  /** Author snapshot — profile picture + driver tag (a Driver id). */
+  authorAvatarUrl?: string;
+  authorDriverTag?: string;
   text: string;
   /** Optional attached image URL (http/https). */
   imageUrl?: string;
@@ -21,6 +24,9 @@ export type Post = {
   imageUrl?: string;
   authorNickname: string;
   authorTeamId: string;
+  /** Author snapshot — profile picture + driver tag (a Driver id). */
+  authorAvatarUrl?: string;
+  authorDriverTag?: string;
   likes: number;
   createdAt: string;
   comments: Comment[];

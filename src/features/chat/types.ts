@@ -8,4 +8,8 @@ export type ChatMessage = {
   teamColor: string;
   text: string;
   timestamp: string;
+  /** Author snapshot — profile picture (http(s)/data URL). */
+  avatarUrl?: string;
+  /** Author snapshot — driver tag (a Driver id, see drivers.ts). */
+  driverTag?: string;
 };

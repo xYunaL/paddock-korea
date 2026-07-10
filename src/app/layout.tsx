@@ -34,15 +34,6 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable} light h-full antialiased`}
     >
-      <head>
-        {/* Apply saved theme before paint to avoid a flash (default: light). */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){try{var t=localStorage.getItem('paddock-korea:theme');var dark=t==='dark';var c=document.documentElement.classList;c.toggle('dark',dark);c.toggle('light',!dark);}catch(e){}})();",
-          }}
-        />
-      </head>
       <body className="min-h-full flex flex-col bg-[var(--canvas)] text-[var(--text)] font-body">
         {children}
       </body>

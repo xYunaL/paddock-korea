@@ -55,6 +55,8 @@ export function useChatMessages(roomType: RoomType, options?: Options) {
         teamColor: team?.baseColor ?? "#e10600",
         text: trimmed,
         timestamp: new Date().toISOString(),
+        avatarUrl: profile.avatarUrl,
+        driverTag: profile.driverTag,
       };
       setMessages((prev) => [...prev, message]);
     },

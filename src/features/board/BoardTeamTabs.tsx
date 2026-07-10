@@ -2,6 +2,7 @@
 
 import { TEAMS } from "@/lib/teams";
 import { cn } from "@/lib/utils";
+import { TeamBadge } from "@/components/ui/TeamBadge";
 
 type Props = {
   activeTeamId: string;
@@ -43,7 +44,7 @@ export function BoardTeamTabs({ activeTeamId, onSelect, myTeamIds }: Props) {
                 aria-hidden
               />
             )}
-            <span aria-hidden>{team.logo}</span>
+            <TeamBadge team={team} size={18} />
             <span>{team.name}</span>
             {mine && (
               <span

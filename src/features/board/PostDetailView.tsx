@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { canPostInTeamChat, getTeam } from "@/lib/teams";
-import { formatKstMonthDay, isValidUrl, cn } from "@/lib/utils";
+import { formatKstDateTime, isValidUrl, cn } from "@/lib/utils";
+import { Avatar } from "@/components/ui/Avatar";
+import { DriverTag } from "@/components/ui/DriverTag";
 import type { UserProfile } from "@/lib/types";
 import { authorColor } from "./authorColor";
 import { BoardImage } from "./BoardImage";
@@ -20,13 +22,15 @@ type Props = {
 function CommentRow({ comment }: { comment: Comment }) {
   return (
     <li className="rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-3.5 py-3">
-      <div className="flex items-center gap-2 text-[13px]">
+      <div className="flex items-center gap-1.5 text-[13px]">
+        <Avatar src={comment.authorAvatarUrl} name={comment.authorNickname} size={18} />
         <span className="font-medium" style={{ color: authorColor(comment.authorTeamId) }}>
           {comment.authorNickname}
         </span>
+        <DriverTag driverId={comment.authorDriverTag} />
         <span className="text-[var(--text-faint)]">·</span>
         <span className="text-[var(--text-subtle)]">
-          {formatKstMonthDay(comment.createdAt)}
+          {formatKstDateTime(comment.createdAt)}
         </span>
       </div>
       {comment.text && (
@@ -105,16 +109,18 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
 
       {/* Post block */}
       <article className="mt-4">
-        <div className="flex items-center gap-2 text-[13px]">
+        <div className="flex items-center gap-1.5 text-[13px]">
+          <Avatar src={post.authorAvatarUrl} name={post.authorNickname} size={22} />
           <span
             className="font-medium"
             style={{ color: authorColor(post.authorTeamId) }}
           >
             {post.authorNickname}
           </span>
+          <DriverTag driverId={post.authorDriverTag} />
           <span className="text-[var(--text-faint)]">·</span>
           <span className="text-[var(--text-subtle)]">
-            {formatKstMonthDay(post.createdAt)}
+            {formatKstDateTime(post.createdAt)}
           </span>
           {team && (
             <>

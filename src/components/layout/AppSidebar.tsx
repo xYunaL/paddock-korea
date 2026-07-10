@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { formatKstMonthDay } from "@/lib/utils";
 import type { UserProfile } from "@/lib/types";
 import type { RaceSchedule } from "@/features/pitwall/types";
-import { ThemeToggle } from "./ThemeToggle";
+import { Avatar } from "@/components/ui/Avatar";
 import {
   NAV_GROUPS,
   MYPAGE_ITEM,
@@ -132,8 +132,6 @@ export function AppSidebar({
           </div>
         )}
 
-        <ThemeToggle variant="sidebar" />
-
         {/* Profile → 마이페이지 */}
         <button
           type="button"
@@ -146,12 +144,7 @@ export function AppSidebar({
               : "hover:bg-[var(--sidebar-hover)]"
           )}
         >
-          <span
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--sidebar-hover)] text-base"
-            aria-hidden
-          >
-            {badge.icon}
-          </span>
+          <Avatar src={profile?.avatarUrl} name={profile?.nickname} size={32} />
           <span className="flex-1 overflow-hidden">
             <span className="block truncate text-sm font-semibold text-[var(--sidebar-fg)]">
               {badge.label}

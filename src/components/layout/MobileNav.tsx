@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { UserProfile } from "@/lib/types";
-import { ThemeToggle } from "./ThemeToggle";
+import { Avatar } from "@/components/ui/Avatar";
 import {
   NAV_GROUPS,
   MYPAGE_ITEM,
@@ -54,16 +54,13 @@ export function MobileNav({ activeTab, onTabChange, profile }: Props) {
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <button
             type="button"
             onClick={() => onTabChange("mypage")}
             className="flex h-9 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-2.5 text-sm transition-colors hover:bg-[var(--surface-hover)]"
             aria-label={profile ? `프로필: ${badge.label}` : "프로필 설정"}
           >
-            <span className="text-base" aria-hidden>
-              {badge.icon}
-            </span>
+            <Avatar src={profile?.avatarUrl} name={profile?.nickname} size={22} />
             <span className="max-w-[6rem] truncate font-medium text-[var(--text)]">
               {badge.label}
             </span>

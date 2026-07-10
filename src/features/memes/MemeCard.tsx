@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { getTeam, SPECIAL_TEAM_CARDS } from "@/lib/teams";
 import { cn } from "@/lib/utils";
+import { TeamBadge } from "@/components/ui/TeamBadge";
 import type { Meme } from "./types";
 
 type Props = {
@@ -25,6 +26,7 @@ function authorMeta(teamId: string): { color: string; logo: string } {
 export function MemeCard({ meme, liked, onToggleLike }: Props) {
   const [broken, setBroken] = useState(false);
   const meta = authorMeta(meme.authorTeamId);
+  const team = getTeam(meme.authorTeamId);
 
   return (
     <article className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-pop)]">
@@ -56,7 +58,7 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
         )}
         <div className="mt-3 flex items-center justify-between">
           <span className="flex items-center gap-1.5 text-[13px] text-[var(--text-subtle)]">
-            <span aria-hidden>{meta.logo}</span>
+            <TeamBadge team={team} fallback={meta.logo} size={18} />
             <span style={{ color: meta.color }}>{meme.authorNickname}</span>
           </span>
           <button

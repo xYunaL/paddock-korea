@@ -1,5 +1,7 @@
 import type { UserProfile } from "./types";
 import { isKnownProfileTeamIds } from "./teams";
+import { isDriverId } from "./drivers";
+import { isValidUrl } from "./utils";
 
 const KEY = "paddock-korea:user-profile";
 
@@ -8,6 +10,8 @@ type StoredProfile = {
   selectedTeamIds?: unknown;
   /** legacy single-team field */
   selectedTeamId?: string;
+  avatarUrl?: unknown;
+  driverTag?: unknown;
 };
 
 export function getUserProfile(): UserProfile | null {
@@ -25,7 +29,17 @@ export function getUserProfile(): UserProfile | null {
     }
 
     if (!isKnownProfileTeamIds(ids)) return null;
-    return { nickname: parsed.nickname, selectedTeamIds: ids };
+
+    // Optional profile decorations — only restore when valid.
+    const avatarUrl =
+      typeof parsed.avatarUrl === "string" && isValidUrl(parsed.avatarUrl)
+        ? parsed.avatarUrl
+        : undefined;
+    const driverTag = isDriverId(parsed.driverTag)
+      ? parsed.driverTag
+      : undefined;
+
+    return { nickname: parsed.nickname, selectedTeamIds: ids, avatarUrl, driverTag };
   } catch {
     return null;
   }

@@ -1,6 +1,14 @@
 import type { SpecialTeamId, Team, UserProfile } from "./types";
 
 /**
+ * Custom helmet-logo images.
+ * Flip to `true` once the 11 PNGs are saved to /public/team-logos/<id>.png
+ * (filenames must match each team's `id`). Until then TeamBadge shows the emoji
+ * `logo`, so no broken-image requests fire.
+ */
+export const TEAM_LOGOS_ENABLED = false;
+
+/**
  * 2026 F1 grid — 11 constructors.
  * Source: openspec/changes/expand-team-roster-and-cross-team-chat/specs/teams/spec.md
  */
@@ -11,6 +19,7 @@ export const TEAMS: Team[] = [
     fullName: "McLaren Formula 1 Team",
     baseColor: "#ff8000",
     logo: "🧡",
+    logoSrc: "/team-logos/mclaren.png",
     drivers: ["랜도 노리스 (Lando Norris)", "오스카 피아스트리 (Oscar Piastri)"],
   },
   {
@@ -19,6 +28,7 @@ export const TEAMS: Team[] = [
     fullName: "Mercedes-AMG Petronas F1 Team",
     baseColor: "#27f4d2",
     logo: "⭐",
+    logoSrc: "/team-logos/mercedes.png",
     drivers: [
       "조지 러셀 (George Russell)",
       "안드레아 키미 안토넬리 (Andrea Kimi Antonelli)",
@@ -30,6 +40,7 @@ export const TEAMS: Team[] = [
     fullName: "Oracle Red Bull Racing",
     baseColor: "#1e41ff",
     logo: "🐂",
+    logoSrc: "/team-logos/redbull.png",
     drivers: [
       "막스 베르스타펜 (Max Verstappen)",
       "아이작 하자르 (Isack Hadjar)",
@@ -41,6 +52,7 @@ export const TEAMS: Team[] = [
     fullName: "Scuderia Ferrari HP",
     baseColor: "#dc0000",
     logo: "🐎",
+    logoSrc: "/team-logos/ferrari.png",
     drivers: [
       "샤를 르클레르 (Charles Leclerc)",
       "루이스 해밀턴 (Lewis Hamilton)",
@@ -52,6 +64,7 @@ export const TEAMS: Team[] = [
     fullName: "Williams Racing",
     baseColor: "#005aff",
     logo: "🔵",
+    logoSrc: "/team-logos/williams.png",
     drivers: ["알렉스 알본 (Alex Albon)", "카를로스 사인츠 (Carlos Sainz)"],
   },
   {
@@ -60,6 +73,7 @@ export const TEAMS: Team[] = [
     fullName: "Visa Cash App Racing Bulls F1 Team",
     baseColor: "#6692ff",
     logo: "🐃",
+    logoSrc: "/team-logos/racingbulls.png",
     drivers: ["리암 로슨 (Liam Lawson)", "아비드 린드블라드 (Arvid Lindblad)"],
   },
   {
@@ -68,6 +82,7 @@ export const TEAMS: Team[] = [
     fullName: "Aston Martin Aramco F1 Team",
     baseColor: "#006f62",
     logo: "💚",
+    logoSrc: "/team-logos/astonmartin.png",
     drivers: [
       "페르난도 알론소 (Fernando Alonso)",
       "랜스 스트롤 (Lance Stroll)",
@@ -79,6 +94,7 @@ export const TEAMS: Team[] = [
     fullName: "MoneyGram Haas F1 Team",
     baseColor: "#b6babd",
     logo: "🛞",
+    logoSrc: "/team-logos/haas.png",
     drivers: ["에스테반 오콘 (Esteban Ocon)", "올리버 베어먼 (Oliver Bearman)"],
   },
   {
@@ -87,6 +103,7 @@ export const TEAMS: Team[] = [
     fullName: "Audi F1 Team",
     baseColor: "#c8001f",
     logo: "🔻",
+    logoSrc: "/team-logos/audi.png",
     drivers: [
       "니코 휠켄베르크 (Nico Hülkenberg)",
       "가브리에우 보르툴레투 (Gabriel Bortoleto)",
@@ -98,6 +115,7 @@ export const TEAMS: Team[] = [
     fullName: "BWT Alpine F1 Team",
     baseColor: "#ff87c4",
     logo: "🩷",
+    logoSrc: "/team-logos/alpine.png",
     drivers: ["피에르 가슬리 (Pierre Gasly)", "프랑코 콜라핀토 (Franco Colapinto)"],
   },
   {
@@ -106,6 +124,7 @@ export const TEAMS: Team[] = [
     fullName: "Cadillac F1 Team",
     baseColor: "#c8102e",
     logo: "🇺🇸",
+    logoSrc: "/team-logos/cadillac.png",
     drivers: [
       "세르히오 페레스 (Sergio Pérez)",
       "발테리 보타스 (Valtteri Bottas)",

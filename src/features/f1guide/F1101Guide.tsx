@@ -41,7 +41,7 @@ export function F1101Guide() {
     <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <header className="border-b border-[var(--border)] pb-4">
         <h2 className="font-display text-xl font-bold tracking-tight text-[var(--text)]">
-          F1 101
+          F1 용어 사전
         </h2>
         <p className="mt-1 text-[13px] text-[var(--text-subtle)]">
           입문자를 위한 용어·전략 가이드

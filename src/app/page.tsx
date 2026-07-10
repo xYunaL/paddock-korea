@@ -189,7 +189,7 @@ function FeaturesSection() {
     },
     {
       tag: "가이드 · 순위",
-      title: "F1 101 & Pit Wall",
+      title: "F1 용어 사전 & Pit Wall",
       body: "용어·전략 입문 가이드와 KST 일정·순위표를 한곳에서.",
     },
   ];

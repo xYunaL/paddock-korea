@@ -2,91 +2,124 @@
 
 /* =============================================================
  * Paddock Korea — Design Tokens
- * Source: docs/DESIGN.md
+ * Modern professional SaaS aesthetic (Linear / Stripe / Vercel).
+ * Light mode is the default (:root); dark is an opt-in override
+ * under html.dark. The dark navy sidebar is constant in both.
  * ============================================================= */
 
 @theme {
-  /* Brand colors */
+  /* Brand */
   --color-f1-red: #e10600;
   --color-f1-red-pressed: #b00500;
-  --color-carbon-gold: #ffb800;
+  --color-accent: #00d2c4; /* teal — secondary accent */
+  --color-navy: #151b26; /* secondary — sidebar / ink */
+  --color-carbon-gold: #d98a00; /* amber, contrast-safe on light */
 
-  /* Charcoal stack */
-  --color-charcoal-900: #0b0b0c;
-  --color-charcoal-800: #0f0f12;
-  --color-charcoal-750: #121214;
-  --color-charcoal-700: #161618;
-  --color-charcoal-650: rgba(255, 255, 255, 0.04);
-  --color-charcoal-600: rgba(255, 255, 255, 0.08);
-  --color-charcoal-500: rgba(255, 255, 255, 0.12);
+  /* Charcoal stack — retained token NAMES, remapped to light SaaS
+   * surfaces so existing components adopt the new look automatically.
+   * charcoal-900 = app canvas, 800 = card surface, 700 = inset. */
+  --color-charcoal-900: #f6f7f9;
+  --color-charcoal-800: #ffffff;
+  --color-charcoal-750: #fbfbfc;
+  --color-charcoal-700: #eef0f3;
+  --color-charcoal-650: rgba(21, 27, 38, 0.035);
+  --color-charcoal-600: rgba(21, 27, 38, 0.07);
+  --color-charcoal-500: rgba(21, 27, 38, 0.12);
 
-  /* Text */
-  --color-text-primary: #ffffff;
-  --color-text-muted: rgba(255, 255, 255, 0.65);
-  --color-text-subtle: rgba(255, 255, 255, 0.45);
+  /* Text (static utilities; semantic ones live in :root below) */
+  --color-text-primary: #151b26;
+  --color-text-muted: rgba(21, 27, 38, 0.62);
+  --color-text-subtle: rgba(21, 27, 38, 0.46);
 
   /* Fonts */
   --font-display: var(--font-space-grotesk), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
-  /* Radii */
+  /* Radii — tightened for SaaS density */
   --radius-pill: 9999px;
-  --radius-card: 16px;
+  --radius-card: 12px;
 
   /* Easing */
   --ease-paddock: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* =============================================================
- * Semantic theme tokens — dark is the default (:root).
- * Light mode overrides under html.light (see below).
- * Components use these via text-[var(--text)], border-[var(--border)], etc.
- * Charcoal background tokens are re-mapped in light mode, so surfaces using
- * var(--color-charcoal-*) switch automatically.
+ * Semantic theme tokens — LIGHT is the default (:root).
+ * Dark overrides under html.dark.
  * ============================================================= */
 :root {
-  --text: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.68);
-  --text-subtle: rgba(255, 255, 255, 0.5);
-  --text-faint: rgba(255, 255, 255, 0.33);
-  --border: rgba(255, 255, 255, 0.09);
-  --hover: rgba(255, 255, 255, 0.05);
-  --bubble-other: #1c1c24;
-  --grid-line: rgba(255, 255, 255, 0.015);
+  --canvas: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #eef0f3;
+  --surface-hover: #f2f4f7;
+
+  --text: #151b26;
+  --text-muted: rgba(21, 27, 38, 0.64);
+  --text-subtle: rgba(21, 27, 38, 0.5);
+  --text-faint: rgba(21, 27, 38, 0.4);
+
+  --border: #e4e6eb;
+  --border-strong: #d3d7de;
+  --hover: rgba(21, 27, 38, 0.04);
+  --bubble-other: #eef1f4;
+
+  --primary: #e10600;
+  --accent: #00d2c4;
+
+  /* Sidebar — dark navy rail, constant across themes */
+  --sidebar-bg: #151b26;
+  --sidebar-fg: #f4f5f7;
+  --sidebar-muted: rgba(244, 245, 247, 0.6);
+  --sidebar-hover: rgba(255, 255, 255, 0.06);
+  --sidebar-active-bg: rgba(255, 255, 255, 0.09);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(20, 27, 38, 0.06);
+  --shadow-card: 0 1px 2px rgba(20, 27, 38, 0.05), 0 2px 8px rgba(20, 27, 38, 0.06);
+  --shadow-pop: 0 8px 30px rgba(20, 27, 38, 0.14);
 }
 
-html.light {
-  /* Re-map charcoal stack to light surfaces */
-  --color-charcoal-900: #f2f2f5;
-  --color-charcoal-800: #ffffff;
-  --color-charcoal-750: #fbfbfd;
-  --color-charcoal-700: #eeeef2;
-  --color-charcoal-650: rgba(0, 0, 0, 0.035);
-  --color-charcoal-600: rgba(0, 0, 0, 0.07);
-  --color-charcoal-500: rgba(0, 0, 0, 0.12);
-  /* Semantic */
-  --text: #15151a;
-  --text-muted: rgba(0, 0, 0, 0.62);
-  --text-subtle: rgba(0, 0, 0, 0.48);
-  --text-faint: rgba(0, 0, 0, 0.4);
-  --border: rgba(0, 0, 0, 0.11);
-  --hover: rgba(0, 0, 0, 0.04);
-  --bubble-other: #ececf1;
-  --grid-line: rgba(0, 0, 0, 0.03);
+html.dark {
+  --color-charcoal-900: #0b0b0c;
+  --color-charcoal-800: #131418;
+  --color-charcoal-750: #17181d;
+  --color-charcoal-700: #1c1e24;
+  --color-charcoal-650: rgba(255, 255, 255, 0.04);
+  --color-charcoal-600: rgba(255, 255, 255, 0.08);
+  --color-charcoal-500: rgba(255, 255, 255, 0.14);
+
+  --canvas: #0b0b0c;
+  --surface: #131418;
+  --surface-2: #1c1e24;
+  --surface-hover: #1f2128;
+
+  --text: #f4f5f7;
+  --text-muted: rgba(244, 245, 247, 0.66);
+  --text-subtle: rgba(244, 245, 247, 0.48);
+  --text-faint: rgba(244, 245, 247, 0.33);
+
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --hover: rgba(255, 255, 255, 0.05);
+  --bubble-other: #22242b;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-pop: 0 8px 30px rgba(0, 0, 0, 0.55);
 }
 
 /* =============================================================
  * Base
  * ============================================================= */
 html {
-  /* Slightly larger global type (16 → 17px); Tailwind rem sizes scale with this. */
-  font-size: 17px;
+  font-size: 16px;
 }
 
 html,
 body {
-  background: var(--color-charcoal-900);
+  background: var(--canvas);
   color: var(--text);
   font-family: var(--font-body);
 }
@@ -94,55 +127,57 @@ body {
 body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* =============================================================
- * Pattern: Carbon Grid (subtle 40px grid backdrop)
+ * Utility: app-canvas (replaces the old decorative carbon grid).
+ * Plain, clean SaaS canvas — no grid lines.
  * ============================================================= */
 .carbon-grid {
-  background-color: var(--color-charcoal-900);
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-color: var(--canvas);
 }
 
 /* =============================================================
- * Pattern: Racing Border (4px diagonal red+white strip on left)
+ * card — standard SaaS surface: white, hairline border, soft shadow.
  * ============================================================= */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Legacy decorative class retained but neutralized (diagonal racing
+ * stripe removed for the clean SaaS look). Kept so pre-Phase-4 markup
+ * renders cleanly; usages are migrated to .card. */
 .racing-border {
   position: relative;
 }
-.racing-border::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background-image: repeating-linear-gradient(
-    45deg,
-    var(--color-f1-red) 0,
-    var(--color-f1-red) 6px,
-    #ffffff 6px,
-    #ffffff 12px
-  );
-}
 
 /* =============================================================
- * Scrollbar (dark, slim)
+ * Scrollbar — slim, neutral
  * ============================================================= */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-charcoal-800);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-charcoal-500);
-  border-radius: 4px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-charcoal-600);
+  background-clip: padding-box;
+}
+
+/* Dark sidebar keeps its own subtle scrollbar */
+.sidebar-scope ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  background-clip: padding-box;
 }

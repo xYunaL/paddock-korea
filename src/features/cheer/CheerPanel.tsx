@@ -20,25 +20,25 @@ export function CheerPanel({ profile, canCheerToday, totalFor, onCheer }: Props)
 
   if (teamIds.length === 0) {
     return (
-      <div className="racing-border rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6 pl-8">
-        <h3 className="font-display text-lg font-black tracking-tight">
+      <div className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
+        <h3 className="text-base font-bold tracking-tight text-[var(--text)]">
           내 팀 응원하기
         </h3>
-        <p className="mt-2 text-sm text-[var(--text-subtle)]">
-          팀을 선택하면 매일 응원할 수 있어요. My Page에서 응원 팀을 골라보세요.
+        <p className="mt-1.5 text-sm text-[var(--text-muted)]">
+          팀을 선택하면 매일 응원할 수 있어요. 마이페이지에서 응원 팀을 골라보세요.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="racing-border rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6 pl-8">
-      <h3 className="font-display text-lg font-black tracking-tight">
-        내 팀 응원하기
-      </h3>
-      <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
-        하루 한 번 응원할 수 있어요
-      </p>
+    <div className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
+      <div className="flex items-baseline justify-between gap-2">
+        <h3 className="text-base font-bold tracking-tight text-[var(--text)]">
+          내 팀 응원하기
+        </h3>
+        <span className="text-[13px] text-[var(--text-subtle)]">하루 1회</span>
+      </div>
 
       <div className="mt-3 grid gap-2">
         {teamIds.map((id) => {
@@ -47,21 +47,22 @@ export function CheerPanel({ profile, canCheerToday, totalFor, onCheer }: Props)
           return (
             <div
               key={id}
-              className="flex items-center justify-between gap-3 rounded-xl border border-[var(--border)] bg-[var(--color-charcoal-700)] p-3"
-              style={{ borderColor: `${team.baseColor}55` }}
+              className="flex items-center justify-between gap-3 overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3"
             >
-              <div className="flex items-center gap-2.5">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <span
+                  className="h-8 w-1 shrink-0 rounded-full"
+                  style={{ background: team.baseColor }}
+                  aria-hidden
+                />
                 <span className="text-2xl" aria-hidden>
                   {team.logo}
                 </span>
-                <div>
-                  <p
-                    className="font-display text-sm font-bold"
-                    style={{ color: team.baseColor }}
-                  >
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold text-[var(--text)]">
                     {team.name}
                   </p>
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
+                  <p className="text-[13px] text-[var(--text-subtle)]">
                     총 응원 {totalFor(id).toLocaleString()}
                   </p>
                 </div>
@@ -71,10 +72,10 @@ export function CheerPanel({ profile, canCheerToday, totalFor, onCheer }: Props)
                 onClick={() => onCheer(id)}
                 disabled={!canCheerToday}
                 className={cn(
-                  "shrink-0 rounded-full px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors",
+                  "shrink-0 rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
                   canCheerToday
-                    ? "bg-[var(--color-f1-red)] text-[var(--text)] hover:bg-[var(--color-f1-red-pressed)]"
-                    : "cursor-not-allowed bg-[var(--color-charcoal-650)] text-[var(--text-faint)]"
+                    ? "bg-[var(--primary)] text-white hover:bg-[var(--color-f1-red-pressed)]"
+                    : "cursor-not-allowed bg-[var(--surface-2)] text-[var(--text-faint)]"
                 )}
               >
                 {canCheerToday ? "🔥 +1" : "완료"}
@@ -85,7 +86,7 @@ export function CheerPanel({ profile, canCheerToday, totalFor, onCheer }: Props)
       </div>
 
       {!canCheerToday && (
-        <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+        <p className="mt-2 text-[13px] text-[var(--text-faint)]">
           오늘 응원 완료 · 내일 다시 응원해주세요
         </p>
       )}

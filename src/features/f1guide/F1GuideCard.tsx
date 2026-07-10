@@ -21,8 +21,8 @@ export function F1GuideCard({ entry }: Props) {
     entry.fullDesc.trim().length > entry.shortDesc.trim().length + 24;
 
   return (
-    <li className="rounded-xl border border-[var(--border)] bg-[var(--color-charcoal-700)] p-4">
-      <h3 className="font-display text-base font-bold text-[var(--text)]">
+    <li className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[var(--shadow-sm)] transition-shadow hover:shadow-[var(--shadow-card)]">
+      <h3 className="text-base font-bold tracking-tight text-[var(--text)]">
         {entry.term}
       </h3>
       <p className="mt-1 text-sm text-[var(--text-muted)] leading-relaxed">
@@ -45,9 +45,9 @@ export function F1GuideCard({ entry }: Props) {
           aria-expanded={expanded}
           aria-controls={expanded ? panelId : undefined}
           className={cn(
-            "mt-3 font-mono text-[10px] uppercase tracking-wider transition-colors",
+            "mt-3 text-[13px] font-semibold transition-colors",
             expanded
-              ? "text-[var(--color-carbon-gold)]"
+              ? "text-[var(--primary)]"
               : "text-[var(--text-subtle)] hover:text-[var(--text)]"
           )}
         >

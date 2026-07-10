@@ -40,6 +40,36 @@ function teamIdFromName(name: string): string {
   return TEAM_NAME_TO_ID[name] ?? name.toLowerCase().replace(/\s+/g, "");
 }
 
+/** Our teamId → Formula1.com media slug (identical except these two). */
+const TEAM_MEDIA_SLUG: Record<string, string> = {
+  haas: "haasf1team",
+  redbull: "redbullracing",
+};
+
+/**
+ * OpenF1's `headshot_url` points at F1's legacy `fom-website/drivers/…` path,
+ * which serves a grey silhouette placeholder (URL contains
+ * `d_driver_fallback_image`) for drivers without an old-format photo — e.g.
+ * 2026 rookies like Arvid Lindblad. F1's current site uses a season-scoped
+ * path that DOES have them. We reuse the 8-char driver code embedded in
+ * OpenF1's URL (…/arvlin01.png…) plus the team slug to rebuild the modern URL.
+ * Same media host, so no new external API. Genuinely-missing combos 404, so the
+ * <img> onError in DriverAvatar falls back to team-coloured initials.
+ */
+function buildHeadshotUrl(
+  rawUrl: string | null | undefined,
+  teamId: string
+): string | undefined {
+  if (!rawUrl) return undefined;
+  const code = rawUrl.match(/([a-z]{3,}\d{2})\.png/i)?.[1]?.toLowerCase();
+  if (!code || !teamId) {
+    // No code to rebuild from: only keep the raw URL if it isn't the placeholder.
+    return rawUrl.includes("d_driver_fallback_image") ? undefined : rawUrl;
+  }
+  const slug = TEAM_MEDIA_SLUG[teamId] ?? teamId;
+  return `https://media.formula1.com/image/upload/c_fill,w_440,h_440,g_north/q_auto/common/f1/${SEASON}/${slug}/${code}/${SEASON}${slug}${code}right.webp`;
+}
+
 async function f1<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     next: { revalidate: REVALIDATE_SECONDS },
@@ -113,13 +143,14 @@ export async function fetchPitWallData(): Promise<PitWallData> {
     .sort((a, b) => a.position_current - b.position_current)
     .map((c) => {
       const info = infoByNumber.get(c.driver_number);
+      const teamId = info ? teamIdFromName(info.team_name) : "";
       return {
         rank: c.position_current,
         name: info?.full_name ?? `#${c.driver_number}`,
         code: info?.name_acronym ?? "",
-        teamId: info ? teamIdFromName(info.team_name) : "",
+        teamId,
         points: c.points_current,
-        headshotUrl: info?.headshot_url ?? undefined,
+        headshotUrl: buildHeadshotUrl(info?.headshot_url, teamId),
       };
     });
 
@@ -192,13 +223,14 @@ export async function fetchSessionResult(
     .sort((a, b) => (a.position ?? 999) - (b.position ?? 999))
     .map((r) => {
       const info = infoByNumber.get(r.driver_number);
+      const teamId = info ? teamIdFromName(info.team_name) : "";
       return {
         position: r.position ?? 0,
         driverNumber: r.driver_number,
         name: info?.full_name ?? `#${r.driver_number}`,
         code: info?.name_acronym ?? "",
-        teamId: info ? teamIdFromName(info.team_name) : "",
-        headshotUrl: info?.headshot_url ?? undefined,
+        teamId,
+        headshotUrl: buildHeadshotUrl(info?.headshot_url, teamId),
         points: typeof r.points === "number" ? r.points : undefined,
         dnf: r.dnf,
         dns: r.dns,

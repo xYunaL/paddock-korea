@@ -12,6 +12,8 @@ type Props = {
   /** Message-area bounds — compact (home) vs. fullscreen reuse. */
   minHeight?: number;
   maxHeight?: number;
+  /** Fill the parent's height (dedicated chat page). */
+  fill?: boolean;
   /** Header action (e.g. fullscreen/close button). */
   headerAction?: ReactNode;
 };
@@ -27,12 +29,13 @@ export function GlobalChatRoom({
   onSend,
   minHeight,
   maxHeight,
+  fill,
   headerAction,
 }: Props) {
   return (
     <ChatShell
       title="The Main Straight"
-      subtitle="전체 채팅"
+      subtitle="전체 실시간 채팅"
       messages={messages}
       myNickname={profile?.nickname}
       canPost={Boolean(profile)}
@@ -40,6 +43,7 @@ export function GlobalChatRoom({
       onSend={onSend}
       minHeight={minHeight}
       maxHeight={maxHeight}
+      fill={fill}
       headerAction={headerAction}
     />
   );

@@ -33,21 +33,21 @@ export function TeamPickerGrid({ selected, onSelect }: Props) {
               onClick={() => onSelect(card.id)}
               aria-pressed={active}
               className={cn(
-                "flex items-center gap-3 rounded-lg border-2 px-3 py-3 text-left transition-colors",
+                "flex items-center gap-3 rounded-lg border px-3.5 py-3 text-left transition-colors",
                 active
-                  ? "bg-[var(--color-charcoal-650)]"
-                  : "bg-[var(--color-charcoal-700)] hover:bg-[var(--color-charcoal-650)]"
+                  ? "bg-[var(--surface-hover)] shadow-[var(--shadow-sm)]"
+                  : "border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
               )}
-              style={{ borderColor: active ? card.borderColor : "var(--border)" }}
+              style={active ? { borderColor: card.borderColor, boxShadow: `0 0 0 1px ${card.borderColor}` } : undefined}
             >
               <span className="text-2xl" aria-hidden>
                 {card.icon}
               </span>
               <div className="flex flex-col">
-                <span className="font-display text-sm font-bold text-[var(--text)]">
+                <span className="text-sm font-semibold text-[var(--text)]">
                   {card.label}
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
+                <span className="text-[13px] text-[var(--text-subtle)]">
                   {card.caption}
                 </span>
               </div>
@@ -56,7 +56,7 @@ export function TeamPickerGrid({ selected, onSelect }: Props) {
         })}
       </div>
 
-      <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+      <p className="mt-2.5 text-[13px] text-[var(--text-subtle)]">
         실제 팀은 최대 2개까지 선택할 수 있어요
       </p>
 
@@ -73,8 +73,8 @@ export function TeamPickerGrid({ selected, onSelect }: Props) {
               className={cn(
                 "flex flex-col gap-1 rounded-lg border-2 p-3 text-left transition-colors",
                 active
-                  ? "bg-[var(--color-charcoal-650)]"
-                  : "border-[var(--border)] bg-[var(--color-charcoal-700)] hover:bg-[var(--color-charcoal-650)]"
+                  ? "bg-[var(--surface-hover)]"
+                  : "border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
               )}
               style={{ borderColor: active ? team.baseColor : undefined }}
             >
@@ -87,11 +87,11 @@ export function TeamPickerGrid({ selected, onSelect }: Props) {
                 <span className="text-lg" aria-hidden>
                   {team.logo}
                 </span>
-                <span className="font-display text-sm font-bold text-[var(--text)]">
+                <span className="text-sm font-bold text-[var(--text)]">
                   {team.name}
                 </span>
               </div>
-              <ul className="ml-5 list-disc font-mono text-[10px] text-[var(--text-subtle)] marker:text-[var(--text-faint)]">
+              <ul className="ml-5 list-disc text-[12px] text-[var(--text-subtle)] marker:text-[var(--text-faint)]">
                 {team.drivers.map((d) => (
                   <li key={d} className="truncate">
                     {d}

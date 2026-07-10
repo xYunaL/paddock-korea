@@ -19,13 +19,13 @@ type Props = {
 
 function CommentRow({ comment }: { comment: Comment }) {
   return (
-    <li className="rounded-lg bg-[var(--color-charcoal-650)] px-3 py-2.5">
-      <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider">
-        <span style={{ color: authorColor(comment.authorTeamId) }}>
+    <li className="rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-3.5 py-3">
+      <div className="flex items-center gap-2 text-[13px]">
+        <span className="font-medium" style={{ color: authorColor(comment.authorTeamId) }}>
           {comment.authorNickname}
         </span>
         <span className="text-[var(--text-faint)]">·</span>
-        <span className="text-[var(--text-faint)]">
+        <span className="text-[var(--text-subtle)]">
           {formatKstMonthDay(comment.createdAt)}
         </span>
       </div>
@@ -58,7 +58,7 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
     <button
       type="button"
       onClick={onBack}
-      className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)] hover:text-[var(--text)]"
+      className="text-[13px] font-medium text-[var(--text-subtle)] transition-colors hover:text-[var(--text)]"
     >
       ← 목록
     </button>
@@ -66,7 +66,7 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
 
   if (!post) {
     return (
-      <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+      <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
         {backButton}
         <EmptyState
           icon="🔍"
@@ -100,27 +100,32 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
   }
 
   return (
-    <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+    <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       {backButton}
 
       {/* Post block */}
       <article className="mt-4">
-        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider">
-          <span style={{ color: authorColor(post.authorTeamId) }}>
+        <div className="flex items-center gap-2 text-[13px]">
+          <span
+            className="font-medium"
+            style={{ color: authorColor(post.authorTeamId) }}
+          >
             {post.authorNickname}
           </span>
           <span className="text-[var(--text-faint)]">·</span>
-          <span className="text-[var(--text-faint)]">
+          <span className="text-[var(--text-subtle)]">
             {formatKstMonthDay(post.createdAt)}
           </span>
           {team && (
             <>
               <span className="text-[var(--text-faint)]">·</span>
-              <span className="text-[var(--color-f1-red)]">{team.name}</span>
+              <span className="font-medium text-[var(--primary)]">
+                {team.name}
+              </span>
             </>
           )}
         </div>
-        <h1 className="mt-2 font-display text-2xl font-black tracking-tight text-[var(--text)]">
+        <h1 className="mt-2 font-display text-2xl font-bold tracking-tight text-[var(--text)]">
           {post.title}
         </h1>
         <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-[var(--text-muted)]">
@@ -140,16 +145,16 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
             onClick={() => board.toggleLike(post.id)}
             aria-pressed={liked}
             className={cn(
-              "flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] transition-colors",
+              "flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors",
               liked
-                ? "bg-[var(--color-f1-red)]/15 text-[var(--color-f1-red)]"
-                : "text-[var(--text-subtle)] hover:text-[var(--text)]"
+                ? "bg-[var(--primary)]/10 text-[var(--primary)]"
+                : "text-[var(--text-subtle)] hover:bg-[var(--hover)] hover:text-[var(--text)]"
             )}
           >
             <span aria-hidden>{liked ? "❤️" : "🤍"}</span>
             {post.likes}
           </button>
-          <span className="font-mono text-[11px] text-[var(--text-subtle)]">
+          <span className="text-[13px] text-[var(--text-subtle)]">
             💬 {post.comments.length}
           </span>
         </div>
@@ -157,7 +162,7 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
 
       {/* Comment thread */}
       <div className="mt-5 border-t border-[var(--border)] pt-4">
-        <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+        <p className="text-[13px] font-semibold text-[var(--text-muted)]">
           댓글 {post.comments.length}
         </p>
 
@@ -192,7 +197,7 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
                 }}
                 placeholder="댓글 달기…"
                 aria-label="댓글 입력"
-                className="flex-1 rounded-full border border-[var(--border)] bg-[var(--color-charcoal-800)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
+                className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3.5 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/15"
               />
               <button
                 type="button"
@@ -201,10 +206,10 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
                 aria-label="사진 첨부"
                 title="사진 첨부"
                 className={cn(
-                  "rounded-full border px-3 py-2 text-sm transition-colors",
+                  "rounded-lg border px-3 py-2.5 text-sm transition-colors",
                   imageOpen || urlOk
-                    ? "border-[var(--color-f1-red)] text-[var(--color-f1-red)]"
-                    : "border-[var(--border)] text-[var(--text-subtle)] hover:text-[var(--text)]"
+                    ? "border-[var(--primary)] text-[var(--primary)]"
+                    : "border-[var(--border)] bg-[var(--surface)] text-[var(--text-subtle)] hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
                 )}
               >
                 🖼️
@@ -213,7 +218,7 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
                 type="button"
                 onClick={submit}
                 disabled={!canSubmit}
-                className="rounded-full bg-[var(--color-f1-red)] px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:opacity-50"
+                className="rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:opacity-50"
               >
                 등록
               </button>
@@ -228,10 +233,10 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
                   placeholder="https://example.com/image.jpg"
                   aria-label="댓글 이미지 URL"
                   aria-invalid={showUrlError}
-                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-800)] px-3 py-2 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
+                  className="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3.5 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/15"
                 />
                 {showUrlError && (
-                  <span className="mt-1 block font-mono text-[10px] text-[var(--color-f1-red)]">
+                  <span className="mt-1 block text-[13px] text-[var(--primary)]">
                     유효한 http(s) URL을 입력해주세요
                   </span>
                 )}
@@ -244,7 +249,7 @@ export function PostDetailView({ profile, board, postId, onBack }: Props) {
             )}
           </div>
         ) : (
-          <p className="mt-4 font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+          <p className="mt-4 text-[13px] text-[var(--text-faint)]">
             {profile ? "읽기 전용 게시판입니다" : "온보딩을 완료하면 댓글을 쓸 수 있어요"}
           </p>
         )}

@@ -71,13 +71,13 @@ export function BoardView({ profile, board, onOpenPost }: Props) {
       : null;
 
   return (
-    <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+    <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <header className="flex items-center justify-between border-b border-[var(--border)] pb-4">
         <div>
-          <h2 className="font-display text-xl font-black tracking-tight">
+          <h2 className="font-display text-xl font-bold tracking-tight text-[var(--text)]">
             게시판
           </h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
+          <p className="mt-1 text-sm text-[var(--text-subtle)]">
             전체·팀별 커뮤니티
           </p>
         </div>
@@ -91,7 +91,7 @@ export function BoardView({ profile, board, onOpenPost }: Props) {
       </header>
 
       {/* Scope toggle */}
-      <div className="mt-4 flex gap-1 rounded-full bg-[var(--color-charcoal-700)] p-1 w-fit">
+      <div className="mt-4 flex w-fit gap-1 rounded-lg bg-[var(--surface-2)] p-1">
         {(["global", "team"] as BoardScope[]).map((s) => (
           <button
             key={s}
@@ -99,9 +99,9 @@ export function BoardView({ profile, board, onOpenPost }: Props) {
             onClick={() => setScope(s)}
             aria-pressed={scope === s}
             className={cn(
-              "rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
+              "rounded-md px-4 py-1.5 text-sm transition-colors",
               scope === s
-                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
+                ? "bg-[var(--surface)] font-semibold text-[var(--text)] shadow-[var(--shadow-sm)]"
                 : "text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
@@ -121,16 +121,16 @@ export function BoardView({ profile, board, onOpenPost }: Props) {
       )}
 
       {lockReason && (
-        <div className="mt-3 flex items-center gap-2 rounded-lg border border-[var(--color-carbon-gold)]/30 bg-[var(--color-carbon-gold)]/10 px-3 py-2">
+        <div className="mt-3 flex items-center gap-2 rounded-lg border border-[var(--color-carbon-gold)]/30 bg-[var(--color-carbon-gold)]/8 px-3 py-2">
           <span aria-hidden>🔒</span>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-carbon-gold)]">
+          <span className="text-[13px] font-medium text-[var(--color-carbon-gold)]">
             {lockReason}
           </span>
         </div>
       )}
 
       {/* Sort */}
-      <div className="mt-4 flex gap-2" role="group" aria-label="정렬">
+      <div className="mt-4 flex w-fit gap-1 rounded-lg bg-[var(--surface-2)] p-1" role="group" aria-label="정렬">
         {SORTS.map((s) => (
           <button
             key={s.id}
@@ -138,10 +138,10 @@ export function BoardView({ profile, board, onOpenPost }: Props) {
             onClick={() => setSortOrder(s.id)}
             aria-pressed={s.id === sortOrder}
             className={cn(
-              "rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors",
+              "rounded-md px-3 py-1 text-[13px] transition-colors",
               s.id === sortOrder
-                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
-                : "border border-[var(--border)] bg-[var(--color-charcoal-700)] text-[var(--text-subtle)] hover:text-[var(--text)]"
+                ? "bg-[var(--surface)] font-semibold text-[var(--text)] shadow-[var(--shadow-sm)]"
+                : "text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
             {s.label}

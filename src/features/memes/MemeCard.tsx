@@ -27,12 +27,12 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
   const meta = authorMeta(meme.authorTeamId);
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-700)]">
-      <div className="w-full bg-[var(--color-charcoal-750)]">
+    <article className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-pop)]">
+      <div className="w-full bg-[var(--surface-2)]">
         {broken ? (
           <div className="flex min-h-40 w-full flex-col items-center justify-center gap-2 py-10 text-[var(--text-faint)]">
             <span className="text-3xl" aria-hidden>🖼️</span>
-            <span className="font-mono text-[10px] uppercase tracking-wider">
+            <span className="text-[13px]">
               이미지를 불러올 수 없습니다
             </span>
           </div>
@@ -55,7 +55,7 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
           <p className="text-sm leading-relaxed text-[var(--text-muted)]">{meme.caption}</p>
         )}
         <div className="mt-3 flex items-center justify-between">
-          <span className="flex items-center gap-1.5 font-mono text-[11px] text-[var(--text-subtle)]">
+          <span className="flex items-center gap-1.5 text-[13px] text-[var(--text-subtle)]">
             <span aria-hidden>{meta.logo}</span>
             <span style={{ color: meta.color }}>{meme.authorNickname}</span>
           </span>
@@ -65,10 +65,10 @@ export function MemeCard({ meme, liked, onToggleLike }: Props) {
             aria-pressed={liked}
             aria-label={liked ? "좋아요 취소" : "좋아요"}
             className={cn(
-              "flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] transition-colors",
+              "flex items-center gap-1.5 rounded-full px-3 py-1 text-[13px] font-medium transition-colors",
               liked
-                ? "bg-[var(--color-f1-red)]/15 text-[var(--color-f1-red)]"
-                : "bg-[var(--color-charcoal-650)] text-[var(--text-subtle)] hover:text-[var(--text)]"
+                ? "bg-[var(--primary)]/10 text-[var(--primary)]"
+                : "bg-[var(--surface-2)] text-[var(--text-subtle)] hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
             )}
           >
             <span aria-hidden>{liked ? "❤️" : "🤍"}</span>

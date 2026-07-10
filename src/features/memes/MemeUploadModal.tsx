@@ -32,22 +32,22 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="meme-upload-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
     >
-      <div className="w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+      <div className="w-full max-w-md rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-pop)]">
         <h2
           id="meme-upload-title"
-          className="font-display text-xl font-black tracking-tight"
+          className="font-display text-xl font-bold tracking-tight text-[var(--text)]"
         >
           밈 올리기
         </h2>
-        <p className="mt-1 text-sm text-[var(--text-subtle)]">
+        <p className="mt-1 text-sm text-[var(--text-muted)]">
           이미지 URL을 붙여넣고 캡션을 더해보세요.
         </p>
 
         <label className="mt-5 block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
-            Image URL *
+          <span className="text-[13px] font-medium text-[var(--text-subtle)]">
+            이미지 URL *
           </span>
           <input
             autoFocus
@@ -57,17 +57,17 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
             placeholder="https://example.com/meme.jpg"
             aria-label="이미지 URL"
             aria-invalid={showError}
-            className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
+            className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3.5 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/15"
           />
           {showError && (
-            <span className="mt-1 block font-mono text-[10px] text-[var(--color-f1-red)]">
+            <span className="mt-1.5 block text-[13px] text-[var(--primary)]">
               유효한 http(s) URL을 입력해주세요
             </span>
           )}
         </label>
 
         {urlOk && (
-          <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
+          <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--surface-2)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageUrl}
@@ -78,8 +78,8 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
         )}
 
         <label className="mt-4 block">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
-            Caption
+          <span className="text-[13px] font-medium text-[var(--text-subtle)]">
+            캡션
           </span>
           <input
             type="text"
@@ -92,7 +92,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
             }}
             placeholder="(선택) 한 줄 캡션"
             aria-label="캡션"
-            className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-700)] px-3 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none"
+            className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3.5 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/15"
           />
         </label>
 
@@ -100,7 +100,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider text-[var(--text-subtle)] hover:text-[var(--text)]"
+            className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 text-sm font-semibold text-[var(--text)] transition-colors hover:bg-[var(--surface-hover)]"
           >
             취소
           </button>
@@ -108,7 +108,7 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
             type="button"
             onClick={handleSubmit}
             disabled={!urlOk}
-            className="rounded-full bg-[var(--color-f1-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             게시
           </button>

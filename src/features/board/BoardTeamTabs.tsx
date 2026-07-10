@@ -30,13 +30,19 @@ export function BoardTeamTabs({ activeTeamId, onSelect, myTeamIds }: Props) {
             aria-pressed={active}
             title={mine ? `${team.fullName} (내 팀)` : team.fullName}
             className={cn(
-              "flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
+              "flex shrink-0 items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[13px] font-semibold transition-colors",
               active
-                ? "border-transparent text-[var(--text)]"
-                : "border-[var(--border)] bg-[var(--color-charcoal-700)] text-[var(--text-subtle)] hover:text-[var(--text)]"
+                ? "border-[var(--border-strong)] bg-[var(--surface)] text-[var(--text)] shadow-[var(--shadow-sm)]"
+                : "border-[var(--border)] bg-[var(--surface-2)] text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
-            style={active ? { backgroundColor: team.baseColor } : undefined}
           >
+            {active && (
+              <span
+                className="h-3.5 w-1 shrink-0 rounded-full"
+                style={{ backgroundColor: team.baseColor }}
+                aria-hidden
+              />
+            )}
             <span aria-hidden>{team.logo}</span>
             <span>{team.name}</span>
             {mine && (

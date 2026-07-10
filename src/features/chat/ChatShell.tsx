@@ -19,13 +19,15 @@ type Props = {
   /** Optional action shown in the header row (e.g. fullscreen/close button). */
   headerAction?: ReactNode;
   onSend: (text: string) => void;
-  /** Message-area height bounds (px). Compact home vs. fullscreen reuse. */
+  /** Message-area height bounds (px). Ignored when `fill` is set. */
   minHeight?: number;
   maxHeight?: number;
+  /** Fill the parent's height (dedicated chat page) instead of min/max bounds. */
+  fill?: boolean;
 };
 
 /**
- * Presentational chat shell used by GlobalChatRoom (compact + fullscreen).
+ * Presentational chat shell used by GlobalChatRoom (compact preview + full page).
  * Owns only the local draft + auto-scroll; all permission/title logic is
  * decided by the parent room component.
  */
@@ -41,6 +43,7 @@ export function ChatShell({
   onSend,
   minHeight = 280,
   maxHeight = 420,
+  fill = false,
 }: Props) {
   const [draft, setDraft] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
@@ -74,28 +77,28 @@ export function ChatShell({
   }
 
   return (
-    <section className="racing-border flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6 pl-8">
-      <div className="flex items-center justify-between border-b border-[var(--border)] pb-4">
-        <div>
-          <h2 className="font-display text-xl font-black tracking-tight">
+    <section className="flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-card)]">
+      <div className="flex items-center justify-between gap-3 border-b border-[var(--border)] px-5 py-4">
+        <div className="min-w-0">
+          <h2 className="truncate font-display text-lg font-bold tracking-tight text-[var(--text)]">
             {title}
           </h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
-            {subtitle}
-          </p>
+          <p className="mt-0.5 text-sm text-[var(--text-subtle)]">{subtitle}</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           {headerAction}
           <LiveIndicator />
         </div>
       </div>
 
-      {header && <div className="pt-4">{header}</div>}
+      {header && (
+        <div className="border-b border-[var(--border)] px-5 py-3">{header}</div>
+      )}
 
       {lockReason && (
-        <div className="mt-4 flex items-center gap-2 rounded-lg border border-[var(--color-carbon-gold)]/30 bg-[var(--color-carbon-gold)]/10 px-3 py-2">
+        <div className="mx-5 mt-4 flex items-center gap-2 rounded-lg border border-[var(--color-carbon-gold)]/30 bg-[var(--color-carbon-gold)]/8 px-3 py-2">
           <span aria-hidden>🔒</span>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-carbon-gold)]">
+          <span className="text-[13px] font-medium text-[var(--color-carbon-gold)]">
             {lockReason}
           </span>
         </div>
@@ -104,8 +107,8 @@ export function ChatShell({
       <div
         ref={listRef}
         onScroll={handleScroll}
-        className="mt-4 flex-1 space-y-3 overflow-y-auto pr-1"
-        style={{ minHeight, maxHeight }}
+        className="flex-1 space-y-3 overflow-y-auto px-5 py-4"
+        style={fill ? { minHeight } : { minHeight, maxHeight }}
       >
         {messages.length === 0 ? (
           <div className="flex h-full items-center justify-center">
@@ -131,7 +134,7 @@ export function ChatShell({
         <div ref={endRef} />
       </div>
 
-      <div className="mt-4 flex gap-2">
+      <div className="flex gap-2 border-t border-[var(--border)] px-5 py-4">
         <input
           type="text"
           value={draft}
@@ -144,15 +147,15 @@ export function ChatShell({
           disabled={!canPost}
           aria-label="메시지 입력"
           placeholder={canPost ? "메시지를 입력하세요…" : "이 채팅은 읽기 전용입니다"}
-          className="flex-1 rounded-full border border-[var(--border)] bg-[var(--color-charcoal-700)] px-4 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--color-f1-red)] focus:outline-none disabled:opacity-60"
+          className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/15 disabled:opacity-60"
         />
         <button
           type="button"
           onClick={handleSend}
           disabled={!canPost || draft.trim().length === 0}
-          className="rounded-full bg-[var(--color-f1-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg bg-[var(--primary)] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Send
+          보내기
         </button>
       </div>
     </section>

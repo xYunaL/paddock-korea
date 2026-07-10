@@ -32,18 +32,18 @@ export default function RootLayout({
     <html
       lang="ko"
       suppressHydrationWarning
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable} dark h-full antialiased`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable} light h-full antialiased`}
     >
       <head>
-        {/* Apply saved theme before paint to avoid a flash (default: dark). */}
+        {/* Apply saved theme before paint to avoid a flash (default: light). */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var t=localStorage.getItem('paddock-korea:theme');var light=t==='light';var c=document.documentElement.classList;c.toggle('light',light);c.toggle('dark',!light);}catch(e){}})();",
+              "(function(){try{var t=localStorage.getItem('paddock-korea:theme');var dark=t==='dark';var c=document.documentElement.classList;c.toggle('dark',dark);c.toggle('light',!dark);}catch(e){}})();",
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-charcoal-900 text-[var(--text)] font-body">
+      <body className="min-h-full flex flex-col bg-[var(--canvas)] text-[var(--text)] font-body">
         {children}
       </body>
     </html>

@@ -15,9 +15,9 @@ export function BoardImage({ src, alt = "첨부 이미지", className }: Props) 
 
   if (broken) {
     return (
-      <div className="flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--color-charcoal-750)] px-3 py-2 text-[var(--text-faint)]">
+      <div className="flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-[var(--text-faint)]">
         <span aria-hidden>🖼️</span>
-        <span className="font-mono text-[10px] uppercase tracking-wider">
+        <span className="text-[13px]">
           이미지를 불러올 수 없습니다
         </span>
       </div>

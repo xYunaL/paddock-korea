@@ -15,19 +15,19 @@ export function ChatBubble({ message, isOwn }: Props) {
   return (
     <div className={cn("flex flex-col", isOwn ? "items-end" : "items-start")}>
       <div className="flex items-center gap-2 px-1">
-        <span className="font-mono text-[11px] font-bold" style={{ color: message.teamColor }}>
+        <span className="text-[13px] font-semibold" style={{ color: message.teamColor }}>
           {message.nickname}
         </span>
-        <span className="font-mono text-[10px] text-[var(--text-faint)]">
+        <span className="text-[13px] text-[var(--text-faint)]">
           {formatKstTime(message.timestamp)}
         </span>
       </div>
       <div
         className={cn(
-          "mt-1 max-w-[80%] rounded-2xl px-3.5 py-2 text-sm leading-relaxed",
+          "mt-1 max-w-[80%] rounded-xl px-3.5 py-2 text-sm leading-relaxed",
           isOwn
-            ? "rounded-tr-none text-[var(--text)]"
-            : "rounded-tl-none bg-[var(--bubble-other)] text-[var(--text-muted)]"
+            ? "rounded-tr-sm text-[var(--text)]"
+            : "rounded-tl-sm bg-[var(--bubble-other)] text-[var(--text-muted)]"
         )}
         style={
           isOwn

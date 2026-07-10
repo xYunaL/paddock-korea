@@ -27,13 +27,13 @@ export function MemeFeed({ profile }: Props) {
   const [uploadOpen, setUploadOpen] = useState(false);
 
   return (
-    <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
+    <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <header className="flex items-center justify-between border-b border-[var(--border)] pb-4">
         <div>
-          <h2 className="font-display text-xl font-black tracking-tight">
-            Meme Box
+          <h2 className="font-display text-xl font-bold tracking-tight text-[var(--text)]">
+            밈 박스
           </h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
+          <p className="mt-1 text-[13px] text-[var(--text-subtle)]">
             팬 밈 모음
           </p>
         </div>
@@ -47,7 +47,11 @@ export function MemeFeed({ profile }: Props) {
         </Button>
       </header>
 
-      <div className="mt-4 flex gap-2" role="group" aria-label="정렬">
+      <div
+        className="mt-4 inline-flex gap-1 rounded-lg bg-[var(--surface-2)] p-1"
+        role="group"
+        aria-label="정렬"
+      >
         {SORTS.map((s) => (
           <button
             key={s.id}
@@ -55,10 +59,10 @@ export function MemeFeed({ profile }: Props) {
             onClick={() => setSortOrder(s.id)}
             aria-pressed={s.id === sortOrder}
             className={cn(
-              "rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors",
+              "rounded-md px-3.5 py-1.5 text-sm transition-colors",
               s.id === sortOrder
-                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
-                : "border border-[var(--border)] bg-[var(--color-charcoal-700)] text-[var(--text-subtle)] hover:text-[var(--text)]"
+                ? "bg-[var(--surface)] font-semibold text-[var(--text)] shadow-[var(--shadow-sm)]"
+                : "text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
             {s.label}

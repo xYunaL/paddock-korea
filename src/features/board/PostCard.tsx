@@ -16,14 +16,14 @@ export function PostCard({ post, liked, onOpen, onToggleLike }: Props) {
   const color = authorColor(post.authorTeamId);
 
   return (
-    <article className="rounded-xl border border-[var(--border)] bg-[var(--color-charcoal-700)]">
-      <button type="button" onClick={onOpen} className="w-full p-4 text-left">
-        <h3 className="font-display text-base font-bold text-[var(--text)]">
+    <article className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-card)] transition-colors hover:bg-[var(--surface-hover)]">
+      <button type="button" onClick={onOpen} className="w-full p-5 text-left">
+        <h3 className="font-display text-base font-semibold tracking-tight text-[var(--text)]">
           {post.title}
         </h3>
         <p
           className={cn(
-            "mt-1 text-sm text-[var(--text-muted)] leading-relaxed line-clamp-2"
+            "mt-1.5 text-sm leading-relaxed text-[var(--text-muted)] line-clamp-2"
           )}
         >
           {post.body}
@@ -33,23 +33,23 @@ export function PostCard({ post, liked, onOpen, onToggleLike }: Props) {
             <BoardImage src={post.imageUrl} className="max-h-56" />
           </div>
         )}
-        <div className="mt-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider">
-          <span style={{ color }}>{post.authorNickname}</span>
+        <div className="mt-3 flex items-center gap-2 text-[13px]">
+          <span className="font-medium" style={{ color }}>{post.authorNickname}</span>
           <span className="text-[var(--text-faint)]">·</span>
-          <span className="text-[var(--text-faint)]">{formatKstMonthDay(post.createdAt)}</span>
+          <span className="text-[var(--text-subtle)]">{formatKstMonthDay(post.createdAt)}</span>
         </div>
       </button>
 
-      <footer className="flex items-center justify-between border-t border-[var(--border)] px-4 py-2">
+      <footer className="flex items-center justify-between border-t border-[var(--border)] px-5 py-2.5">
         <button
           type="button"
           onClick={() => onToggleLike(post.id)}
           aria-pressed={liked}
           className={cn(
-            "flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] transition-colors",
+            "flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[13px] font-medium transition-colors",
             liked
-              ? "bg-[var(--color-f1-red)]/15 text-[var(--color-f1-red)]"
-              : "text-[var(--text-subtle)] hover:text-[var(--text)]"
+              ? "bg-[var(--primary)]/10 text-[var(--primary)]"
+              : "text-[var(--text-subtle)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
           )}
         >
           <span aria-hidden>{liked ? "❤️" : "🤍"}</span>
@@ -58,7 +58,7 @@ export function PostCard({ post, liked, onOpen, onToggleLike }: Props) {
         <button
           type="button"
           onClick={onOpen}
-          className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)] hover:text-[var(--text)]"
+          className="rounded-md px-2.5 py-1 text-[13px] text-[var(--text-subtle)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
         >
           💬 {post.comments.length}
         </button>

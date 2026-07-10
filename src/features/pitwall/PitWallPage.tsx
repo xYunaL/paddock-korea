@@ -14,9 +14,9 @@ import type {
 type SubTab = "drivers" | "constructors" | "schedule";
 
 const SUBTABS: { id: SubTab; label: string }[] = [
-  { id: "drivers", label: "Drivers" },
-  { id: "constructors", label: "Constructors" },
-  { id: "schedule", label: "Schedule" },
+  { id: "drivers", label: "드라이버" },
+  { id: "constructors", label: "컨스트럭터" },
+  { id: "schedule", label: "일정" },
 ];
 
 type PitWallResponse = {
@@ -54,13 +54,13 @@ export function PitWallPage() {
   }, []);
 
   return (
-    <section className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6">
-      <header className="flex items-start justify-between border-b border-[var(--border)] pb-4">
+    <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
+      <header className="flex items-start justify-between gap-3 border-b border-[var(--border)] pb-4">
         <div>
-          <h2 className="font-display text-xl font-black tracking-tight">
+          <h2 className="font-display text-xl font-bold tracking-tight text-[var(--text)]">
             Pit Wall
           </h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
+          <p className="mt-1 text-[13px] text-[var(--text-subtle)]">
             순위 · 일정 (KST)
           </p>
         </div>
@@ -69,7 +69,7 @@ export function PitWallPage() {
 
       <nav
         aria-label="피트월 하위 탭"
-        className="mt-4 flex gap-1 rounded-full bg-[var(--color-charcoal-700)] p-1 w-fit"
+        className="mt-4 flex w-fit gap-1 rounded-lg bg-[var(--surface-2)] p-1"
       >
         {SUBTABS.map((s) => (
           <button
@@ -78,9 +78,9 @@ export function PitWallPage() {
             onClick={() => setTab(s.id)}
             aria-pressed={s.id === tab}
             className={cn(
-              "rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors",
+              "rounded-md px-4 py-1.5 text-sm font-semibold transition-colors",
               s.id === tab
-                ? "bg-[var(--color-f1-red)] text-[var(--text)]"
+                ? "bg-[var(--surface)] text-[var(--text)] shadow-[var(--shadow-sm)]"
                 : "text-[var(--text-subtle)] hover:text-[var(--text)]"
             )}
           >
@@ -111,17 +111,17 @@ function SourceBadge({ source }: { source: PitWallResponse["source"] }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-semibold",
         live
-          ? "bg-[var(--color-carbon-gold)]/10 text-[var(--color-carbon-gold)]"
-          : "bg-[var(--color-charcoal-700)] text-[var(--text-subtle)]"
+          ? "bg-[var(--accent)]/12 text-[color:color-mix(in_srgb,var(--accent)_75%,#0a3b38)]"
+          : "bg-[var(--surface-2)] text-[var(--text-subtle)]"
       )}
       title={live ? "OpenF1 실시간 데이터" : "오프라인 캐시 데이터"}
     >
       <span
         className={cn(
           "h-1.5 w-1.5 rounded-full",
-          live ? "bg-[var(--color-carbon-gold)]" : "bg-[var(--text-faint)]"
+          live ? "bg-[var(--accent)]" : "bg-[var(--text-faint)]"
         )}
         aria-hidden
       />
@@ -136,7 +136,7 @@ function LoadingState() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div
           key={i}
-          className="h-12 animate-pulse rounded-xl bg-[var(--color-charcoal-700)]"
+          className="h-12 animate-pulse rounded-lg bg-[var(--surface-2)]"
         />
       ))}
     </div>
@@ -153,12 +153,12 @@ function DriverAvatar({
   teamColor?: string;
 }) {
   const [broken, setBroken] = useState(false);
-  const ring = { boxShadow: `0 0 0 2px ${teamColor ?? "rgba(255,255,255,0.2)"}` };
+  const ring = { boxShadow: `0 0 0 2px ${teamColor ?? "var(--border-strong)"}` };
 
   if (!url || broken) {
     return (
       <span
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-charcoal-600)] font-mono text-[9px] text-[var(--text-muted)]"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--surface-2)] font-mono text-[9px] text-[var(--text-muted)]"
         style={ring}
         aria-hidden
       >
@@ -174,7 +174,7 @@ function DriverAvatar({
       alt=""
       onError={() => setBroken(true)}
       loading="lazy"
-      className="h-9 w-9 shrink-0 rounded-full bg-[var(--color-charcoal-700)] object-cover object-top"
+      className="h-9 w-9 shrink-0 rounded-full bg-[var(--surface-2)] object-cover object-top"
       style={ring}
     />
   );
@@ -182,14 +182,14 @@ function DriverAvatar({
 
 function DriversTable({ rows }: { rows: DriverStanding[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
+    <div className="overflow-x-auto rounded-[var(--radius-card)] border border-[var(--border)]">
       <table className="w-full text-sm">
-        <thead className="bg-[var(--color-charcoal-700)] text-[var(--text-subtle)]">
-          <tr className="font-mono text-[10px] uppercase tracking-wider">
-            <th className="px-3 py-2 text-left">Pos</th>
-            <th className="px-3 py-2 text-left">Driver</th>
-            <th className="px-3 py-2 text-left">Team</th>
-            <th className="px-3 py-2 text-right">Pts</th>
+        <thead className="bg-[var(--surface-2)] text-[var(--text-subtle)]">
+          <tr className="text-[12px] font-semibold">
+            <th className="px-3 py-2.5 text-left">순위</th>
+            <th className="px-3 py-2.5 text-left">드라이버</th>
+            <th className="px-3 py-2.5 text-left">팀</th>
+            <th className="px-3 py-2.5 text-right">포인트</th>
           </tr>
         </thead>
         <tbody>
@@ -198,10 +198,12 @@ function DriversTable({ rows }: { rows: DriverStanding[] }) {
             return (
               <tr
                 key={`${d.rank}-${d.code}`}
-                className="border-t border-[var(--border)] hover:bg-[var(--hover)]"
+                className="border-t border-[var(--border)] transition-colors hover:bg-[var(--hover)]"
               >
-                <td className="px-3 py-2 font-mono text-[var(--text-muted)]">{d.rank}</td>
-                <td className="px-3 py-2">
+                <td className="px-3 py-2.5 font-semibold tabular-nums text-[var(--text-muted)]">
+                  {d.rank}
+                </td>
+                <td className="px-3 py-2.5">
                   <div className="flex items-center gap-2.5">
                     <DriverAvatar
                       url={d.headshotUrl}
@@ -209,12 +211,16 @@ function DriversTable({ rows }: { rows: DriverStanding[] }) {
                       teamColor={team?.baseColor}
                     />
                     <span>
-                      <span className="font-mono text-[var(--text-faint)]">{d.code}</span>{" "}
-                      <span className="text-[var(--text)]">{d.name}</span>
+                      <span className="font-mono text-[var(--text-faint)]">
+                        {d.code}
+                      </span>{" "}
+                      <span className="font-medium text-[var(--text)]">
+                        {d.name}
+                      </span>
                     </span>
                   </div>
                 </td>
-                <td className="px-3 py-2">
+                <td className="px-3 py-2.5">
                   <span
                     className="mr-1.5 inline-block h-2 w-2 rounded-full align-middle"
                     style={{ background: team?.baseColor }}
@@ -224,7 +230,7 @@ function DriversTable({ rows }: { rows: DriverStanding[] }) {
                     {team?.name ?? d.teamId}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-right font-mono text-[var(--text)]">
+                <td className="px-3 py-2.5 text-right font-semibold tabular-nums text-[var(--text)]">
                   {d.points}
                 </td>
               </tr>
@@ -244,24 +250,24 @@ function ConstructorsGrid({ rows }: { rows: ConstructorStanding[] }) {
         return (
           <li
             key={`${c.rank}-${c.teamId}`}
-            className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--color-charcoal-700)] p-4"
+            className="flex items-center justify-between rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[var(--shadow-sm)]"
           >
             <div className="flex items-center gap-3">
               <span
-                className="inline-block h-8 w-1 rounded-sm"
+                className="inline-block h-9 w-1 rounded-full"
                 style={{ background: team?.baseColor }}
                 aria-hidden
               />
               <div>
-                <p className="font-display text-sm font-bold">
+                <p className="text-sm font-bold text-[var(--text)]">
                   {c.rank}. {team?.name ?? c.name}
                 </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
-                  {c.name}
-                </p>
+                <p className="text-[13px] text-[var(--text-subtle)]">{c.name}</p>
               </div>
             </div>
-            <span className="font-mono text-lg text-[var(--text)]">{c.points}</span>
+            <span className="font-display text-lg font-bold tabular-nums text-[var(--text)]">
+              {c.points}
+            </span>
           </li>
         );
       })}
@@ -290,30 +296,30 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
             <li
               key={race.round}
               className={cn(
-                "overflow-hidden rounded-xl border",
+                "overflow-hidden rounded-[var(--radius-card)] border",
                 isNext
-                  ? "border-[var(--color-f1-red)] bg-[var(--color-f1-red)]/8"
-                  : "border-[var(--border)] bg-[var(--color-charcoal-700)]"
+                  ? "border-[var(--primary)] bg-[var(--primary)]/6"
+                  : "border-[var(--border)] bg-[var(--surface)]"
               )}
             >
               <button
                 type="button"
                 onClick={() => setExpanded(open ? null : race.round)}
                 aria-expanded={open}
-                className="flex w-full items-center justify-between gap-3 p-4 text-left"
+                className="flex w-full items-center justify-between gap-3 p-4 text-left transition-colors hover:bg-[var(--hover)]"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-8 font-mono text-xs text-[var(--text-subtle)]">
+                  <span className="w-8 font-mono text-xs font-semibold text-[var(--text-subtle)]">
                     R{race.round}
                   </span>
                   <div>
                     <p className="text-sm font-bold text-[var(--text)]">
                       {race.grandPrix}
                     </p>
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
+                    <p className="text-[13px] text-[var(--text-subtle)]">
                       {race.country}
                     </p>
-                    <p className="mt-1 font-display text-lg font-black tracking-tight text-[var(--text)]">
+                    <p className="mt-1 font-display text-lg font-bold tracking-tight text-[var(--text)]">
                       {period}
                     </p>
                   </div>
@@ -321,10 +327,12 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
                 <div className="flex items-center gap-2">
                   <span
                     className={cn(
-                      "font-mono text-[10px] uppercase tracking-wider",
+                      "text-[13px] font-semibold",
                       race.status === "completed"
                         ? "text-[var(--text-faint)]"
-                        : "text-[var(--color-carbon-gold)]"
+                        : isNext
+                          ? "text-[var(--primary)]"
+                          : "text-[var(--color-carbon-gold)]"
                     )}
                   >
                     {race.status === "completed"
@@ -333,10 +341,7 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
                         ? "다음 경기"
                         : "예정"}
                   </span>
-                  <span
-                    className="font-mono text-[var(--text-faint)]"
-                    aria-hidden
-                  >
+                  <span className="text-[var(--text-faint)]" aria-hidden>
                     {open ? "▲" : "▼"}
                   </span>
                 </div>
@@ -345,7 +350,7 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
               {open && (
                 <div className="border-t border-[var(--border)] p-2">
                   {race.sessions.length === 0 ? (
-                    <p className="px-2 py-3 font-mono text-[11px] uppercase tracking-wider text-[var(--text-faint)]">
+                    <p className="px-2 py-3 text-[13px] text-[var(--text-faint)]">
                       세션 정보 없음
                     </p>
                   ) : (
@@ -363,15 +368,19 @@ function ScheduleList({ rows }: { rows: RaceSchedule[] }) {
                                 : "cursor-not-allowed opacity-45"
                             )}
                           >
-                            <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
+                            <span className="text-[13px] text-[var(--text-muted)]">
                               {formatKstMonthDay(s.startUtc)}
-                              <span className="mx-1.5 text-[var(--text-faint)]">/</span>
+                              <span className="mx-1.5 text-[var(--text-faint)]">
+                                ·
+                              </span>
                               {s.name}
-                              <span className="mx-1.5 text-[var(--text-faint)]">/</span>
-                              {formatKstClock(s.startUtc)} -{" "}
+                              <span className="mx-1.5 text-[var(--text-faint)]">
+                                ·
+                              </span>
+                              {formatKstClock(s.startUtc)} –{" "}
                               {formatKstClock(s.endUtc)}
                             </span>
-                            <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+                            <span className="shrink-0 text-[13px] font-semibold text-[var(--text-faint)]">
                               {s.completed ? "결과 보기" : "예정"}
                             </span>
                           </button>
@@ -430,21 +439,21 @@ function SessionResultModal({
       aria-modal="true"
       aria-labelledby="session-result-title"
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)]"
+        className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-pop)]"
       >
         <header className="flex items-center justify-between border-b border-[var(--border)] p-5">
           <div>
             <h3
               id="session-result-title"
-              className="font-display text-lg font-black tracking-tight"
+              className="font-display text-lg font-bold tracking-tight text-[var(--text)]"
             >
               {session.name}
             </h3>
-            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)]">
+            <p className="mt-0.5 text-[13px] text-[var(--text-subtle)]">
               {formatKstMonthDay(session.startUtc)} 결과
             </p>
           </div>
@@ -452,7 +461,7 @@ function SessionResultModal({
             type="button"
             onClick={onClose}
             aria-label="닫기"
-            className="rounded-full px-3 py-1 font-mono text-xs text-[var(--text-subtle)] hover:text-[var(--text)]"
+            className="rounded-lg px-2.5 py-1.5 text-sm text-[var(--text-subtle)] transition-colors hover:bg-[var(--hover)] hover:text-[var(--text)]"
           >
             ✕
           </button>
@@ -464,12 +473,12 @@ function SessionResultModal({
               {Array.from({ length: 8 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-10 animate-pulse rounded-lg bg-[var(--color-charcoal-700)]"
+                  className="h-10 animate-pulse rounded-lg bg-[var(--surface-2)]"
                 />
               ))}
             </div>
           ) : !result || result.rows.length === 0 ? (
-            <p className="py-10 text-center font-mono text-[11px] uppercase tracking-wider text-[var(--text-faint)]">
+            <p className="py-10 text-center text-[13px] text-[var(--text-faint)]">
               결과를 불러올 수 없습니다
             </p>
           ) : (
@@ -479,9 +488,9 @@ function SessionResultModal({
                 return (
                   <li
                     key={row.driverNumber}
-                    className="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-[var(--hover)]"
+                    className="flex items-center gap-3 rounded-lg px-2 py-1.5 transition-colors hover:bg-[var(--hover)]"
                   >
-                    <span className="w-6 text-center font-mono text-sm text-[var(--text-muted)]">
+                    <span className="w-6 text-center font-semibold tabular-nums text-[var(--text-muted)]">
                       {row.position || "—"}
                     </span>
                     <DriverAvatar
@@ -490,14 +499,18 @@ function SessionResultModal({
                       teamColor={team?.baseColor}
                     />
                     <span className="flex-1 text-sm">
-                      <span className="font-mono text-[var(--text-faint)]">{row.code}</span>{" "}
-                      <span className="text-[var(--text)]">{row.name}</span>
+                      <span className="font-mono text-[var(--text-faint)]">
+                        {row.code}
+                      </span>{" "}
+                      <span className="font-medium text-[var(--text)]">
+                        {row.name}
+                      </span>
                     </span>
-                    <span className="font-mono text-[11px] text-[var(--text-subtle)]">
+                    <span className="text-[13px] text-[var(--text-subtle)]">
                       {team?.name ?? row.teamId}
                     </span>
                     {result.hasPoints && (
-                      <span className="w-10 text-right font-mono text-sm text-[var(--text)]">
+                      <span className="w-10 text-right font-semibold tabular-nums text-[var(--text)]">
                         {row.points ?? 0}
                       </span>
                     )}

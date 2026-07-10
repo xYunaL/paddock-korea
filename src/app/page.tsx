@@ -3,7 +3,7 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export default function LandingPage() {
   return (
-    <div className="carbon-grid flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col bg-[var(--canvas)]">
       <Header />
       <main className="flex-1">
         <Hero />
@@ -18,24 +18,24 @@ export default function LandingPage() {
 
 function Header() {
   return (
-    <header className="border-b border-[var(--border)]">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <div className="flex items-center gap-3">
+    <header className="sticky top-0 z-30 border-b border-[var(--border)] bg-[var(--surface)]/90 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <div className="flex items-center gap-2.5">
           <span
-            className="inline-block h-6 w-1.5 rounded-sm bg-[var(--color-f1-red)]"
+            className="inline-block h-6 w-1.5 rounded-sm bg-[var(--primary)]"
             aria-hidden
           />
-          <span className="font-display text-[20px] font-black tracking-tight">
-            PADDOCK<span className="text-[var(--color-f1-red)]">.</span>KOREA
+          <span className="font-display text-lg font-extrabold tracking-tight text-[var(--text)]">
+            PADDOCK<span className="text-[var(--primary)]">.</span>KOREA
           </span>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link
             href="/app"
-            className="rounded-full border border-[var(--border)] px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)] hover:text-[var(--text)]"
+            className="rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
           >
-            Enter
+            패독 입장하기
           </Link>
         </div>
       </div>
@@ -45,32 +45,82 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-      <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-f1-red)]">
-        For Korean F1 Fans
-      </p>
-      <h1 className="mt-4 font-display text-4xl font-black leading-tight tracking-tight sm:text-6xl">
-        내 팀을 향한 진심어린 응원,
-        <br />
-        <span className="text-[var(--color-f1-red)]">이제 하나의 공간에서.</span>
-      </h1>
-      <p className="mt-6 max-w-xl text-base text-[var(--text-muted)] leading-relaxed sm:text-lg">
-        팀을 고르고, 라이브로 떠들고, 밈을 던지세요. F1이 처음이어도 입문 가이드와
-        한국 시간 일정·순위까지 한 화면에서 따라갈 수 있습니다.
-      </p>
-      <div className="mt-8 flex flex-wrap gap-3">
-        <Link
-          href="/app"
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-f1-red)] px-6 py-3 font-mono text-[12px] font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)]"
-        >
-          패독 입장하기 →
-        </Link>
-        <a
-          href="#features"
-          className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-6 py-3 font-mono text-[12px] uppercase tracking-wider text-[var(--text-muted)] hover:text-[var(--text)]"
-        >
-          기능 둘러보기
-        </a>
+    <section className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+      <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-[13px] font-medium text-[var(--text-muted)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]" />
+            한국 2030 F1 팬을 위한 커뮤니티
+          </span>
+          <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.1] tracking-tight text-[var(--text)] sm:text-5xl">
+            내 팀을 향한 진심어린 응원,
+            <br />
+            <span className="text-[var(--primary)]">이제 하나의 공간에서.</span>
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--text-muted)] sm:text-lg">
+            팀을 고르고, 라이브로 떠들고, 밈을 던지세요. F1이 처음이어도 입문
+            가이드와 한국 시간 일정·순위까지 한 화면에서 따라갈 수 있습니다.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/app"
+              className="inline-flex items-center gap-2 rounded-lg bg-[var(--primary)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
+            >
+              패독 입장하기 →
+            </Link>
+            <a
+              href="#features"
+              className="inline-flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-6 py-3 text-sm font-semibold text-[var(--text)] transition-colors hover:bg-[var(--surface-hover)]"
+            >
+              기능 둘러보기
+            </a>
+          </div>
+        </div>
+
+        {/* Product preview mock — token-only, no assets */}
+        <div className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[var(--shadow-pop)]">
+          <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
+            <div className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-[var(--primary)]" />
+              <span className="text-sm font-semibold text-[var(--text)]">
+                The Main Straight
+              </span>
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--accent)]">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" />
+              LIVE
+            </span>
+          </div>
+          <div className="space-y-2.5 py-4">
+            {[
+              { c: "#ff8000", n: "규현", t: "노리스 오늘 페이스 미쳤다 🔥" },
+              { c: "#e10600", n: "지수", t: "르클레르 예선 기대해도 될까?" },
+              { c: "#27f4d2", n: "민재", t: "메르세데스 전략 이해 안 감 ㅋㅋ" },
+            ].map((m) => (
+              <div key={m.n} className="flex items-start gap-2.5">
+                <span
+                  className="mt-1 h-6 w-1 shrink-0 rounded-full"
+                  style={{ background: m.c }}
+                  aria-hidden
+                />
+                <div>
+                  <p className="text-[13px] font-semibold" style={{ color: m.c }}>
+                    {m.n}
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">{m.t}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-2 border-t border-[var(--border)] pt-3">
+            <div className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-faint)]">
+              메시지를 입력하세요…
+            </div>
+            <div className="rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-semibold text-white">
+              보내기
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -92,22 +142,24 @@ function ProblemSection() {
     },
   ];
   return (
-    <section className="border-t border-[var(--border)] bg-[var(--color-charcoal-800)]/40">
+    <section className="border-t border-[var(--border)] bg-[var(--surface-2)]/50">
       <div className="mx-auto max-w-6xl px-6 py-20">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--text-subtle)]">
-          The Problem
+        <p className="text-[13px] font-semibold text-[var(--text-subtle)]">
+          문제
         </p>
-        <h2 className="mt-3 font-display text-3xl font-black tracking-tight sm:text-4xl">
+        <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-[var(--text)] sm:text-4xl">
           한국 F1 팬은 왜 흩어져 있을까?
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {problems.map((p) => (
             <article
               key={p.title}
-              className="rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-700)] p-6"
+              className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]"
             >
-              <h3 className="font-display text-lg font-bold">{p.title}</h3>
-              <p className="mt-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <h3 className="text-lg font-bold tracking-tight text-[var(--text)]">
+                {p.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
                 {p.body}
               </p>
             </article>
@@ -121,22 +173,22 @@ function ProblemSection() {
 function FeaturesSection() {
   const features = [
     {
-      tag: "Chat",
+      tag: "실시간 채팅",
       title: "The Main Straight",
       body: "전체 팬과 실시간으로 응원·반응을 주고받는 라이브 채팅.",
     },
     {
-      tag: "Team",
-      title: "The Garage",
-      body: "같은 팀을 응원하는 팬끼리 모이는 팀 전용 방.",
+      tag: "게시판",
+      title: "전체·팀별 커뮤니티",
+      body: "글을 쓰고, 좋아요를 누르고, 이미지 댓글로 함께 떠들어요.",
     },
     {
-      tag: "Meme",
+      tag: "밈",
       title: "Meme Box",
-      body: "이미지 URL로 밈을 던지고 좋아요로 띄워주세요.",
+      body: "이미지로 밈을 던지고 좋아요로 띄워주세요.",
     },
     {
-      tag: "Guide",
+      tag: "가이드 · 순위",
       title: "F1 101 & Pit Wall",
       body: "용어·전략 입문 가이드와 KST 일정·순위표를 한곳에서.",
     },
@@ -144,25 +196,25 @@ function FeaturesSection() {
   return (
     <section id="features" className="border-t border-[var(--border)]">
       <div className="mx-auto max-w-6xl px-6 py-20">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--text-subtle)]">
-          Core Features
+        <p className="text-[13px] font-semibold text-[var(--text-subtle)]">
+          핵심 기능
         </p>
-        <h2 className="mt-3 font-display text-3xl font-black tracking-tight sm:text-4xl">
-          하나의 패독, 네 개의 트랙.
+        <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-[var(--text)] sm:text-4xl">
+          하나의 패독, 모든 트랙.
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {features.map((f) => (
             <article
               key={f.title}
-              className="racing-border rounded-2xl border border-[var(--border)] bg-[var(--color-charcoal-800)] p-6 pl-8"
+              className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-pop)]"
             >
-              <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-f1-red)]">
+              <span className="text-[13px] font-semibold text-[var(--primary)]">
                 {f.tag}
               </span>
-              <h3 className="mt-2 font-display text-xl font-black tracking-tight">
+              <h3 className="mt-1.5 font-display text-xl font-bold tracking-tight text-[var(--text)]">
                 {f.title}
               </h3>
-              <p className="mt-2 text-sm text-[var(--text-muted)] leading-relaxed">
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
                 {f.body}
               </p>
             </article>
@@ -177,7 +229,7 @@ function CTASection() {
   return (
     <section className="border-t border-[var(--border)]">
       <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-        <h2 className="font-display text-3xl font-black tracking-tight sm:text-4xl">
+        <h2 className="font-display text-3xl font-extrabold tracking-tight text-[var(--text)] sm:text-4xl">
           준비됐다면, 패독으로.
         </h2>
         <p className="mt-3 text-base text-[var(--text-muted)]">
@@ -185,7 +237,7 @@ function CTASection() {
         </p>
         <Link
           href="/app"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-f1-red)] px-7 py-3 font-mono text-[12px] font-bold uppercase tracking-wider text-[var(--text)] transition-colors hover:bg-[var(--color-f1-red-pressed)]"
+          className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[var(--primary)] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
         >
           패독 입장하기 →
         </Link>
@@ -196,16 +248,16 @@ function CTASection() {
 
 function Footer() {
   return (
-    <footer className="border-t border-[var(--border)]">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+    <footer className="border-t border-[var(--border)] bg-[var(--surface)]">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-6">
+        <span className="text-[13px] text-[var(--text-faint)]">
           © 2026 Paddock Korea — Vibe Coding Workshop
         </span>
         <Link
           href="/app"
-          className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-subtle)] hover:text-[var(--text)]"
+          className="text-[13px] font-medium text-[var(--text-subtle)] transition-colors hover:text-[var(--text)]"
         >
-          Enter the paddock →
+          패독 입장하기 →
         </Link>
       </div>
     </footer>

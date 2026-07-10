@@ -1,14 +1,15 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import { CheerPanel } from "@/features/cheer/CheerPanel";
 import { CheerRanking } from "@/features/cheer/CheerRanking";
 import { DashboardActions } from "./DashboardActions";
 import { Avatar } from "@/components/ui/Avatar";
 import { DriverTag } from "@/components/ui/DriverTag";
-import { authorColor } from "@/features/board/authorColor";
+import { ThumbIcon, CommentIcon, EyeIcon } from "@/features/board/icons";
 import { useCheer } from "@/features/cheer/hooks/useCheer";
-import { getRealTeamIds, getTeam } from "@/lib/teams";
-import { formatKstMonthDay, formatKstClock } from "@/lib/utils";
+import { getRealTeamIds } from "@/lib/teams";
+import { formatKstMonthDay, formatKstClock, cn } from "@/lib/utils";
 import type { UserProfile } from "@/lib/types";
 import type { TabId } from "@/components/layout/nav";
 import type { ChatMessage } from "@/features/chat/types";
@@ -25,8 +26,16 @@ type Props = {
   onLogout: () => void;
 };
 
+type BestFilter = "realtime" | "weekly" | "comments" | "likes";
+const BEST_FILTERS: { id: BestFilter; label: string }[] = [
+  { id: "realtime", label: "실시간" },
+  { id: "weekly", label: "주간" },
+  { id: "comments", label: "댓글순" },
+  { id: "likes", label: "추천순" },
+];
+
 /**
- * 대시보드 — 다음 GP 현황 + 응원/랭킹 + 실시간 채팅 미리보기 + 최근 게시글.
+ * 대시보드 — 다음 GP 현황 + 응원/랭킹 + 실시간 채팅 미리보기 + BEST 게시글.
  * 채팅은 사이드바의 1급 목적지로 승격됐고, 여기서는 미리보기만 제공한다.
  */
 export function HomeView({
@@ -42,7 +51,29 @@ export function HomeView({
   const { nextRace, live, dday } = race;
 
   const recentMessages = messages.slice(-4);
-  const recentPosts = posts.slice(0, 4);
+  const [now, setNow] = useState(0);
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => setNow(Date.now()), []);
+  /* eslint-enable react-hooks/set-state-in-effect */
+  const [bestFilter, setBestFilter] = useState<BestFilter>("realtime");
+  const bestPosts = useMemo(() => {
+    const list = [...posts];
+    if (bestFilter === "weekly") {
+      const weekAgo = now - 7 * 86_400_000;
+      return list
+        .filter((p) => new Date(p.createdAt).getTime() >= weekAgo)
+        .sort(
+          (a, b) => b.likes - a.likes || b.comments.length - a.comments.length
+        )
+        .slice(0, 5);
+    }
+    list.sort((a, b) => {
+      if (bestFilter === "comments") return b.comments.length - a.comments.length;
+      if (bestFilter === "likes") return b.likes - a.likes;
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+    return list.slice(0, 10);
+  }, [posts, bestFilter, now]);
   const greetingName = profile?.nickname ?? "게스트";
 
   return (
@@ -171,11 +202,11 @@ export function HomeView({
             </ul>
           </section>
 
-          {/* Recent posts */}
+          {/* BEST 게시글 */}
           <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-card)]">
             <div className="flex items-center justify-between gap-2 border-b border-[var(--border)] px-5 py-4">
               <h3 className="text-base font-bold tracking-tight text-[var(--text)]">
-                최근 게시글
+                BEST 게시글
               </h3>
               <button
                 type="button"
@@ -185,49 +216,74 @@ export function HomeView({
                 게시판 →
               </button>
             </div>
-            <ul className="divide-y divide-[var(--border)]">
-              {recentPosts.map((p) => {
-                const team = p.teamId ? getTeam(p.teamId) : null;
-                return (
+
+            {/* 필터 토글 */}
+            <div className="border-b border-[var(--border)] px-4 py-2.5">
+              <div className="flex w-fit gap-1 rounded-lg bg-[var(--surface-2)] p-0.5">
+                {BEST_FILTERS.map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => setBestFilter(f.id)}
+                    aria-pressed={bestFilter === f.id}
+                    className={cn(
+                      "rounded-md px-2.5 py-1 text-[12px] transition-colors",
+                      bestFilter === f.id
+                        ? "bg-[var(--surface)] font-semibold text-[var(--text)] shadow-[var(--shadow-sm)]"
+                        : "text-[var(--text-subtle)] hover:text-[var(--text)]"
+                    )}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {bestPosts.length === 0 ? (
+              <p className="px-5 py-6 text-center text-[13px] text-[var(--text-subtle)]">
+                표시할 게시글이 없어요.
+              </p>
+            ) : (
+              <ul className="divide-y divide-[var(--border)]">
+                {bestPosts.map((p, i) => (
                   <li key={p.id}>
                     <button
                       type="button"
                       onClick={() => onNavigate("board")}
-                      className="flex w-full items-start gap-3 px-5 py-3 text-left transition-colors hover:bg-[var(--hover)]"
+                      className="flex w-full items-center gap-3 px-5 py-2.5 text-left transition-colors hover:bg-[var(--hover)]"
                     >
                       <span
-                        className="mt-0.5 h-9 w-1 shrink-0 rounded-full"
-                        style={{ background: team?.baseColor ?? "var(--border-strong)" }}
-                        aria-hidden
-                      />
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-semibold text-[var(--text)]">
-                          {p.title}
-                        </p>
-                        <div className="mt-1 flex items-center gap-1.5 text-[12px]">
-                          <Avatar
-                            src={p.authorAvatarUrl}
-                            name={p.authorNickname}
-                            size={16}
-                          />
-                          <span
-                            className="truncate font-medium"
-                            style={{ color: authorColor(p.authorTeamId) }}
-                          >
-                            {p.authorNickname}
-                          </span>
-                          <DriverTag driverId={p.authorDriverTag} />
-                        </div>
-                      </div>
+                        className={cn(
+                          "w-6 shrink-0 text-center text-sm font-extrabold tabular-nums",
+                          i < 3
+                            ? "text-[var(--primary)]"
+                            : "text-[var(--text-faint)]"
+                        )}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <p className="min-w-0 flex-1 truncate text-sm font-medium text-[var(--text)]">
+                        {p.title}
+                      </p>
                       <div className="flex shrink-0 items-center gap-2.5 text-[12px] text-[var(--text-subtle)]">
-                        <span>💬 {p.comments.length}</span>
-                        <span>👁 {p.views}</span>
+                        <span className="inline-flex items-center gap-1">
+                          <ThumbIcon className="h-3.5 w-3.5" />
+                          {p.likes}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <CommentIcon className="h-3.5 w-3.5" />
+                          {p.comments.length}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <EyeIcon className="h-3.5 w-3.5" />
+                          {p.views}
+                        </span>
                       </div>
                     </button>
                   </li>
-                );
-              })}
-            </ul>
+                ))}
+              </ul>
+            )}
           </section>
         </div>
 

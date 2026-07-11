@@ -9,6 +9,8 @@ import { getTeam, toggleTeamSelection, TEAMS, primaryTeamId } from "@/lib/teams"
 import { DRIVERS_BY_TEAM, FAN_TAG } from "@/lib/drivers";
 import { formatKstDateTime, isValidUrl, cn } from "@/lib/utils";
 import { useAuthGate } from "@/components/auth/AuthGate";
+import { getTermsAgreement } from "@/lib/storage";
+import { TermsContent } from "@/components/onboarding/terms";
 import type { UserProfile } from "@/lib/types";
 import type { Post } from "@/features/board/types";
 
@@ -72,6 +74,7 @@ export function MyPageView({
     null | { ok: boolean; empty?: boolean }
   >(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
   const { requireAuth } = useAuthGate();
 
   if (!profile) {
@@ -94,13 +97,6 @@ export function MyPageView({
       </section>
     );
   }
-
-  const myPosts = posts
-    .filter((p) => p.authorNickname === profile.nickname)
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
 
   const avatarOk = isValidUrl(avatarUrl);
   const showAvatarError = avatarUrl.length > 0 && !avatarOk;
@@ -385,70 +381,26 @@ export function MyPageView({
         </div>
       </section>
 
-      {/* 내가 작성한 게시글 */}
-      <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
-        <div className="flex items-baseline justify-between gap-2">
-          <h3 className="text-lg font-bold tracking-tight text-[var(--text)]">
-            내가 작성한 게시글
-          </h3>
-          <span className="text-[13px] text-[var(--text-subtle)]">
-            {myPosts.length}개
-          </span>
-        </div>
-
-        {myPosts.length === 0 ? (
-          <EmptyState
-            icon="📝"
-            title="작성한 글이 없어요"
-            description="게시판에서 첫 글을 남겨보세요."
-          />
-        ) : (
-          <ul className="mt-4 grid gap-2">
-            {myPosts.map((post) => {
-              const team =
-                post.scope === "team" && post.teamId
-                  ? getTeam(post.teamId)
-                  : undefined;
-              return (
-                <li
-                  key={post.id}
-                  className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-4 transition-colors hover:bg-[var(--hover)]"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <p className="text-base font-semibold text-[var(--text)]">
-                      {post.title}
-                    </p>
-                    <span
-                      className={cn(
-                        "shrink-0 rounded-full px-2.5 py-0.5 text-[12px] font-semibold",
-                        post.scope === "global"
-                          ? "bg-[var(--surface-2)] text-[var(--text-subtle)]"
-                          : "bg-[var(--primary)]/10 text-[var(--primary)]"
-                      )}
-                    >
-                      {post.scope === "global" ? "전체" : team?.name ?? "팀"}
-                    </span>
-                  </div>
-                  <p className="mt-1 line-clamp-1 text-sm text-[var(--text-muted)]">
-                    {post.body}
-                  </p>
-                  <div className="mt-2 flex items-center gap-3 text-[13px] text-[var(--text-faint)]">
-                    <span>♥ {post.likes}</span>
-                    <span>💬 {post.comments.length}</span>
-                    <span>{formatKstDateTime(post.createdAt)}</span>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </section>
-
       {/* 계정 — 로그아웃 / 회원탈퇴 */}
       <section className="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
         <h2 className="text-lg font-bold tracking-tight text-[var(--text)]">
           계정
         </h2>
+        {/* 약관 — 구분줄 텍스트 버튼 */}
+        <div className="mt-4 border-y border-[var(--border)]">
+          <button
+            type="button"
+            onClick={() => setTermsOpen(true)}
+            className="flex w-full items-center justify-between py-3 text-left text-sm font-medium text-[var(--text)] transition-colors hover:text-[var(--primary)]"
+          >
+            약관 및 동의 내역
+            <span className="text-[var(--text-faint)]" aria-hidden>
+              ›
+            </span>
+          </button>
+        </div>
+
+        {/* 로그아웃 / 회원탈퇴 */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <button
             type="button"
@@ -491,6 +443,71 @@ export function MyPageView({
           로그아웃 시 온보딩 화면으로 돌아갑니다. 회원탈퇴 시 프로필·응원·동의 기록 등 모든 로컬 데이터가 삭제됩니다.
         </p>
       </section>
+
+      {termsOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="terms-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+        >
+          <div className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-pop)]">
+            <header className="flex items-center justify-between border-b border-[var(--border)] p-5">
+              <h3
+                id="terms-modal-title"
+                className="font-display text-lg font-bold tracking-tight text-[var(--text)]"
+              >
+                이용약관 및 동의 내역
+              </h3>
+              <button
+                type="button"
+                onClick={() => setTermsOpen(false)}
+                aria-label="닫기"
+                className="rounded-lg px-2.5 py-1.5 text-sm text-[var(--text-subtle)] transition-colors hover:bg-[var(--hover)] hover:text-[var(--text)]"
+              >
+                ✕
+              </button>
+            </header>
+
+            <div className="overflow-y-auto p-5">
+              {(() => {
+                const agreement = getTermsAgreement();
+                return (
+                  <div className="mb-4 rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-3.5 py-3 text-[13px]">
+                    {agreement ? (
+                      <p className="text-[var(--text)]">
+                        <span className="font-semibold text-[#15803d]">
+                          ✓ 동의 완료
+                        </span>
+                        <span className="text-[var(--text-muted)]">
+                          {" "}· 버전 {agreement.version} ·{" "}
+                          {formatKstDateTime(agreement.agreedAt)}
+                        </span>
+                      </p>
+                    ) : (
+                      <p className="text-[var(--text-muted)]">
+                        저장된 동의 기록이 없습니다.
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
+
+              <TermsContent />
+            </div>
+
+            <footer className="flex justify-end border-t border-[var(--border)] p-4">
+              <button
+                type="button"
+                onClick={() => setTermsOpen(false)}
+                className="rounded-lg bg-[var(--primary)] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-f1-red-pressed)]"
+              >
+                확인
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -96,9 +96,9 @@ html.dark {
   --surface-hover: #1f2128;
 
   --text: #f4f5f7;
-  --text-muted: rgba(244, 245, 247, 0.66);
-  --text-subtle: rgba(244, 245, 247, 0.48);
-  --text-faint: rgba(244, 245, 247, 0.33);
+  --text-muted: rgba(244, 245, 247, 0.78);
+  --text-subtle: rgba(244, 245, 247, 0.62);
+  --text-faint: rgba(244, 245, 247, 0.46);
 
   --border: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.16);

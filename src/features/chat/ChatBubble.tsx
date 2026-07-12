@@ -31,7 +31,7 @@ export function ChatBubble({ message, isOwn }: Props) {
       >
         <div
           className={cn(
-            "min-w-0 break-words rounded-xl px-3.5 py-2 text-sm leading-relaxed text-black dark:text-[var(--text)]",
+            "min-w-0 break-words rounded-xl px-3.5 py-2 text-sm leading-relaxed text-[var(--text)]",
             isOwn ? "rounded-tr-sm" : "rounded-tl-sm bg-[var(--bubble-other)]"
           )}
           style={

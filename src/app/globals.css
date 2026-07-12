@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Wire Tailwind's `dark:` variant to the class-based theme toggle (html.dark
+ * in theme.ts) instead of the default prefers-color-scheme media query, so
+ * `dark:` utilities track the in-app theme switch. Prefer CSS-variable tokens
+ * (which remap under html.dark below) over `dark:` for surfaces/text. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* =============================================================
  * Paddock Korea — Design Tokens
  * Modern professional SaaS aesthetic (Linear / Stripe / Vercel).

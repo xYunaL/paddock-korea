@@ -15,10 +15,15 @@ test('landing page renders', async ({ page }) => {
   ).toBeVisible();
 });
 
-test('app page shows onboarding for a fresh visitor', async ({ page }) => {
+test('app page shows the guest dashboard for a fresh visitor', async ({ page }) => {
   await page.goto('/app');
-  // With no saved profile, the onboarding dialog opens automatically.
+  // With no saved profile, the visitor browses in guest mode — the dashboard
+  // greets them as "게스트" (no forced onboarding; member-only actions open auth).
+  await expect(
+    page.getByRole('heading', { name: '안녕하세요, 게스트님' })
+  ).toBeVisible();
+  // The onboarding dialog is not forced on a fresh guest.
   await expect(
     page.getByRole('heading', { name: '패독에 오신 것을 환영합니다' })
-  ).toBeVisible();
+  ).toHaveCount(0);
 });

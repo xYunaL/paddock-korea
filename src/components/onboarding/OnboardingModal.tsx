@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toggleTeamSelection } from "@/lib/teams";
 import { saveTermsAgreement } from "@/lib/storage";
 import type { UserProfile } from "@/lib/types";
+import { Modal } from "@/components/ui/Modal";
 import { TeamPickerGrid } from "./TeamPickerGrid";
 import { TermsContent, TERMS_VERSION } from "./terms";
 
@@ -48,14 +49,11 @@ export function OnboardingModal({ onClose, onComplete, initialProfile }: Props) 
   }
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="onboarding-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+    <Modal
+      labelledBy="onboarding-title"
+      className="max-h-[90vh] w-full max-w-3xl overflow-y-auto p-8"
     >
-      <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-8 shadow-[var(--shadow-pop)]">
-        <h2
+      <h2
           id="onboarding-title"
           className="font-display text-2xl font-extrabold tracking-tight text-[var(--text)]"
         >
@@ -134,7 +132,6 @@ export function OnboardingModal({ onClose, onComplete, initialProfile }: Props) 
             입장하기
           </button>
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

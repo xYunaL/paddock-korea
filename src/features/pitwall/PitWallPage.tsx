@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getTeam } from "@/lib/teams";
 import { formatKstClock, formatKstMonthDay, cn } from "@/lib/utils";
+import { Modal } from "@/components/ui/Modal";
 import type {
   ConstructorStanding,
   DriverStanding,
@@ -434,18 +435,12 @@ function SessionResultModal({
   }, [session.sessionKey]);
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="session-result-title"
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+    <Modal
+      labelledBy="session-result-title"
+      className="flex max-h-[85vh] w-full max-w-lg flex-col"
+      onOverlayClick={onClose}
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-pop)]"
-      >
-        <header className="flex items-center justify-between border-b border-[var(--border)] p-5">
+      <header className="flex items-center justify-between border-b border-[var(--border)] p-5">
           <div>
             <h3
               id="session-result-title"
@@ -520,7 +515,6 @@ function SessionResultModal({
             </ul>
           )}
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

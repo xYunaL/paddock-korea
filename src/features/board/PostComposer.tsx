@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { isValidUrl } from "@/lib/utils";
+import { Modal } from "@/components/ui/Modal";
 import { BoardImage } from "./BoardImage";
 
 type Props = {
@@ -32,14 +33,8 @@ export function PostComposer({ scopeLabel, onClose, onSubmit }: Props) {
   }
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="post-composer-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
-    >
-      <div className="w-full max-w-lg rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-pop)]">
-        <h2
+    <Modal labelledBy="post-composer-title" className="w-full max-w-lg p-6">
+      <h2
           id="post-composer-title"
           className="font-display text-xl font-bold tracking-tight text-[var(--text)]"
         >
@@ -122,7 +117,6 @@ export function PostComposer({ scopeLabel, onClose, onSubmit }: Props) {
             게시
           </button>
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

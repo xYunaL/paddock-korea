@@ -4,6 +4,7 @@ import { useState } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Avatar } from "@/components/ui/Avatar";
 import { DriverTag } from "@/components/ui/DriverTag";
+import { Modal } from "@/components/ui/Modal";
 import { TeamPickerGrid } from "@/components/onboarding/TeamPickerGrid";
 import { getTeam, toggleTeamSelection, TEAMS, primaryTeamId } from "@/lib/teams";
 import { DRIVERS_BY_TEAM, FAN_TAG } from "@/lib/drivers";
@@ -445,14 +446,11 @@ export function MyPageView({
       </section>
 
       {termsOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="terms-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+        <Modal
+          labelledBy="terms-modal-title"
+          className="flex max-h-[85vh] w-full max-w-lg flex-col"
         >
-          <div className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-pop)]">
-            <header className="flex items-center justify-between border-b border-[var(--border)] p-5">
+          <header className="flex items-center justify-between border-b border-[var(--border)] p-5">
               <h3
                 id="terms-modal-title"
                 className="font-display text-lg font-bold tracking-tight text-[var(--text)]"
@@ -505,8 +503,7 @@ export function MyPageView({
                 확인
               </button>
             </footer>
-          </div>
-        </div>
+        </Modal>
       )}
     </div>
   );

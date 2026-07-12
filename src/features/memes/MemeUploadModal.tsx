@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { isValidUrl } from "@/lib/utils";
+import { Modal } from "@/components/ui/Modal";
 
 type Props = {
   onClose: () => void;
@@ -28,14 +29,8 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
   }
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="meme-upload-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
-    >
-      <div className="w-full max-w-md rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-pop)]">
-        <h2
+    <Modal labelledBy="meme-upload-title" className="w-full max-w-md p-6" blur>
+      <h2
           id="meme-upload-title"
           className="font-display text-xl font-bold tracking-tight text-[var(--text)]"
         >
@@ -113,7 +108,6 @@ export function MemeUploadModal({ onClose, onSubmit }: Props) {
             게시
           </button>
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

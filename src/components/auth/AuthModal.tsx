@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Modal } from "@/components/ui/Modal";
 
 type Props = {
   onClose: () => void;
@@ -28,14 +29,11 @@ export function AuthModal({ onClose, onAuthenticated }: Props) {
   const verb = mode === "signup" ? "가입" : "로그인";
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="auth-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+    <Modal
+      labelledBy="auth-title"
+      className="max-h-[90vh] w-full max-w-md overflow-y-auto p-7"
     >
-      <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-7 shadow-[var(--shadow-pop)]">
-        {/* 브랜드 */}
+      {/* 브랜드 */}
         <div className="flex items-center gap-2">
           <span
             className="inline-block h-5 w-1.5 rounded-sm bg-[var(--primary)]"
@@ -175,7 +173,6 @@ export function AuthModal({ onClose, onAuthenticated }: Props) {
             게스트로 둘러보기
           </button>
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 }
